@@ -1,0 +1,151 @@
+package com.booksaw.corruption;
+
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.util.List;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.Timer;
+
+import com.booksaw.corruption.language.Language;
+import com.booksaw.corruption.listeners.Listener;
+import com.booksaw.corruption.listeners.ListenerManager;
+import com.booksaw.corruption.render.RenderInterface;
+import com.booksaw.corruption.renderControler.MenuController;
+import com.booksaw.corruption.renderControler.RenderController;
+
+public class Corruption implements ActionListener, ComponentListener {
+
+	// Statically reference this object
+	public static Corruption main;
+
+	// The starting dimensions of the frame (as used elsewhere in the program) any
+	// changing be careful of GameCamera class
+	public static final Dimension origionalDimensions = new Dimension(1024, 576);
+
+	private long previousTick;
+	// time since first tick
+	public static int time;
+
+	// main frame
+	private JFrame f;
+
+	// Which renderer is currently active
+	public RenderController controller;
+
+	public Corruption() {
+		// so things can find statically (only 1 is made per program so this isen't
+		// dangerous)
+		main = this;
+		// sets up the language
+		Language.loadLanguage();
+
+		// basic JFrame configuration
+		f = new JFrame("Corruption");
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.addComponentListener(this);
+
+		// this sets the active renderer to the menu
+		setActive(new MenuController(), origionalDimensions);
+
+		// more frame stuff
+		f.setResizable(true);
+		// centres frame
+		f.setLocationRelativeTo(null);
+		// shows
+		f.setVisible(true);
+		// rerenders after changes
+		f.repaint();
+
+	}
+
+	public void startClock() {
+		Timer t = new Timer(1, this);
+		previousTick = System.currentTimeMillis();
+		t.start();
+	}
+
+	public void setActive(RenderController renderController) {
+		setActive(renderController, new Dimension(f.getContentPane().getWidth(), f.getContentPane().getHeight()));
+	}
+
+	/**
+	 * USED ONLY AT THE BEGINING, DO NOT GIVE DIMENSION USE
+	 * setActive(RenderInterface) Used to change and setup the new renderer
+	 * 
+	 * @param newRender What to change it to
+	 * @param d         - the starting dimension of the frame
+	 */
+	private void setActive(RenderController controller, Dimension d) {
+		// clears everything from last frame
+		ListenerManager.clearListeners();
+		controller.disable();
+		// adding the renderer
+		this.controller = controller;
+		RenderInterface activeRenderer = controller.getRenderer();
+		activeRenderer.setPreferredSize(d);
+		f.setContentPane(new JPanel());
+		f.setContentPane(activeRenderer);
+		f.pack();
+
+		// setting up any listeners
+		List<Listener> listeners = controller.generateListeners();
+
+		for (Listener l : listeners)
+			ListenerManager.addListener(l);
+		// repainting frame
+		f.repaint();
+	}
+
+	/**
+	 * The clock, runs once per 1ms maximum. REMEMBER TO USE INPUT TIME AS A
+	 * MULTIPLIER SO GAME IS NOT LINKED TO CLEARLY TO CLOCK CYCLE
+	 */
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// how long since last tick
+		time = (int) (System.currentTimeMillis() - previousTick);
+
+		// setting the old tick
+		previousTick = System.currentTimeMillis();
+
+		controller.update(time);
+
+		f.repaint();
+	}
+
+	/**
+	 * Gives the frame, used encapsulation (private frame) as could be dangerous to
+	 * change parts of the frame which shouldent be touched may want to encapsulate
+	 * 
+	 * @return The frame
+	 */
+	public JFrame getFrame() {
+		return f;
+	}
+
+	@Override
+	public void componentHidden(ComponentEvent e) {
+	}
+
+	@Override
+	public void componentMoved(ComponentEvent e) {
+	}
+
+	/**
+	 * This is used to detect resizes of the window
+	 */
+	@Override
+	public void componentResized(ComponentEvent e) {
+		controller.resize();
+	}
+
+	@Override
+	public void componentShown(ComponentEvent e) {
+	}
+
+}
