@@ -55,9 +55,16 @@ public class CameraSprite extends Sprite {
 
 	@Override
 	protected void bindToCamera(int x) {
+//		int temp = GameCamera.activeCamera.x;
+
 		// BINDING CAMERA TO PLAYER
 		GameCamera.activeCamera.closestX(x);
 
+		// updating dragged block
+//		if (DraggedBlock.block != null && temp != GameCamera.activeCamera.x) {
+//			DraggedBlock.block.update();
+//
+//		}
 	}
 
 	private void calculateX(int time) {

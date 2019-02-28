@@ -1,11 +1,14 @@
 package com.booksaw.corruption.editor.options.gameobjects;
 
+import com.booksaw.corruption.editor.options.TextOption;
 import com.booksaw.corruption.level.objects.Block;
 
-public class WidthOption extends BlockOption {
+public class WidthOption extends TextOption {
+
+	Block b;
 
 	public WidthOption(Block b) {
-		super(b);
+		this.b = b;
 	}
 
 	@Override

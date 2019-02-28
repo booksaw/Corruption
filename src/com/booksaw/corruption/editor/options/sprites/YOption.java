@@ -1,11 +1,14 @@
 package com.booksaw.corruption.editor.options.sprites;
 
+import com.booksaw.corruption.editor.options.TextOption;
 import com.booksaw.corruption.sprites.Sprite;
 
-public class YOption extends SpriteOption {
+public class YOption extends TextOption {
 
+	Sprite s;
+	
 	public YOption(Sprite s) {
-		super(s);
+		this.s = s;
 	}
 
 	@Override

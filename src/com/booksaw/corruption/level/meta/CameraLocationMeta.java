@@ -10,7 +10,7 @@ import com.booksaw.corruption.render.GameCamera;
  */
 public class CameraLocationMeta extends Meta {
 
-	String[] split;
+	public String[] split;
 
 	public CameraLocationMeta(String info) {
 		super(info);

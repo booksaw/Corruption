@@ -23,6 +23,7 @@ public abstract class OptionPane implements ActionListener, KeyListener {
 
 	List<Option> included = new ArrayList<>();
 	JFrame f;
+	boolean deletable = true;
 
 	public OptionPane() {
 
@@ -81,7 +82,7 @@ public abstract class OptionPane implements ActionListener, KeyListener {
 
 	public JPanel getEnding() {
 
-		JPanel toReturn = new JPanel(new GridLayout(0, 3));
+		JPanel toReturn = new JPanel(new GridLayout(0, (deletable) ? 3 : 2));
 
 		// creating cancel button
 		JButton cancel = new JButton(Language.getMessage("editor.cancel"));
@@ -90,12 +91,14 @@ public abstract class OptionPane implements ActionListener, KeyListener {
 		cancel.setToolTipText(Language.getMessage("editor.tool.cancel"));
 		toReturn.add(cancel);
 
-		// creating delete button
-		JButton delete = new JButton(Language.getMessage("editor.delete"));
-		delete.addActionListener(this);
-		delete.setActionCommand("delete");
-		delete.setToolTipText(Language.getMessage("editor.tool.delete"));
-		toReturn.add(delete);
+		if (deletable) {
+			// creating delete button
+			JButton delete = new JButton(Language.getMessage("editor.delete"));
+			delete.addActionListener(this);
+			delete.setActionCommand("delete");
+			delete.setToolTipText(Language.getMessage("editor.tool.delete"));
+			toReturn.add(delete);
+		}
 
 		// creating ok button
 		JButton ok = new JButton(Language.getMessage("editor.ok"));

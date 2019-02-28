@@ -12,7 +12,7 @@ import com.booksaw.corruption.level.LevelManager;
  */
 public class LevelDimensionsMeta extends Meta {
 
-	String[] split;
+	public String[] split;
 
 	public LevelDimensionsMeta(String info) {
 		super(info);

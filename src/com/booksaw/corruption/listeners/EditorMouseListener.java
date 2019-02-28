@@ -11,6 +11,7 @@ import javax.swing.SwingUtilities;
 import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.Utils;
 import com.booksaw.corruption.editor.options.BlockSettings;
+import com.booksaw.corruption.editor.options.LevelSettings;
 import com.booksaw.corruption.editor.options.SpriteSettings;
 import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.level.objects.Block;
@@ -32,11 +33,11 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		
-		if(DraggedBlock.block == null) {
+
+		if (DraggedBlock.block == null) {
 			return;
 		}
-		
+
 		if (SwingUtilities.isLeftMouseButton(e))
 			DraggedBlock.block.setPoint(e.getPoint());
 	}
@@ -138,7 +139,19 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 			return;
 		}
 
-		Point temp = new Point(p.x, GameCamera.cameraHeight - p.y);
+		if (p.getX() > GameCamera.cameraWidth - (EditorOverlay.SQUARE * 3)
+				&& p.getY() > GameCamera.cameraHeight - EditorOverlay.SQUARE
+				&& p.getX() < GameCamera.cameraWidth - (EditorOverlay.SQUARE * 2)
+				&& p.getY() < GameCamera.cameraHeight) {
+
+			LevelSettings settings = new LevelSettings();
+			settings.intialize();
+			settings.setVisible(true);
+			return;
+		}
+
+		Point temp = new Point(p.x + GameCamera.activeCamera.x,
+				GameCamera.cameraHeight - (p.y + GameCamera.activeCamera.y));
 
 		GameObject o = GameObject.getObject(temp);
 		if (o != null && (o instanceof Block)) {

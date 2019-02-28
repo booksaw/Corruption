@@ -12,7 +12,7 @@ import com.booksaw.corruption.level.LevelManager;
  */
 public class BackgroundColorMeta extends Meta {
 
-	Color c;
+	public Color c;
 
 	public BackgroundColorMeta(String info) {
 		super(info);

@@ -11,7 +11,7 @@ import com.booksaw.corruption.render.GameCamera;
 public class DraggedBlock extends Block {
 	boolean searching = false;
 	public static DraggedBlock block;
-	Point starting;
+	Point starting, present;
 
 	public DraggedBlock(Point startingLocation) {
 		super(new Rectangle(startingLocation.x, GameCamera.cameraHeight - startingLocation.y, 0, 0), Color.BLACK);
@@ -19,7 +19,10 @@ public class DraggedBlock extends Block {
 		LevelManager.activeLevel.addObject(this);
 
 		LevelManager.activeLevel.changes();
+		startingLocation.y = GameCamera.cameraHeight - (startingLocation.y + GameCamera.activeCamera.y);
+		startingLocation.x = startingLocation.x + GameCamera.activeCamera.x;
 		starting = startingLocation;
+		present = starting;
 	}
 
 	public void finalise() {
@@ -36,9 +39,11 @@ public class DraggedBlock extends Block {
 	}
 
 	public void setPoint(Point p) {
-		p.y = GameCamera.cameraHeight - p.y;
-		
-		Rectangle r = new Rectangle((p.x > starting.x) ? starting.x : p.x, (p.y > starting.y) ? starting.y : p.y,
+		present = p;
+		p.y = GameCamera.cameraHeight - (p.y + GameCamera.activeCamera.y);
+		p.x = p.x + GameCamera.activeCamera.x;
+
+		Rectangle r = new Rectangle(((p.x > starting.x) ? starting.x : p.x), ((p.y > starting.y) ? starting.y : p.y),
 				Math.abs(p.x - starting.x), Math.abs(p.y - starting.y));
 		searching = true;
 
@@ -67,5 +72,13 @@ public class DraggedBlock extends Block {
 
 		super.render(g, camera);
 	}
+	
+//	/**
+//	 * Used if the game camera location is changed.
+//	 * Can use the same point as the point hasnt been influenced by camera offset yet
+//	 */
+//	public void update() {
+//		setPoint(present);
+//	}
 
 }

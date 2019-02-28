@@ -37,7 +37,7 @@ public class LevelManager {
 	// the file the level has been loaded from
 	File f;
 	// all meta data so it can be executed
-	List<Meta> metaData = new ArrayList<>();
+	public List<Meta> metaData = new ArrayList<>();
 	// the dimensions of the level
 	public Dimension levelDimensions;
 

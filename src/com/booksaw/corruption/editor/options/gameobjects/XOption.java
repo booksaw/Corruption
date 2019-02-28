@@ -1,11 +1,14 @@
 package com.booksaw.corruption.editor.options.gameobjects;
 
+import com.booksaw.corruption.editor.options.TextOption;
 import com.booksaw.corruption.level.objects.Block;
 
-public class XOption extends BlockOption {
+public class XOption extends TextOption {
+
+	Block b;
 
 	public XOption(Block b) {
-		super(b);
+		this.b = b;
 	}
 
 	@Override
