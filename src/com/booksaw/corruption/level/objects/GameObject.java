@@ -100,4 +100,11 @@ public abstract class GameObject {
 		this.height = height;
 	}
 
+	public boolean needsSaving() {
+
+		if (width == 0 || height == 0)
+			return false;
+		return true;
+	}
+
 }

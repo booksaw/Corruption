@@ -25,7 +25,6 @@ public class GameController extends RenderController {
 	public Player p;
 	public GameCamera c;
 
-	
 	public GameController() {
 		gameController = this;
 		c = new GameCamera();
@@ -45,8 +44,9 @@ public class GameController extends RenderController {
 
 		for (Sprite s : lm.getSprites()) {
 			if (s instanceof Player) {
-				p = (Player) s;
-				s.setActiveplayer(true);
+				if (s.activePlayer)
+					p = (Player) s;
+
 			}
 		}
 
@@ -96,5 +96,4 @@ public class GameController extends RenderController {
 		c.resize();
 	}
 
-	
 }

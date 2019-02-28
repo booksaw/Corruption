@@ -17,8 +17,11 @@ public abstract class Overlay {
 	}
 
 	public static void removeOverlay(Overlay overlay) {
+		System.out.println(overlay);
 		overlay.hide();
 		activeOverlays.remove(overlay);
+		
+		
 	}
 
 	public static void clearOverlays() {

@@ -200,6 +200,10 @@ public class LevelManager {
 		levelObjects.remove(o);
 	}
 
+	public void removeSprites(Sprite s) {
+		sprites.remove(s);
+	}
+
 	public void save() {
 
 		try {
@@ -210,7 +214,10 @@ public class LevelManager {
 			}
 
 			for (GameObject o : levelObjects) {
-				pw.println(o);
+				if (o.needsSaving()) {
+
+					pw.println(o);
+				}
 			}
 
 			for (Sprite s : sprites) {

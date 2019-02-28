@@ -16,6 +16,7 @@ import com.booksaw.corruption.sprites.SpriteList;
 public class SpriteOverlay extends Overlay {
 
 	HashMap<Sprite, Rectangle> sprites = new HashMap<>();
+	private boolean show = false;
 
 	public SpriteOverlay() {
 		int x = 70;
@@ -66,13 +67,17 @@ public class SpriteOverlay extends Overlay {
 	}
 
 	public void select(Sprite s) {
-
+		show = true;
 		Overlay.addOverlay(new SpriteCursorOverlay(s));
 
 	}
 
 	@Override
 	public void hide() {
+
+		if (!show) {
+			EditorMouseListener.selection = ActiveSelection.MAIN; 
+		}
 	}
 
 }

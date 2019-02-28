@@ -57,7 +57,7 @@ public abstract class Sprite implements Updatable {
 	// number of animation stages for each state
 	protected int standingMax = 1, crouchingMax = 2, walkingMax = 2;
 
-	protected boolean activePlayer = false;
+	public boolean activePlayer = false;
 
 	/**
 	 * Runs at begining of constructor if any setup is required overried preffered
@@ -146,6 +146,7 @@ public abstract class Sprite implements Updatable {
 
 		x = Integer.parseInt(split[0]);
 		y = Integer.parseInt(split[1]);
+		activePlayer = Boolean.parseBoolean(split[2]);
 
 	}
 
@@ -240,7 +241,7 @@ public abstract class Sprite implements Updatable {
 	public void setY(double y) {
 		this.y = y;
 	}
-	
+
 	public void setLocation(Point p) {
 		y = p.y;
 		x = p.x;
@@ -417,20 +418,21 @@ public abstract class Sprite implements Updatable {
 		if (this instanceof CameraSprite) {
 			return "";
 		}
-		return "sprite:" + getName() + ":" + ((int) x) + ";" + ((int) y);
+		return "sprite:" + getName() + ":" + ((int) x) + ";" + ((int) y) + ";" + activePlayer;
 	}
-	
+
 	public BufferedImage generateCursorImage() {
-		
-		BufferedImage cursorImg = new BufferedImage(dimensions.width * PIXELMULT, dimensions.height * PIXELMULT, BufferedImage.TYPE_INT_RGB);
+
+		BufferedImage cursorImg = new BufferedImage(dimensions.width * PIXELMULT, dimensions.height * PIXELMULT,
+				BufferedImage.TYPE_INT_RGB);
 		Graphics g = cursorImg.getGraphics();
-		
-		double ratio = dimensions.getWidth() / dimensions.getHeight(); 
-		
-		g.drawImage(standing, 0, 0, (int)(cursorImg.getWidth() * PIXELMULT * ratio), cursorImg.getHeight() * PIXELMULT, 0, 0, dimensions.width * PIXELMULT, dimensions.height * PIXELMULT, null);
-		
-		
+
+		double ratio = dimensions.getWidth() / dimensions.getHeight();
+
+		g.drawImage(standing, 0, 0, (int) (cursorImg.getWidth() * PIXELMULT * ratio), cursorImg.getHeight() * PIXELMULT,
+				0, 0, dimensions.width * PIXELMULT, dimensions.height * PIXELMULT, null);
+
 		return cursorImg;
-		
+
 	}
 }

@@ -32,6 +32,11 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		
+		if(DraggedBlock.block == null) {
+			return;
+		}
+		
 		if (SwingUtilities.isLeftMouseButton(e))
 			DraggedBlock.block.setPoint(e.getPoint());
 	}
@@ -67,7 +72,6 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 	public void mouseReleased(MouseEvent e) {
 
 		Point p = Utils.getScaledPoint(e.getPoint(), GameCamera.activeCamera.getSize());
-		System.out.println(selection);
 		switch (selection) {
 		case MAIN:
 			mainClick(e, p);
@@ -106,9 +110,9 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 			}
 			if (DraggedBlock.block.getWidth() == 0 || DraggedBlock.block.getHeight() == 0) {
 				mainClickFinalize(e, e.getPoint());
+				DraggedBlock.block = null;
 				return;
 			}
-
 			DraggedBlock.block.finalise();
 			return;
 		}
