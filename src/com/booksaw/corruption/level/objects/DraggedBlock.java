@@ -11,6 +11,7 @@ import com.booksaw.corruption.render.GameCamera;
 public class DraggedBlock extends Block {
 	boolean searching = false;
 	public static DraggedBlock block;
+	Point starting;
 
 	public DraggedBlock(Point startingLocation) {
 		super(new Rectangle(startingLocation.x, GameCamera.cameraHeight - startingLocation.y, 0, 0), Color.BLACK);
@@ -18,6 +19,7 @@ public class DraggedBlock extends Block {
 		LevelManager.activeLevel.addObject(this);
 
 		LevelManager.activeLevel.changes();
+		starting = startingLocation;
 	}
 
 	public void finalise() {
@@ -34,17 +36,17 @@ public class DraggedBlock extends Block {
 	}
 
 	public void setPoint(Point p) {
-
-		int tempWidth = p.x - x;
-		int tempHeight = (GameCamera.cameraHeight - p.y) - y;
-
-		Rectangle r = new Rectangle(x, y, tempWidth, tempHeight);
-
+		p.y = GameCamera.cameraHeight - p.y;
+		
+		Rectangle r = new Rectangle((p.x > starting.x) ? starting.x : p.x, (p.y > starting.y) ? starting.y : p.y,
+				Math.abs(p.x - starting.x), Math.abs(p.y - starting.y));
 		searching = true;
 
 		if (GameObject.getObject(r) == null) {
-			width = tempWidth;
-			height = tempHeight;
+			width = r.width;
+			height = r.height;
+			x = r.x;
+			y = r.y;
 		}
 
 	}
