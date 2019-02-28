@@ -240,6 +240,11 @@ public abstract class Sprite implements Updatable {
 	public void setY(double y) {
 		this.y = y;
 	}
+	
+	public void setLocation(Point p) {
+		y = p.y;
+		x = p.x;
+	}
 
 	/**
 	 * gives the dimensions of the active state
@@ -413,5 +418,19 @@ public abstract class Sprite implements Updatable {
 			return "";
 		}
 		return "sprite:" + getName() + ":" + ((int) x) + ";" + ((int) y);
+	}
+	
+	public BufferedImage generateCursorImage() {
+		
+		BufferedImage cursorImg = new BufferedImage(dimensions.width * PIXELMULT, dimensions.height * PIXELMULT, BufferedImage.TYPE_INT_RGB);
+		Graphics g = cursorImg.getGraphics();
+		
+		double ratio = dimensions.getWidth() / dimensions.getHeight(); 
+		
+		g.drawImage(standing, 0, 0, (int)(cursorImg.getWidth() * PIXELMULT * ratio), cursorImg.getHeight() * PIXELMULT, 0, 0, dimensions.width * PIXELMULT, dimensions.height * PIXELMULT, null);
+		
+		
+		return cursorImg;
+		
 	}
 }

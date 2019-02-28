@@ -9,17 +9,15 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import com.booksaw.corruption.Corruption;
+import com.booksaw.corruption.listeners.EditorMouseListener;
 import com.booksaw.corruption.sprites.Sprite;
 import com.booksaw.corruption.sprites.SpriteList;
 
 public class SpriteOverlay extends Overlay {
 
-	public static boolean active = false;
-
 	HashMap<Sprite, Rectangle> sprites = new HashMap<>();
 
 	public SpriteOverlay() {
-		active = true;
 		int x = 70;
 		int y = 50;
 
@@ -35,6 +33,8 @@ public class SpriteOverlay extends Overlay {
 
 			x += d.getWidth() + 20;
 		}
+
+		EditorMouseListener.selection = ActiveSelection.SPRITE;
 
 	}
 
@@ -67,11 +67,12 @@ public class SpriteOverlay extends Overlay {
 
 	public void select(Sprite s) {
 
+		Overlay.addOverlay(new SpriteCursorOverlay(s));
+
 	}
 
 	@Override
 	public void hide() {
-		active = false;
 	}
 
 }

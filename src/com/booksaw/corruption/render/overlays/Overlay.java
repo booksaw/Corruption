@@ -27,7 +27,9 @@ public abstract class Overlay {
 
 	public abstract void render(Graphics g);
 
+	/**
+	 * Used for code in the subclass which is run when the overlay is removed
+	 */
 	public void hide() {
-
 	}
 }
