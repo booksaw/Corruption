@@ -7,9 +7,14 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import com.booksaw.corruption.Config;
+import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.Utils;
 import com.booksaw.corruption.language.Language;
+import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.renderControler.EditorController;
 import com.booksaw.corruption.renderControler.GameController;
 
@@ -73,7 +78,7 @@ public class GameMenu extends RenderInterface {
 	public static OPTIONS active = OPTIONS.NEW;
 
 	/**
-	 * used to render the grapnics
+	 * used to render the graphics
 	 */
 	@Override
 	public void draw(Graphics g) {
@@ -207,6 +212,7 @@ public class GameMenu extends RenderInterface {
 			e.show();
 			break;
 		case LOAD:
+			load();
 			break;
 		}
 	}
@@ -227,6 +233,19 @@ public class GameMenu extends RenderInterface {
 	@Override
 	public void resize() {
 		genRects = false;
+	}
+
+	public void load() {
+		JFileChooser fc = new JFileChooser();
+		fc.setFileFilter(new FileNameExtensionFilter("Levels (.level)", "level"));
+		int returnVal = fc.showOpenDialog(Corruption.main.getFrame());
+
+		if (returnVal != JFileChooser.APPROVE_OPTION) {
+			return;
+		}
+
+		LevelManager lm = new LevelManager(fc.getSelectedFile());
+		lm.setActive();
 	}
 
 }

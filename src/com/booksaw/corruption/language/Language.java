@@ -30,7 +30,9 @@ public class Language {
 		messages.put("editor.tool.delete", "Press this to delete the block");
 		messages.put("editor.color", "Press to select the color");
 		messages.put("editor.color.title", "Color picker");
-
+		
+		messages.put("pause.resume", "Resume");
+		messages.put("pause.quit", "Quit");
 	}
 
 	/**

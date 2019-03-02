@@ -73,7 +73,14 @@ public class EditorController extends RenderController {
 		Corruption.main.getFrame().getContentPane().setPreferredSize(Corruption.origionalDimensions);
 		Corruption.main.getFrame().getContentPane().setSize(Corruption.origionalDimensions);
 		Corruption.main.getFrame().pack();
-		LevelManager lm = new LevelManager(new File("test.level"));
+
+		LevelManager lm;
+		if (LevelManager.activeLevel == null) {
+			lm = new LevelManager(new File("test.level"));
+
+		} else {
+			lm = LevelManager.activeLevel;
+		}
 		lm.finalise();
 		lm.addSprite(camera);
 
@@ -89,6 +96,11 @@ public class EditorController extends RenderController {
 	@Override
 	public void disable() {
 		Corruption.main.getFrame().setResizable(true);
+	}
+
+	@Override
+	public void back() {
+		
 	}
 
 }

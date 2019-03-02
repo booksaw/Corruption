@@ -4,6 +4,9 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
 
+import com.booksaw.corruption.render.overlays.Overlay;
+import com.booksaw.corruption.render.overlays.PauseOverlay;
+
 /**
  * Listener to track what the user enters during the game
  * 
@@ -20,6 +23,11 @@ public class KeyListener implements java.awt.event.KeyListener, Listener {
 	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
+
+		if (PauseOverlay.paused) {
+			return;
+		}
+
 		switch (e.getKeyCode()) {
 		case 65:
 			left = true;
@@ -35,6 +43,9 @@ public class KeyListener implements java.awt.event.KeyListener, Listener {
 			break;
 		case 32:
 			up = true;
+			break;
+		case 27:
+			pause();
 			break;
 		}
 
@@ -82,4 +93,12 @@ public class KeyListener implements java.awt.event.KeyListener, Listener {
 
 	}
 
+	public void pause() {
+		Overlay.addOverlay(new PauseOverlay());
+
+		up = false;
+		right = false;
+		down = false;
+		left = false;
+	}
 }

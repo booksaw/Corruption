@@ -27,4 +27,6 @@ public abstract class RenderController {
 	public void disable() {
 
 	}
+
+	public abstract void back();
 }

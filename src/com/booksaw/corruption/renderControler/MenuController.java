@@ -46,4 +46,8 @@ public class MenuController extends RenderController {
 		menu.resize();
 	}
 
+	@Override
+	public void back() {
+	}
+
 }

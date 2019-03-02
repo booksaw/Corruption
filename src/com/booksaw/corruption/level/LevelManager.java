@@ -65,7 +65,6 @@ public class LevelManager {
 	 * @param level
 	 */
 	public LevelManager(File level) {
-
 		// storing the file
 		f = level;
 		// setting up the file reader
@@ -236,6 +235,10 @@ public class LevelManager {
 
 	public void changes() {
 		changed = true;
+	}
+
+	public void setActive() {
+		activeLevel = this;
 	}
 
 }

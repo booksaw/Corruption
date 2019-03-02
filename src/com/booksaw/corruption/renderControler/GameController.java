@@ -38,9 +38,13 @@ public class GameController extends RenderController {
 	@Override
 	public void show() {
 		super.show();
+		LevelManager lm;
+		if (LevelManager.activeLevel == null) {
+			lm = new LevelManager(new File("test.level"));
 
-		LevelManager lm = new LevelManager(new File("test.level"));
-		lm.finalise();
+		} else {
+			lm = LevelManager.activeLevel;
+		}
 
 		for (Sprite s : lm.getSprites()) {
 			if (s instanceof Player) {
@@ -49,7 +53,7 @@ public class GameController extends RenderController {
 
 			}
 		}
-
+		lm.finalise();
 		Corruption.main.startClock();
 	}
 
@@ -94,6 +98,11 @@ public class GameController extends RenderController {
 	@Override
 	public void resize() {
 		c.resize();
+	}
+
+	@Override
+	public void back() {
+
 	}
 
 }

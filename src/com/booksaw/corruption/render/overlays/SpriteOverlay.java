@@ -80,4 +80,9 @@ public class SpriteOverlay extends Overlay {
 		}
 	}
 
+	@Override
+	public void resize() {
+		
+	}
+
 }

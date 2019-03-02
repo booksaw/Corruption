@@ -39,4 +39,8 @@ public class EditorOverlay extends Overlay {
 
 	}
 
+	@Override
+	public void resize() {
+	}
+
 }

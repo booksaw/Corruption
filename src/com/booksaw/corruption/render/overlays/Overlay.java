@@ -13,15 +13,20 @@ public abstract class Overlay {
 	}
 
 	public static void addOverlay(Overlay overlay) {
+		overlay.show();
 		activeOverlays.add(overlay);
 	}
 
 	public static void removeOverlay(Overlay overlay) {
-		System.out.println(overlay);
 		overlay.hide();
 		activeOverlays.remove(overlay);
-		
-		
+
+	}
+
+	public static void resizeAll() {
+		for (Overlay temp : activeOverlays) {
+			temp.resize();
+		}
 	}
 
 	public static void clearOverlays() {
@@ -35,4 +40,9 @@ public abstract class Overlay {
 	 */
 	public void hide() {
 	}
+
+	public void show() {
+	}
+
+	public abstract void resize();
 }

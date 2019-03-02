@@ -15,6 +15,7 @@ import com.booksaw.corruption.language.Language;
 import com.booksaw.corruption.listeners.Listener;
 import com.booksaw.corruption.listeners.ListenerManager;
 import com.booksaw.corruption.render.RenderInterface;
+import com.booksaw.corruption.render.overlays.Overlay;
 import com.booksaw.corruption.renderControler.MenuController;
 import com.booksaw.corruption.renderControler.RenderController;
 
@@ -142,10 +143,13 @@ public class Corruption implements ActionListener, ComponentListener {
 	@Override
 	public void componentResized(ComponentEvent e) {
 		controller.resize();
+		Overlay.resizeAll();
 	}
 
 	@Override
 	public void componentShown(ComponentEvent e) {
 	}
+	
+	
 
 }

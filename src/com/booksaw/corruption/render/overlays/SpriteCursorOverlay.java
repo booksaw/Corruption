@@ -42,4 +42,9 @@ public class SpriteCursorOverlay extends Overlay {
 		EditorMouseListener.selection = ActiveSelection.MAIN;
 	}
 
+	@Override
+	public void resize() {
+
+	}
+
 }
