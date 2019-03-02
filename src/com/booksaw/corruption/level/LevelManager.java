@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.booksaw.corruption.Config;
 import com.booksaw.corruption.level.meta.BackgroundColorMeta;
 import com.booksaw.corruption.level.meta.CameraLocationMeta;
 import com.booksaw.corruption.level.meta.LevelDimensionsMeta;
@@ -74,16 +75,45 @@ public class LevelManager {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-
+		boolean read = false;
 		// line to store read liens to
 		String line = "";
 		try {
 			while ((line = br.readLine()) != null) {
-				// setting up the data in that line
+				read = true;
 				runLine(line);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+
+		if (!read) {
+
+			PrintWriter pw = null;
+			try {
+				pw = new PrintWriter(level);
+				br = new BufferedReader(new FileReader(Config.ASSETSPATH + File.separator + "default.level"));
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+
+			try {
+				while ((line = br.readLine()) != null) {
+					read = true;
+					runLine(line);
+					pw.println(line);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			pw.close();
+
+		}
+
+		try {
+			br.close();
+		} catch (Exception e) {
 		}
 
 	}
