@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.booksaw.corruption.Config;
+import com.booksaw.corruption.level.background.Background;
+import com.booksaw.corruption.level.background.ColoredBackground;
 import com.booksaw.corruption.level.meta.BackgroundColorMeta;
 import com.booksaw.corruption.level.meta.CameraLocationMeta;
 import com.booksaw.corruption.level.meta.LevelDimensionsMeta;
@@ -35,6 +37,9 @@ public class LevelManager {
 
 	// all objects in the level (keeping track for rendering and collision
 	List<Sprite> sprites = new ArrayList<>();
+
+	List<Background> backgrounds = new ArrayList<>();
+
 	// the file the level has been loaded from
 	File f;
 	// all meta data so it can be executed
@@ -153,6 +158,8 @@ public class LevelManager {
 		case "object":
 			makeObject(split[1], split[2]);
 			break;
+		case "background":
+			makeBackground(split[1], split[2]);
 		case "sprite":
 			makeSprite(split[1], split[2]);
 		}
@@ -199,6 +206,15 @@ public class LevelManager {
 
 	}
 
+	private void makeBackground(String type, String info) {
+		switch (type) {
+		case "colored":
+			backgrounds.add(new ColoredBackground(info));
+			break;
+		}
+
+	}
+
 	private void makeSprite(String type, String info) {
 		switch (type) {
 		case "player":
@@ -210,6 +226,10 @@ public class LevelManager {
 
 	public List<GameObject> getLevelObjects() {
 		return levelObjects;
+	}
+
+	public List<Background> getBackgrounds() {
+		return backgrounds;
 	}
 
 	public List<Sprite> getSprites() {
@@ -225,8 +245,16 @@ public class LevelManager {
 		levelObjects.add(o);
 	}
 
+	public void addBackground(Background b) {
+		backgrounds.add(b);
+	}
+
 	public void removeObject(GameObject o) {
 		levelObjects.remove(o);
+	}
+
+	public void removeBackground(Background b) {
+		backgrounds.remove(b);
 	}
 
 	public void removeSprites(Sprite s) {
@@ -247,6 +275,10 @@ public class LevelManager {
 
 					pw.println(o);
 				}
+			}
+
+			for (Background b : backgrounds) {
+				pw.println(b);
 			}
 
 			for (Sprite s : sprites) {

@@ -10,10 +10,16 @@ import javax.swing.SwingUtilities;
 
 import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.Utils;
+import com.booksaw.corruption.editor.options.BackgroundSettings;
 import com.booksaw.corruption.editor.options.BlockSettings;
+import com.booksaw.corruption.editor.options.CursorSettings;
+import com.booksaw.corruption.editor.options.CursorSettings.SELECTION;
 import com.booksaw.corruption.editor.options.LevelSettings;
 import com.booksaw.corruption.editor.options.SpriteSettings;
 import com.booksaw.corruption.level.LevelManager;
+import com.booksaw.corruption.level.background.Background;
+import com.booksaw.corruption.level.background.ColoredBackground;
+import com.booksaw.corruption.level.background.DraggedBackground;
 import com.booksaw.corruption.level.objects.Block;
 import com.booksaw.corruption.level.objects.DraggedBlock;
 import com.booksaw.corruption.level.objects.GameObject;
@@ -34,12 +40,22 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 	@Override
 	public void mouseDragged(MouseEvent e) {
 
-		if (DraggedBlock.block == null) {
-			return;
-		}
+		if (CursorSettings.selection == SELECTION.BLOCK) {
 
-		if (SwingUtilities.isLeftMouseButton(e))
-			DraggedBlock.block.setPoint(e.getPoint());
+			if (DraggedBlock.block == null) {
+				return;
+			}
+			if (SwingUtilities.isLeftMouseButton(e))
+				DraggedBlock.block.setPoint(e.getPoint());
+		} else if (CursorSettings.selection == SELECTION.BACKGROUND) {
+
+			if (DraggedBackground.background == null) {
+				return;
+			}
+			if (SwingUtilities.isLeftMouseButton(e))
+				DraggedBackground.background.setPoint(e.getPoint());
+
+		}
 	}
 
 	@Override
@@ -64,9 +80,14 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 		if (selection == ActiveSelection.SPRITE || selection == ActiveSelection.SPRITECURSOR) {
 			return;
 		}
-		if (SwingUtilities.isLeftMouseButton(e))
-			new DraggedBlock(e.getPoint());
+		if (SwingUtilities.isLeftMouseButton(e)) {
 
+			if (CursorSettings.selection == SELECTION.BLOCK) {
+				new DraggedBlock(e.getPoint());
+			} else if (CursorSettings.selection == SELECTION.BACKGROUND) {
+				new DraggedBackground(e.getPoint());
+			}
+		}
 	}
 
 	@Override
@@ -104,18 +125,36 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 	}
 
 	private void mainClick(MouseEvent e, Point p) {
-		if (SwingUtilities.isLeftMouseButton(e)) {
-			if (DraggedBlock.block == null) {
-				mainClickFinalize(e, e.getPoint());
+
+		if (CursorSettings.selection == SELECTION.BLOCK) {
+			if (SwingUtilities.isLeftMouseButton(e)) {
+				if (DraggedBlock.block == null) {
+					mainClickFinalize(e, e.getPoint());
+					return;
+				}
+				if (DraggedBlock.block.getWidth() == 0 || DraggedBlock.block.getHeight() == 0) {
+					mainClickFinalize(e, e.getPoint());
+					DraggedBlock.block = null;
+					return;
+				}
+				DraggedBlock.block.finalise();
 				return;
 			}
-			if (DraggedBlock.block.getWidth() == 0 || DraggedBlock.block.getHeight() == 0) {
-				mainClickFinalize(e, e.getPoint());
-				DraggedBlock.block = null;
+
+		} else if (CursorSettings.selection == SELECTION.BACKGROUND) {
+			if (SwingUtilities.isLeftMouseButton(e)) {
+				if (DraggedBackground.background == null) {
+					mainClickFinalize(e, e.getPoint());
+					return;
+				}
+				if (DraggedBackground.background.getWidth() == 0 || DraggedBackground.background.getHeight() == 0) {
+					mainClickFinalize(e, e.getPoint());
+					DraggedBackground.background = null;
+					return;
+				}
+				DraggedBackground.background.finalise();
 				return;
 			}
-			DraggedBlock.block.finalise();
-			return;
 		}
 
 		if (SwingUtilities.isRightMouseButton(e)) {
@@ -150,6 +189,17 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 			return;
 		}
 
+		if (p.getX() > GameCamera.cameraWidth - (EditorOverlay.SQUARE * 4)
+				&& p.getY() > GameCamera.cameraHeight - EditorOverlay.SQUARE
+				&& p.getX() < GameCamera.cameraWidth - (EditorOverlay.SQUARE * 3)
+				&& p.getY() < GameCamera.cameraHeight) {
+
+			CursorSettings settings = new CursorSettings();
+			settings.intialize();
+			settings.setVisible(true);
+			return;
+		}
+
 		Point temp = new Point(p.x + GameCamera.activeCamera.x,
 				GameCamera.cameraHeight - (p.y + GameCamera.activeCamera.y));
 
@@ -162,6 +212,12 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 		Sprite s = Sprite.getSprite(temp, LevelManager.activeLevel.getSprites());
 		if (s != null) {
 			new SpriteSettings(s).setVisible(true);
+			return;
+		}
+
+		Background b = Background.getBackground(temp, LevelManager.activeLevel.getBackgrounds());
+		if (b != null && (b instanceof ColoredBackground)) {
+			new BackgroundSettings((ColoredBackground) b).setVisible(true);
 			return;
 		}
 	}

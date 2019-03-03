@@ -4,8 +4,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.List;
+
+import com.booksaw.corruption.level.LevelManager;
 
 /**
  * Abstract class for game objects
@@ -14,8 +14,6 @@ import java.util.List;
  *
  */
 public abstract class GameObject {
-	// list of all objects for collisions
-	private static List<GameObject> objects = new ArrayList<>();
 
 	public static GameObject getObject(Point p) {
 		return getObject(new Rectangle(p, new Dimension(1, 1)));
@@ -23,29 +21,13 @@ public abstract class GameObject {
 
 	public static GameObject getObject(Rectangle r) {
 
-		for (GameObject temp : objects) {
+		for (GameObject temp : LevelManager.activeLevel.getLevelObjects()) {
 			if (temp.getRectangle().intersects(r)) {
 				return temp;
 			}
 		}
 
 		return null;
-	}
-
-	/**
-	 * Gives a list of all objects
-	 * 
-	 * @return
-	 */
-	public static List<GameObject> getObjects() {
-		return objects;
-	}
-
-	/**
-	 * Adds the object to the list
-	 */
-	public GameObject() {
-		objects.add(this);
 	}
 
 	/**

@@ -40,7 +40,7 @@ public class GameController extends RenderController {
 		super.show();
 		LevelManager lm;
 		if (LevelManager.activeLevel == null) {
-			lm = new LevelManager(new File("test.level"));
+			lm = new LevelManager(new File("1.level"));
 
 		} else {
 			lm = LevelManager.activeLevel;

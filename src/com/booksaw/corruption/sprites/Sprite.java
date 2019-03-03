@@ -403,7 +403,7 @@ public abstract class Sprite implements Updatable {
 		Rectangle r = getRectangle((int) x, (int) y);
 
 		// checks intersections with each rectangle
-		for (GameObject o : GameObject.getObjects()) {
+		for (GameObject o : LevelManager.activeLevel.getLevelObjects()) {
 			if (o.getRectangle().intersects(r)) {
 				return false;
 			}

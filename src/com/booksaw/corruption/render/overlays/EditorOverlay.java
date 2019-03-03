@@ -11,7 +11,7 @@ import com.booksaw.corruption.render.GameCamera;
 
 public class EditorOverlay extends Overlay {
 
-	public static BufferedImage saveIcon, greenIcon, add, menu;
+	public static BufferedImage saveIcon, greenIcon, add, menu, cursor;
 	public static final int SQUARE = 40;
 
 	static {
@@ -19,6 +19,7 @@ public class EditorOverlay extends Overlay {
 		greenIcon = Utils.getImage(new File(Config.ASSETSPATH + File.separator + "savegreen.png"));
 		add = Utils.getImage(new File(Config.ASSETSPATH + File.separator + "add.png"));
 		menu = Utils.getImage(new File(Config.ASSETSPATH + File.separator + "menu.png"));
+		cursor = Utils.getImage(new File(Config.ASSETSPATH + File.separator + "cursor.png"));
 	}
 
 	@Override
@@ -35,6 +36,8 @@ public class EditorOverlay extends Overlay {
 
 		g.drawImage(add, GameCamera.cameraWidth - (SQUARE * 2), GameCamera.cameraHeight - SQUARE, SQUARE, SQUARE, null);
 		g.drawImage(menu, GameCamera.cameraWidth - (SQUARE * 3), GameCamera.cameraHeight - SQUARE, SQUARE, SQUARE,
+				null);
+		g.drawImage(cursor, GameCamera.cameraWidth - (SQUARE * 4), GameCamera.cameraHeight - SQUARE, SQUARE, SQUARE,
 				null);
 
 	}

@@ -76,7 +76,7 @@ public class EditorController extends RenderController {
 
 		LevelManager lm;
 		if (LevelManager.activeLevel == null) {
-			lm = new LevelManager(new File("test.level"));
+			lm = new LevelManager(new File("1.level"));
 
 		} else {
 			lm = LevelManager.activeLevel;
