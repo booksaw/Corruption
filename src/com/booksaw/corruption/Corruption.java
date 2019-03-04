@@ -5,13 +5,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import com.booksaw.corruption.language.Language;
+import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.listeners.Listener;
 import com.booksaw.corruption.listeners.ListenerManager;
 import com.booksaw.corruption.render.RenderInterface;
@@ -47,7 +51,26 @@ public class Corruption implements ActionListener, ComponentListener {
 
 		// basic JFrame configuration
 		f = new JFrame("Corruption");
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		f.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				if (LevelManager.activeLevel != null && LevelManager.activeLevel.hasChanged()) {
+					int result = JOptionPane.showConfirmDialog(Corruption.main.getFrame(),
+							Language.getMessage("pause.save"), Language.getMessage("title"),
+							JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, Config.logo);
+					if (result == 0) {
+						LevelManager.activeLevel.save();
+					} else if (result == -1 || result == 2) {
+						return;
+					}
+				}
+
+				f.dispose();
+				System.exit(0);
+
+			}
+		});
+
 		f.addComponentListener(this);
 
 		// this sets the active renderer to the menu
@@ -149,7 +172,5 @@ public class Corruption implements ActionListener, ComponentListener {
 	@Override
 	public void componentShown(ComponentEvent e) {
 	}
-	
-	
 
 }

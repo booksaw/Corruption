@@ -19,6 +19,8 @@ public class Language {
 	 * TODO make from file Used to load the messages
 	 */
 	public static void loadLanguage() {
+		messages.put("title", "Corruption");
+		
 		messages.put("menu.load", "Load game");
 		messages.put("menu.new", "New game");
 		messages.put("menu.editor", "Editor");
@@ -33,9 +35,11 @@ public class Language {
 
 		messages.put("pause.resume", "Resume");
 		messages.put("pause.quit", "Quit");
+		messages.put("pause.save", "Do you want to save?");
 
 		messages.put("cursor.block", "Block");
 		messages.put("cursor.background", "Background");
+		
 	}
 
 	/**

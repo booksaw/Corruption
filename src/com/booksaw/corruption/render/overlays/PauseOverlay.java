@@ -6,9 +6,12 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
+import com.booksaw.corruption.Config;
 import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.language.Language;
+import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.listeners.ListenerManager;
 import com.booksaw.corruption.listeners.PauseListener;
 import com.booksaw.corruption.render.GameMenu;
@@ -147,6 +150,19 @@ public class PauseOverlay extends Overlay {
 			Overlay.removeOverlay(this);
 			break;
 		case QUIT:
+
+			if (LevelManager.activeLevel.hasChanged()) {
+				int result = JOptionPane.showConfirmDialog(Corruption.main.getFrame(),
+						Language.getMessage("pause.save"), Language.getMessage("title"),
+						JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, Config.logo);
+				if (result == 0) {
+					LevelManager.activeLevel.save();
+				} else if (result == -1 || result == 2) {
+					return;
+				}
+
+			}
+
 			Overlay.removeOverlay(this);
 			Corruption.main.setActive(new MenuController());
 			break;

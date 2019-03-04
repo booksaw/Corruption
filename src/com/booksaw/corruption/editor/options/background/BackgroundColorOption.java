@@ -4,7 +4,6 @@ import javax.swing.JFrame;
 
 import com.booksaw.corruption.editor.options.ColorPicker;
 import com.booksaw.corruption.level.background.ColoredBackground;
-import com.booksaw.corruption.level.objects.Block;
 
 public class BackgroundColorOption extends ColorPicker {
 
