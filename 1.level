@@ -1,4 +1,7 @@
-meta:leveldimensions:2000;500
+meta:leveldimensions:2000;576
 meta:cameralocation:0;0
 meta:backgroundcolor:100;100;100
-sprite:player:0;0;true
+object:block:0;450;380;25;255;255;255
+object:door:50;0;false
+background:colored:0;471;380;116;153;92;7
+sprite:player:29;498;true

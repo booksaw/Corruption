@@ -13,6 +13,7 @@ import com.booksaw.corruption.Utils;
 import com.booksaw.corruption.editor.options.BackgroundSettings;
 import com.booksaw.corruption.editor.options.BlockSettings;
 import com.booksaw.corruption.editor.options.CursorSettings;
+import com.booksaw.corruption.editor.options.DoorSettings;
 import com.booksaw.corruption.editor.options.CursorSettings.SELECTION;
 import com.booksaw.corruption.editor.options.LevelSettings;
 import com.booksaw.corruption.editor.options.SpriteSettings;
@@ -21,10 +22,12 @@ import com.booksaw.corruption.level.background.Background;
 import com.booksaw.corruption.level.background.ColoredBackground;
 import com.booksaw.corruption.level.background.DraggedBackground;
 import com.booksaw.corruption.level.objects.Block;
+import com.booksaw.corruption.level.objects.Door;
 import com.booksaw.corruption.level.objects.DraggedBlock;
 import com.booksaw.corruption.level.objects.GameObject;
 import com.booksaw.corruption.render.GameCamera;
 import com.booksaw.corruption.render.overlays.ActiveSelection;
+import com.booksaw.corruption.render.overlays.DoorOverlay;
 import com.booksaw.corruption.render.overlays.EditorOverlay;
 import com.booksaw.corruption.render.overlays.Overlay;
 import com.booksaw.corruption.render.overlays.SpriteCursorOverlay;
@@ -86,6 +89,8 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 				new DraggedBlock(e.getPoint());
 			} else if (CursorSettings.selection == SELECTION.BACKGROUND) {
 				new DraggedBackground(e.getPoint());
+			} else if (CursorSettings.selection == SELECTION.DOOR) {
+				DoorOverlay.doorOverlay.place();
 			}
 		}
 	}
@@ -204,9 +209,14 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 				GameCamera.cameraHeight - (p.y + GameCamera.activeCamera.y));
 
 		GameObject o = GameObject.getObject(temp);
-		if (o != null && (o instanceof Block)) {
-			new BlockSettings((Block) o).setVisible(true);
-			return;
+		if (o != null) {
+			if (o instanceof Block) {
+				new BlockSettings((Block) o).setVisible(true);
+				return;
+			} else if (o instanceof Door) {
+				new DoorSettings((Door) o).setVisible(true);
+				return;
+			}
 		}
 
 		Sprite s = Sprite.getSprite(temp, LevelManager.activeLevel.getSprites());

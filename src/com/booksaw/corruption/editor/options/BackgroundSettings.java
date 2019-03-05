@@ -21,7 +21,7 @@ public class BackgroundSettings extends OptionPane {
 
 	@Override
 	public String getName() {
-		return "Block settings";
+		return "Background settings";
 	}
 
 	@Override

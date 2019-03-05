@@ -20,7 +20,7 @@ public class Language {
 	 */
 	public static void loadLanguage() {
 		messages.put("title", "Corruption");
-		
+
 		messages.put("menu.load", "Load game");
 		messages.put("menu.new", "New game");
 		messages.put("menu.editor", "Editor");
@@ -39,7 +39,8 @@ public class Language {
 
 		messages.put("cursor.block", "Block");
 		messages.put("cursor.background", "Background");
-		
+		messages.put("cursor.door", "Door");
+
 	}
 
 	/**

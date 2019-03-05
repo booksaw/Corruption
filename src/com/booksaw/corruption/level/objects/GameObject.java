@@ -15,6 +15,8 @@ import com.booksaw.corruption.level.LevelManager;
  */
 public abstract class GameObject {
 
+	public boolean collidable = true;
+	
 	public static GameObject getObject(Point p) {
 		return getObject(new Rectangle(p, new Dimension(1, 1)));
 	}

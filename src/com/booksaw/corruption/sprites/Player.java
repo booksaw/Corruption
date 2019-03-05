@@ -167,7 +167,7 @@ public class Player extends Sprite {
 	 */
 	private void calculateY(int time) {
 		// if the player is on the ground
-		if (canJump()) {
+		if (canJump() && jumpHeight < 0) {
 			priorJump += time;
 			// resetting the height
 			jumpHeight = 0;
@@ -184,7 +184,7 @@ public class Player extends Sprite {
 				priorJump = 0;
 			}
 
-		} else if (!canJump()) {
+		} else {
 			// if they can't jump accelerating them towards the ground
 			y = changeY(y + (jumpHeight * time), y);
 			jumpHeight -= (weight * time);
@@ -215,7 +215,7 @@ public class Player extends Sprite {
 		if (y == 0) {
 			return true;
 		}
-		// if there isn't a collision on the pixel below them
+		// if there is a collision on the pixel below them
 		if (canGo(x, y - 1)) {
 			return false;
 		}

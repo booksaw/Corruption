@@ -1,13 +1,13 @@
 package com.booksaw.corruption.editor.options.gameobjects;
 
 import com.booksaw.corruption.editor.options.TextOption;
-import com.booksaw.corruption.level.objects.Block;
+import com.booksaw.corruption.level.objects.GameObject;
 
 public class YOption extends TextOption {
 
-	Block b;
+	GameObject b;
 	
-	public YOption(Block b) {
+	public YOption(GameObject b) {
 		this.b = b;
 	}
 

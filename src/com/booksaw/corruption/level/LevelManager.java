@@ -20,6 +20,7 @@ import com.booksaw.corruption.level.meta.LevelDimensionsMeta;
 import com.booksaw.corruption.level.meta.Meta;
 import com.booksaw.corruption.level.meta.PlayerSpawnMeta;
 import com.booksaw.corruption.level.objects.Block;
+import com.booksaw.corruption.level.objects.Door;
 import com.booksaw.corruption.level.objects.GameObject;
 import com.booksaw.corruption.sprites.Player;
 import com.booksaw.corruption.sprites.Sprite;
@@ -202,6 +203,9 @@ public class LevelManager {
 		case "block":
 			levelObjects.add(new Block(info));
 			break;
+		case "door":
+			levelObjects.add(new Door(info));
+			break;
 		}
 
 	}
@@ -267,22 +271,29 @@ public class LevelManager {
 			PrintWriter pw = new PrintWriter(f);
 
 			for (Meta m : metaData) {
-				pw.println(m);
+				String s = m.toString();
+				if (!s.equals(""))
+					pw.println(m);
 			}
 
 			for (GameObject o : levelObjects) {
 				if (o.needsSaving()) {
-
-					pw.println(o);
+					String s = o.toString();
+					if (!s.equals(""))
+						pw.println(o);
 				}
 			}
 
 			for (Background b : backgrounds) {
-				pw.println(b);
+				String s = b.toString();
+				if (!s.equals(""))
+					pw.println(b);
 			}
 
 			for (Sprite s : sprites) {
-				pw.println(s);
+				String st = s.toString();
+				if (!st.equals(""))
+					pw.println(s);
 			}
 
 			pw.close();
