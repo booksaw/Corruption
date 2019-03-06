@@ -38,8 +38,20 @@ public class DoorOverlay extends Overlay {
 	}
 
 	public void place() {
+		System.out.println("running placeS");
 		LevelManager.activeLevel.addObject(d);
 		d = new Door(new Point(-100, -100), false);
+
 	}
+
+//	@Override
+//	public void hide() {
+//		CursorManager.resetCursor();
+//	}
+//
+//	@Override
+//	public void show() {
+//		CursorManager.hideCursor();
+//	}
 
 }

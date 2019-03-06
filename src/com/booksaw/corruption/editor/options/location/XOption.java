@@ -1,14 +1,14 @@
-package com.booksaw.corruption.editor.options.background;
+package com.booksaw.corruption.editor.options.location;
 
 import com.booksaw.corruption.editor.options.TextOption;
-import com.booksaw.corruption.level.background.Background;
+import com.booksaw.corruption.level.Location;
 
 public class XOption extends TextOption {
 
-	Background b;
+	Location s;
 
-	public XOption(Background background) {
-		this.b = background;
+	public XOption(Location s) {
+		this.s = s;
 	}
 
 	@Override
@@ -18,11 +18,11 @@ public class XOption extends TextOption {
 		try {
 			value = Integer.parseInt(text.getText());
 		} catch (Exception e) {
-			text.setText(b.getX() + "");
+			text.setText(s.getX() + "");
 			return;
 		}
 
-		b.setX(value);
+		s.setX(value);
 	}
 
 	@Override
@@ -32,6 +32,6 @@ public class XOption extends TextOption {
 
 	@Override
 	public String getDefault() {
-		return b.getX() + "";
+		return s.getX() + "";
 	}
 }

@@ -6,7 +6,10 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.List;
 
-public abstract class Background {
+import com.booksaw.corruption.level.Dimensions;
+import com.booksaw.corruption.level.Location;
+
+public abstract class Background implements Dimensions, Location {
 
 	public static Background getBackground(Point p, List<Background> backgrounds) {
 		return getBackground(new Rectangle(p, new Dimension(1, 1)), backgrounds);
@@ -62,6 +65,5 @@ public abstract class Background {
 	protected Rectangle getRectangle() {
 		return new Rectangle(x, y, width, height);
 	}
-
 
 }

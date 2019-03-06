@@ -1,10 +1,10 @@
 package com.booksaw.corruption.editor.options;
 
 import com.booksaw.corruption.editor.options.background.BackgroundColorOption;
-import com.booksaw.corruption.editor.options.background.HeightOption;
-import com.booksaw.corruption.editor.options.background.WidthOption;
-import com.booksaw.corruption.editor.options.background.XOption;
-import com.booksaw.corruption.editor.options.background.YOption;
+import com.booksaw.corruption.editor.options.dimensions.HeightOption;
+import com.booksaw.corruption.editor.options.dimensions.WidthOption;
+import com.booksaw.corruption.editor.options.location.XOption;
+import com.booksaw.corruption.editor.options.location.YOption;
 import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.level.background.ColoredBackground;
 

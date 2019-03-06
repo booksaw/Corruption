@@ -10,6 +10,7 @@ import java.util.List;
 import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.Updatable;
 import com.booksaw.corruption.level.LevelManager;
+import com.booksaw.corruption.level.Location;
 import com.booksaw.corruption.level.objects.GameObject;
 import com.booksaw.corruption.render.GameCamera;
 
@@ -19,7 +20,7 @@ import com.booksaw.corruption.render.GameCamera;
  * @author James
  *
  */
-public abstract class Sprite implements Updatable {
+public abstract class Sprite implements Updatable, Location {
 
 	public static Sprite getSprite(Point p, List<Sprite> sprites) {
 		return getSprite(new Rectangle(p, new Dimension(1, 1)), sprites);
@@ -239,6 +240,22 @@ public abstract class Sprite implements Updatable {
 	 * @param y coord of sprite
 	 */
 	public void setY(double y) {
+		this.y = y;
+	}
+	
+	/**
+	 * 
+	 * @param x coord of sprite
+	 */
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	/**
+	 * 
+	 * @param y coord of sprite
+	 */
+	public void setY(int y) {
 		this.y = y;
 	}
 

@@ -1,8 +1,8 @@
 package com.booksaw.corruption.editor.options;
 
+import com.booksaw.corruption.editor.options.location.XOption;
+import com.booksaw.corruption.editor.options.location.YOption;
 import com.booksaw.corruption.editor.options.sprites.ActiveSprite;
-import com.booksaw.corruption.editor.options.sprites.XOption;
-import com.booksaw.corruption.editor.options.sprites.YOption;
 import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.sprites.Sprite;
 

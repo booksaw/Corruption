@@ -5,7 +5,9 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import com.booksaw.corruption.level.Dimensions;
 import com.booksaw.corruption.level.LevelManager;
+import com.booksaw.corruption.level.Location;
 
 /**
  * Abstract class for game objects
@@ -13,10 +15,10 @@ import com.booksaw.corruption.level.LevelManager;
  * @author James
  *
  */
-public abstract class GameObject {
+public abstract class GameObject implements Location, Dimensions {
 
 	public boolean collidable = true;
-	
+
 	public static GameObject getObject(Point p) {
 		return getObject(new Rectangle(p, new Dimension(1, 1)));
 	}

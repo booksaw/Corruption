@@ -89,8 +89,6 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 				new DraggedBlock(e.getPoint());
 			} else if (CursorSettings.selection == SELECTION.BACKGROUND) {
 				new DraggedBackground(e.getPoint());
-			} else if (CursorSettings.selection == SELECTION.DOOR) {
-				DoorOverlay.doorOverlay.place();
 			}
 		}
 	}
@@ -131,6 +129,41 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 
 	private void mainClick(MouseEvent e, Point p) {
 
+		if (p.getX() > GameCamera.cameraWidth - EditorOverlay.SQUARE
+				&& p.getY() > GameCamera.cameraHeight - EditorOverlay.SQUARE && p.getX() < GameCamera.cameraWidth
+				&& p.getY() < GameCamera.cameraHeight) {
+			save();
+			return;
+		}
+
+		if (p.getX() > GameCamera.cameraWidth - (EditorOverlay.SQUARE * 2)
+				&& p.getY() > GameCamera.cameraHeight - EditorOverlay.SQUARE
+				&& p.getX() < GameCamera.cameraWidth - EditorOverlay.SQUARE && p.getY() < GameCamera.cameraHeight) {
+			insert();
+			return;
+		}
+
+		if (p.getX() > GameCamera.cameraWidth - (EditorOverlay.SQUARE * 3)
+				&& p.getY() > GameCamera.cameraHeight - EditorOverlay.SQUARE
+				&& p.getX() < GameCamera.cameraWidth - (EditorOverlay.SQUARE * 2)
+				&& p.getY() < GameCamera.cameraHeight) {
+
+			LevelSettings settings = new LevelSettings();
+			settings.intialize();
+			settings.setVisible(true);
+			return;
+		}
+		if (p.getX() > GameCamera.cameraWidth - (EditorOverlay.SQUARE * 4)
+				&& p.getY() > GameCamera.cameraHeight - EditorOverlay.SQUARE
+				&& p.getX() < GameCamera.cameraWidth - (EditorOverlay.SQUARE * 3)
+				&& p.getY() < GameCamera.cameraHeight) {
+
+			CursorSettings settings = new CursorSettings();
+			settings.intialize();
+			settings.setVisible(true);
+			return;
+		}
+
 		if (CursorSettings.selection == SELECTION.BLOCK) {
 			if (SwingUtilities.isLeftMouseButton(e)) {
 				if (DraggedBlock.block == null) {
@@ -160,6 +193,8 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 				DraggedBackground.background.finalise();
 				return;
 			}
+		} else if (CursorSettings.selection == SELECTION.DOOR) {
+			DoorOverlay.doorOverlay.place();
 		}
 
 		if (SwingUtilities.isRightMouseButton(e)) {
@@ -169,41 +204,6 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 	}
 
 	private void mainClickFinalize(MouseEvent e, Point p) {
-		if (p.getX() > GameCamera.cameraWidth - EditorOverlay.SQUARE
-				&& p.getY() > GameCamera.cameraHeight - EditorOverlay.SQUARE && p.getX() < GameCamera.cameraWidth
-				&& p.getY() < GameCamera.cameraHeight) {
-			save();
-			return;
-		}
-
-		if (p.getX() > GameCamera.cameraWidth - (EditorOverlay.SQUARE * 2)
-				&& p.getY() > GameCamera.cameraHeight - EditorOverlay.SQUARE
-				&& p.getX() < GameCamera.cameraWidth - EditorOverlay.SQUARE && p.getY() < GameCamera.cameraHeight) {
-			insert();
-			return;
-		}
-
-		if (p.getX() > GameCamera.cameraWidth - (EditorOverlay.SQUARE * 3)
-				&& p.getY() > GameCamera.cameraHeight - EditorOverlay.SQUARE
-				&& p.getX() < GameCamera.cameraWidth - (EditorOverlay.SQUARE * 2)
-				&& p.getY() < GameCamera.cameraHeight) {
-
-			LevelSettings settings = new LevelSettings();
-			settings.intialize();
-			settings.setVisible(true);
-			return;
-		}
-
-		if (p.getX() > GameCamera.cameraWidth - (EditorOverlay.SQUARE * 4)
-				&& p.getY() > GameCamera.cameraHeight - EditorOverlay.SQUARE
-				&& p.getX() < GameCamera.cameraWidth - (EditorOverlay.SQUARE * 3)
-				&& p.getY() < GameCamera.cameraHeight) {
-
-			CursorSettings settings = new CursorSettings();
-			settings.intialize();
-			settings.setVisible(true);
-			return;
-		}
 
 		Point temp = new Point(p.x + GameCamera.activeCamera.x,
 				GameCamera.cameraHeight - (p.y + GameCamera.activeCamera.y));

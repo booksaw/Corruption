@@ -1,13 +1,13 @@
-package com.booksaw.corruption.editor.options.sprites;
+package com.booksaw.corruption.editor.options.location;
 
 import com.booksaw.corruption.editor.options.TextOption;
-import com.booksaw.corruption.sprites.Sprite;
+import com.booksaw.corruption.level.Location;
 
 public class YOption extends TextOption {
 
-	Sprite s;
-	
-	public YOption(Sprite s) {
+	Location s;
+
+	public YOption(Location s) {
 		this.s = s;
 	}
 

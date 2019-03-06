@@ -1,14 +1,14 @@
-package com.booksaw.corruption.editor.options.background;
+package com.booksaw.corruption.editor.options.dimensions;
 
 import com.booksaw.corruption.editor.options.TextOption;
-import com.booksaw.corruption.level.background.Background;
+import com.booksaw.corruption.level.Dimensions;
 
 public class WidthOption extends TextOption {
 
-	Background	 b;
+	Dimensions b;
 
-	public WidthOption(Background background) {
-		this.b = background;
+	public WidthOption(Dimensions d) {
+		this.b = d;
 	}
 
 	@Override
