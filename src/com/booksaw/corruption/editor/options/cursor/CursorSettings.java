@@ -1,6 +1,6 @@
-package com.booksaw.corruption.editor.options;
+package com.booksaw.corruption.editor.options.cursor;
 
-import com.booksaw.corruption.editor.options.cursor.CursorSelector;
+import com.booksaw.corruption.editor.options.OptionPane;
 
 public class CursorSettings extends OptionPane {
 

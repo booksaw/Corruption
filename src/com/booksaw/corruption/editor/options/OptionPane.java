@@ -21,9 +21,9 @@ import com.booksaw.corruption.level.LevelManager;
 
 public abstract class OptionPane implements ActionListener, KeyListener {
 
-	List<Option> included = new ArrayList<>();
-	JFrame f;
-	boolean deletable = true;
+	protected List<Option> included = new ArrayList<>();
+	protected JFrame f;
+	protected boolean deletable = true;
 
 	public OptionPane() {
 

@@ -96,6 +96,7 @@ public class EditorController extends RenderController {
 	@Override
 	public void disable() {
 		Corruption.main.getFrame().setResizable(true);
+		System.out.println("resizable");
 	}
 
 	@Override

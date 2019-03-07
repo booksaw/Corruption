@@ -7,9 +7,8 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import com.booksaw.corruption.editor.options.CursorSettings;
 import com.booksaw.corruption.editor.options.MessageOption;
-import com.booksaw.corruption.editor.options.CursorSettings.SELECTION;
+import com.booksaw.corruption.editor.options.cursor.CursorSettings.SELECTION;
 import com.booksaw.corruption.language.Language;
 import com.booksaw.corruption.render.overlays.DoorOverlay;
 import com.booksaw.corruption.render.overlays.Overlay;

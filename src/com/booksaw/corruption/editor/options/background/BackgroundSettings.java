@@ -1,6 +1,6 @@
-package com.booksaw.corruption.editor.options;
+package com.booksaw.corruption.editor.options.background;
 
-import com.booksaw.corruption.editor.options.background.BackgroundColorOption;
+import com.booksaw.corruption.editor.options.OptionPane;
 import com.booksaw.corruption.editor.options.dimensions.HeightOption;
 import com.booksaw.corruption.editor.options.dimensions.WidthOption;
 import com.booksaw.corruption.editor.options.location.XOption;

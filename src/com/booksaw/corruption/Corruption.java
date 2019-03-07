@@ -20,6 +20,7 @@ import com.booksaw.corruption.listeners.Listener;
 import com.booksaw.corruption.listeners.ListenerManager;
 import com.booksaw.corruption.render.RenderInterface;
 import com.booksaw.corruption.render.overlays.Overlay;
+import com.booksaw.corruption.renderControler.EditorController;
 import com.booksaw.corruption.renderControler.MenuController;
 import com.booksaw.corruption.renderControler.RenderController;
 
@@ -35,6 +36,8 @@ public class Corruption implements ActionListener, ComponentListener {
 	private long previousTick;
 	// time since first tick
 	public static int time;
+	// to keep track to make sure 2 times are not running
+	Timer t;
 
 	// main frame
 	private JFrame f;
@@ -54,7 +57,8 @@ public class Corruption implements ActionListener, ComponentListener {
 		f.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				if (LevelManager.activeLevel != null && LevelManager.activeLevel.hasChanged()) {
+				if (!(controller instanceof EditorController)) {
+				} else if (LevelManager.activeLevel != null && LevelManager.activeLevel.hasChanged()) {
 					int result = JOptionPane.showConfirmDialog(Corruption.main.getFrame(),
 							Language.getMessage("pause.save"), Language.getMessage("title"),
 							JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, Config.logo);
@@ -88,7 +92,11 @@ public class Corruption implements ActionListener, ComponentListener {
 	}
 
 	public void startClock() {
-		Timer t = new Timer(1, this);
+		if (t != null && t.isRunning()) {
+			return;
+		}
+
+		t = new Timer(1, this);
 		previousTick = System.currentTimeMillis();
 		t.start();
 	}
@@ -105,9 +113,11 @@ public class Corruption implements ActionListener, ComponentListener {
 	 * @param d         - the starting dimension of the frame
 	 */
 	private void setActive(RenderController controller, Dimension d) {
+		Overlay.clearOverlays();
 		// clears everything from last frame
 		ListenerManager.clearListeners();
-		controller.disable();
+		if (this.controller != null)
+			this.controller.disable();
 		// adding the renderer
 		this.controller = controller;
 		RenderInterface activeRenderer = controller.getRenderer();
@@ -136,7 +146,6 @@ public class Corruption implements ActionListener, ComponentListener {
 
 		// setting the old tick
 		previousTick = System.currentTimeMillis();
-
 		controller.update(time);
 
 		f.repaint();

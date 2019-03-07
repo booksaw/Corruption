@@ -3,5 +3,7 @@ meta:cameralocation:0;0
 meta:backgroundcolor:100;100;100
 object:block:0;450;380;25;255;255;255
 object:door:50;0;false
+object:door:371;476;false
+object:block:370;536;12;41;255;255;255
 background:colored:0;471;380;116;153;92;7
-sprite:player:29;498;true
+sprite:player:107;34;true

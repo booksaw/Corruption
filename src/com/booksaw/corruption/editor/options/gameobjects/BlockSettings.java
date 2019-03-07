@@ -1,8 +1,6 @@
-package com.booksaw.corruption.editor.options;
+package com.booksaw.corruption.editor.options.gameobjects;
 
-import com.booksaw.corruption.editor.options.gameobjects.BlockColorOption;
-import com.booksaw.corruption.editor.options.gameobjects.HeightOption;
-import com.booksaw.corruption.editor.options.gameobjects.WidthOption;
+import com.booksaw.corruption.editor.options.OptionPane;
 import com.booksaw.corruption.editor.options.location.XOption;
 import com.booksaw.corruption.editor.options.location.YOption;
 import com.booksaw.corruption.level.LevelManager;

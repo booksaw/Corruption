@@ -99,13 +99,25 @@ public class PauseListener implements Listener, KeyListener, MouseListener, Mous
 	 */
 	@Override
 	public void mouseMoved(MouseEvent e) {
+		if (PauseOverlay.genRects) {
+			PauseOverlay.pause.setupRects();
+		}
+
 		Rectangle r = new Rectangle(e.getPoint().x, e.getPoint().y, 1, 1);
-		if (r.intersects(PauseOverlay.resumeRec)) {
-			PauseOverlay.pause.setOption(OPTIONS.RESUME);
-			Corruption.main.getFrame().repaint();
-		} else if (r.intersects(PauseOverlay.quitRec)) {
-			PauseOverlay.pause.setOption(OPTIONS.QUIT);
-			Corruption.main.getFrame().repaint();
+
+		// used as sometimes the rectangles are not fully genned yet (multiple tasks at
+		// the same time)
+		try {
+			if (r.intersects(PauseOverlay.resumeRec)) {
+				PauseOverlay.pause.setOption(OPTIONS.RESUME);
+				Corruption.main.getFrame().repaint();
+			} else if (r.intersects(PauseOverlay.quitRec)) {
+				PauseOverlay.pause.setOption(OPTIONS.QUIT);
+				Corruption.main.getFrame().repaint();
+			}
+
+		} catch (Exception ex) {
+
 		}
 	}
 

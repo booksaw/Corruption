@@ -161,7 +161,7 @@ public class Player extends Sprite {
 	}
 
 	/**
-	 * Used to calculate the y values for the movment
+	 * Used to calculate the y values for the movement
 	 * 
 	 * @param time
 	 */
@@ -175,8 +175,8 @@ public class Player extends Sprite {
 			// if they actually want to jump and aren't crouching and they havent jumped to
 			// recently
 			KeyListener listen = (KeyListener) Corruption.main.controller.getListeners().get(0);
-
 			if (!isCrouching && listen.up && minPrior <= priorJump) {
+				System.out.println("player here2");
 				// basically getting the person to jump
 				jumpHeight = maxJump;
 				y = changeY(y + (jumpHeight * time), y);

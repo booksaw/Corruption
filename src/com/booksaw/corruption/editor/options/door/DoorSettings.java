@@ -1,6 +1,6 @@
-package com.booksaw.corruption.editor.options;
+package com.booksaw.corruption.editor.options.door;
 
-import com.booksaw.corruption.editor.options.door.OpenOption;
+import com.booksaw.corruption.editor.options.OptionPane;
 import com.booksaw.corruption.editor.options.location.XOption;
 import com.booksaw.corruption.editor.options.location.YOption;
 import com.booksaw.corruption.level.LevelManager;

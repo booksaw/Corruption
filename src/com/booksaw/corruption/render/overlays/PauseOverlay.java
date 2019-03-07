@@ -27,7 +27,7 @@ public class PauseOverlay extends Overlay {
 	public static PauseOverlay pause;
 
 	// so the rectangles are only genned on a window resize
-	private boolean genRects = false;
+	public static  boolean genRects = false;
 	private PauseListener listener;
 
 	public static OPTIONS active = OPTIONS.RESUME;
