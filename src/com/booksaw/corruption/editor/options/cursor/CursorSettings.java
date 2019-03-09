@@ -7,7 +7,7 @@ public class CursorSettings extends OptionPane {
 	public static SELECTION selection = SELECTION.BLOCK;
 
 	public enum SELECTION {
-		BLOCK, BACKGROUND, DOOR;
+		BLOCK, BACKGROUND/* , OBJECT */;
 	}
 
 	@Override

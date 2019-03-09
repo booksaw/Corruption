@@ -30,8 +30,9 @@ import com.booksaw.corruption.level.objects.DraggedBlock;
 import com.booksaw.corruption.level.objects.GameObject;
 import com.booksaw.corruption.render.GameCamera;
 import com.booksaw.corruption.render.overlays.ActiveSelection;
-import com.booksaw.corruption.render.overlays.DoorOverlay;
 import com.booksaw.corruption.render.overlays.EditorOverlay;
+import com.booksaw.corruption.render.overlays.ObjectCursorOverlay;
+import com.booksaw.corruption.render.overlays.ObjectOverlay;
 import com.booksaw.corruption.render.overlays.Overlay;
 import com.booksaw.corruption.render.overlays.SpriteCursorOverlay;
 import com.booksaw.corruption.render.overlays.SpriteOverlay;
@@ -110,6 +111,12 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 		case SPRITECURSOR:
 			spriteCursorClick(e, p);
 			break;
+		case OBJECT:
+			ObjectClick(p);
+			break;
+		case OBJECTCURSOR:
+			ObjectCursorClick(e, p);
+			break;
 		}
 
 	}
@@ -118,7 +125,7 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 		LevelManager.activeLevel.save();
 	}
 
-	public void insert() {
+	public void insertSprite() {
 
 		RenderController temp = Corruption.main.controller;
 
@@ -126,7 +133,19 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 			return;
 		}
 
-		((EditorController) temp).insert();
+		((EditorController) temp).insertSprite();
+
+	}
+
+	public void insertObject() {
+
+		RenderController temp = Corruption.main.controller;
+
+		if (!(temp instanceof EditorController)) {
+			return;
+		}
+
+		((EditorController) temp).insertObject();
 
 	}
 
@@ -142,7 +161,7 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 		if (p.getX() > GameCamera.cameraWidth - (EditorOverlay.SQUARE * 2)
 				&& p.getY() > GameCamera.cameraHeight - EditorOverlay.SQUARE
 				&& p.getX() < GameCamera.cameraWidth - EditorOverlay.SQUARE && p.getY() < GameCamera.cameraHeight) {
-			insert();
+			insertSprite();
 			return;
 		}
 
@@ -174,13 +193,19 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 			int result = JOptionPane.showConfirmDialog(Corruption.main.getFrame(), Language.getMessage("editor.trash"),
 					Language.getMessage("title"), JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, Config.logo);
 
-			System.out.println(result);
 			if (result == 0) {
 				LevelManager.activeLevel.erase();
 			}
 
 			return;
+		}
+		if (p.getX() > GameCamera.cameraWidth - (EditorOverlay.SQUARE * 6)
+				&& p.getY() > GameCamera.cameraHeight - EditorOverlay.SQUARE
+				&& p.getX() < GameCamera.cameraWidth - (EditorOverlay.SQUARE * 5)
+				&& p.getY() < GameCamera.cameraHeight) {
 
+			insertObject();
+			return;
 		}
 
 		if (CursorSettings.selection == SELECTION.BLOCK) {
@@ -212,8 +237,6 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 				DraggedBackground.background.finalise();
 				return;
 			}
-		} else if (CursorSettings.selection == SELECTION.DOOR) {
-			DoorOverlay.doorOverlay.place();
 		}
 
 		if (SwingUtilities.isRightMouseButton(e)) {
@@ -278,6 +301,35 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 		} else if (SwingUtilities.isRightMouseButton(e)) {
 			selection = ActiveSelection.MAIN;
 			Overlay.removeOverlay(SpriteCursorOverlay.cursorOverlay);
+		}
+	}
+
+	private void ObjectClick(Point p) {
+		Overlay store = null;
+		for (Overlay o : Overlay.getActiveOverlays()) {
+			if (!(o instanceof ObjectOverlay)) {
+				continue;
+			}
+
+			store = o;
+			((ObjectOverlay) o).click(p);
+			break;
+		}
+
+		Overlay.removeOverlay(store);
+
+	}
+
+	private void ObjectCursorClick(MouseEvent e, Point p) {
+		if (SwingUtilities.isLeftMouseButton(e)) {
+
+			selection = ActiveSelection.MAIN;
+			Overlay.removeOverlay(ObjectCursorOverlay.objectOverlay);
+			LevelManager.activeLevel.addObject(ObjectCursorOverlay.objectOverlay.o);
+
+		} else if (SwingUtilities.isRightMouseButton(e)) {
+			selection = ActiveSelection.MAIN;
+			Overlay.removeOverlay(ObjectCursorOverlay.objectOverlay);
 		}
 	}
 

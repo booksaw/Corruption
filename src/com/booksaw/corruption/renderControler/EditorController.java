@@ -11,9 +11,10 @@ import com.booksaw.corruption.listeners.KeyListener;
 import com.booksaw.corruption.listeners.Listener;
 import com.booksaw.corruption.render.GameCamera;
 import com.booksaw.corruption.render.RenderInterface;
+import com.booksaw.corruption.render.overlays.EditorOverlay;
+import com.booksaw.corruption.render.overlays.ObjectOverlay;
 import com.booksaw.corruption.render.overlays.Overlay;
 import com.booksaw.corruption.render.overlays.SpriteOverlay;
-import com.booksaw.corruption.render.overlays.EditorOverlay;
 import com.booksaw.corruption.sprites.CameraSprite;
 
 public class EditorController extends RenderController {
@@ -96,8 +97,12 @@ public class EditorController extends RenderController {
 		Corruption.main.startClock();
 	}
 
-	public void insert() {
+	public void insertSprite() {
 		Overlay.addOverlay(new SpriteOverlay());
+	}
+	
+	public void insertObject() {
+		Overlay.addOverlay(new ObjectOverlay());
 	}
 
 	@Override

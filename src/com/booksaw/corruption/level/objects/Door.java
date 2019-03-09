@@ -8,7 +8,6 @@ import java.io.File;
 
 import com.booksaw.corruption.Config;
 import com.booksaw.corruption.Utils;
-import com.booksaw.corruption.render.GameCamera;
 import com.booksaw.corruption.sprites.Sprite;
 
 public class Door extends GameObject {
@@ -46,13 +45,10 @@ public class Door extends GameObject {
 
 	@Override
 	public void render(Graphics g, Rectangle camera) {
-
 		if (open) {
-			g.drawImage(doorOpen, x - camera.x, (GameCamera.cameraHeight + camera.y) - (y + height), width, height,
-					null);
+			g.drawImage(doorOpen, x - camera.x, (camera.height + camera.y) - (y + height), width, height, null);
 		} else {
-			g.drawImage(doorClosed, x - camera.x, (GameCamera.cameraHeight + camera.y) - (y + height), width, height,
-					null);
+			g.drawImage(doorClosed, x - camera.x, (camera.height + camera.y) - (y + height), width, height, null);
 
 		}
 	}

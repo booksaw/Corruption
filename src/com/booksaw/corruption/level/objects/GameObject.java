@@ -93,4 +93,9 @@ public abstract class GameObject implements Location, Dimensions {
 		return true;
 	}
 
+	public void setLocation(Point p) {
+		x = p.x;
+		y = p.y; 
+	}
+
 }
