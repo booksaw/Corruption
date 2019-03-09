@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
 
+import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.render.overlays.Overlay;
 import com.booksaw.corruption.render.overlays.PauseOverlay;
 
@@ -24,6 +25,7 @@ public class KeyListener implements java.awt.event.KeyListener, Listener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 
+		
 		if (PauseOverlay.paused) {
 			return;
 		}
@@ -47,6 +49,8 @@ public class KeyListener implements java.awt.event.KeyListener, Listener {
 		case 27:
 			pause();
 			break;
+		case 82:
+			LevelManager.activeLevel.reset();
 		}
 
 	}

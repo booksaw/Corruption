@@ -6,17 +6,20 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
+import com.booksaw.corruption.Config;
 import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.Utils;
-import com.booksaw.corruption.editor.options.gameobjects.BlockSettings;
-import com.booksaw.corruption.editor.options.sprites.SpriteSettings;
 import com.booksaw.corruption.editor.options.LevelSettings;
 import com.booksaw.corruption.editor.options.background.BackgroundSettings;
 import com.booksaw.corruption.editor.options.cursor.CursorSettings;
 import com.booksaw.corruption.editor.options.cursor.CursorSettings.SELECTION;
 import com.booksaw.corruption.editor.options.door.DoorSettings;
+import com.booksaw.corruption.editor.options.gameobjects.BlockSettings;
+import com.booksaw.corruption.editor.options.sprites.SpriteSettings;
+import com.booksaw.corruption.language.Language;
 import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.level.background.Background;
 import com.booksaw.corruption.level.background.ColoredBackground;
@@ -163,6 +166,22 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 			settings.setVisible(true);
 			return;
 		}
+		if (p.getX() > GameCamera.cameraWidth - (EditorOverlay.SQUARE * 5)
+				&& p.getY() > GameCamera.cameraHeight - EditorOverlay.SQUARE
+				&& p.getX() < GameCamera.cameraWidth - (EditorOverlay.SQUARE * 4)
+				&& p.getY() < GameCamera.cameraHeight) {
+
+			int result = JOptionPane.showConfirmDialog(Corruption.main.getFrame(), Language.getMessage("editor.trash"),
+					Language.getMessage("title"), JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, Config.logo);
+
+			System.out.println(result);
+			if (result == 0) {
+				LevelManager.activeLevel.erase();
+			}
+
+			return;
+
+		}
 
 		if (CursorSettings.selection == SELECTION.BLOCK) {
 			if (SwingUtilities.isLeftMouseButton(e)) {
@@ -253,6 +272,7 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 
 			selection = ActiveSelection.MAIN;
 			Overlay.removeOverlay(SpriteCursorOverlay.cursorOverlay);
+			SpriteCursorOverlay.cursorOverlay.s.setStartingLocation();
 			LevelManager.activeLevel.addSprite(SpriteCursorOverlay.cursorOverlay.s);
 
 		} else if (SwingUtilities.isRightMouseButton(e)) {

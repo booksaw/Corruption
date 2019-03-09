@@ -10,8 +10,6 @@ import com.booksaw.corruption.listeners.KeyListener;
 import com.booksaw.corruption.listeners.Listener;
 import com.booksaw.corruption.render.GameCamera;
 import com.booksaw.corruption.render.RenderInterface;
-import com.booksaw.corruption.sprites.Player;
-import com.booksaw.corruption.sprites.Sprite;
 
 public class GameController extends RenderController {
 
@@ -22,7 +20,6 @@ public class GameController extends RenderController {
 	 */
 	private KeyListener listener;
 
-	public Player p;
 	public GameCamera c;
 
 	public GameController() {
@@ -32,7 +29,8 @@ public class GameController extends RenderController {
 
 	@Override
 	public void update(int time) {
-		p.update(time);
+
+		LevelManager.activeLevel.update(time);
 	}
 
 	@Override
@@ -45,25 +43,8 @@ public class GameController extends RenderController {
 		} else {
 			lm = LevelManager.activeLevel;
 		}
-
-		for (Sprite s : lm.getSprites()) {
-			if (s instanceof Player) {
-				if (s.activePlayer)
-					p = (Player) s;
-
-			}
-		}
 		lm.finalise();
 		Corruption.main.startClock();
-	}
-
-	/**
-	 * Gives the active player
-	 * 
-	 * @return the player
-	 */
-	public Player getActivePlayer() {
-		return p;
 	}
 
 	@Override

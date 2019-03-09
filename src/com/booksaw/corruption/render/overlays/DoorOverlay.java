@@ -38,7 +38,8 @@ public class DoorOverlay extends Overlay {
 	}
 
 	public void place() {
-		System.out.println("running placeS");
+		d.setX(d.getX() + GameCamera.activeCamera.x);
+		d.setY(d.getY() + GameCamera.activeCamera.y);
 		LevelManager.activeLevel.addObject(d);
 		d = new Door(new Point(-100, -100), false);
 

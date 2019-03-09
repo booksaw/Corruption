@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import com.booksaw.corruption.Corruption;
+import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.listeners.KeyListener;
 import com.booksaw.corruption.render.GameCamera;
 
@@ -75,6 +76,9 @@ public class CameraSprite extends Sprite {
 
 		if (listen.left) {
 			x = changeX(x - (SPEED * time), x);
+			if (x + GameCamera.cameraWidth > LevelManager.activeLevel.levelDimensions.width) {
+				x = LevelManager.activeLevel.levelDimensions.width - GameCamera.cameraWidth;
+			}
 		}
 
 		if (listen.right) {

@@ -27,6 +27,7 @@ public class SpriteSettings extends OptionPane {
 		included.add(new XOption(s));
 		included.add(new YOption(s));
 		included.add(new ActiveSprite(s));
+		included.add(new ControlSprite(s));
 	}
 
 	@Override

@@ -33,6 +33,9 @@ public class EditorController extends RenderController {
 	@Override
 	public void update(int time) {
 		camera.update(time);
+
+//		LevelManager.activeLevel.update(time);
+
 	}
 
 	@Override
@@ -81,6 +84,9 @@ public class EditorController extends RenderController {
 		} else {
 			lm = LevelManager.activeLevel;
 		}
+
+		lm.resetAll();
+
 		lm.finalise();
 		lm.addSprite(camera);
 
@@ -101,7 +107,7 @@ public class EditorController extends RenderController {
 
 	@Override
 	public void back() {
-		
+
 	}
 
 }

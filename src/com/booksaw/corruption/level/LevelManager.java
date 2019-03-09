@@ -18,7 +18,6 @@ import com.booksaw.corruption.level.meta.BackgroundColorMeta;
 import com.booksaw.corruption.level.meta.CameraLocationMeta;
 import com.booksaw.corruption.level.meta.LevelDimensionsMeta;
 import com.booksaw.corruption.level.meta.Meta;
-import com.booksaw.corruption.level.meta.PlayerSpawnMeta;
 import com.booksaw.corruption.level.objects.Block;
 import com.booksaw.corruption.level.objects.Door;
 import com.booksaw.corruption.level.objects.GameObject;
@@ -94,27 +93,7 @@ public class LevelManager {
 		}
 
 		if (!read) {
-
-			PrintWriter pw = null;
-			try {
-				pw = new PrintWriter(level);
-				br = new BufferedReader(new FileReader(Config.ASSETSPATH + File.separator + "default.level"));
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
-
-			try {
-				while ((line = br.readLine()) != null) {
-					read = true;
-					runLine(line);
-					pw.println(line);
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
-			pw.close();
-
+			resetLevel();
 		}
 
 		try {
@@ -122,6 +101,41 @@ public class LevelManager {
 		} catch (Exception e) {
 		}
 
+	}
+
+	private void resetLevel() {
+		resetLevel(true);
+	}
+
+	private void resetLevel(boolean save) {
+		BufferedReader br = null;
+		PrintWriter pw = null;
+		try {
+			pw = new PrintWriter(f);
+			br = new BufferedReader(new FileReader(Config.ASSETSPATH + File.separator + "default.level"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		String line = "";
+
+		try {
+			while ((line = br.readLine()) != null) {
+				runLine(line);
+				if (save) {
+					pw.println(line);
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			pw.close();
+			br.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -176,9 +190,6 @@ public class LevelManager {
 	private void makeMeta(String type, String info) {
 		// finds what type of meta it is and setup the appropriate meta
 		switch (type) {
-		case "playerspawn":
-			metaData.add(new PlayerSpawnMeta(info));
-			break;
 		case "leveldimensions":
 			metaData.add(new LevelDimensionsMeta(info));
 			break;
@@ -312,6 +323,42 @@ public class LevelManager {
 
 	public void setActive() {
 		activeLevel = this;
+	}
+
+	public void update(int time) {
+		for (Sprite s : sprites) {
+			if (s.controllable) {
+				s.update(time);
+			}
+		}
+	}
+
+	/**
+	 * Used to remove all items from a level
+	 */
+	public void erase() {
+
+		// resets all stored items
+		sprites = new ArrayList<>();
+		levelObjects = new ArrayList<>();
+		backgrounds = new ArrayList<>();
+		// resets the file to the default file
+		resetLevel(false);
+	}
+
+	public void resetAll() {
+		for (Sprite s : sprites) {
+			s.reset();
+		}
+	}
+
+	public void reset() {
+		for (Sprite s : sprites) {
+			if (s.controllable) {
+				s.reset();
+
+			}
+		}
 	}
 
 }

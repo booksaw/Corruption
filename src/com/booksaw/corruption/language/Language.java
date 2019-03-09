@@ -22,7 +22,7 @@ public class Language {
 		messages.put("title", "Corruption");
 
 		messages.put("menu.load", "Load game");
-		messages.put("menu.new", "New game");
+		messages.put("menu.new", "Start game");
 		messages.put("menu.editor", "Editor");
 		messages.put("editor.cancel", "Cancel");
 		messages.put("editor.ok", "OK");
@@ -32,6 +32,7 @@ public class Language {
 		messages.put("editor.tool.delete", "Press this to delete the block");
 		messages.put("editor.color", "Press to select the color");
 		messages.put("editor.color.title", "Color picker");
+		messages.put("editor.trash", "Do you want to clear the level?");
 
 		messages.put("pause.resume", "Resume");
 		messages.put("pause.quit", "Quit");

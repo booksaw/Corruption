@@ -49,6 +49,9 @@ public abstract class Sprite implements Updatable, Location {
 
 	// location of sprite
 	protected double x, y;
+	// starting location of the sprite
+	protected Point startingLocation;
+
 	// for hit boxes
 	protected Dimension dimensions, crouchDimensions;
 	// images in all the standard states
@@ -59,6 +62,7 @@ public abstract class Sprite implements Updatable, Location {
 	protected int standingMax = 1, crouchingMax = 2, walkingMax = 2;
 
 	public boolean activePlayer = false;
+	public boolean controllable = false;
 
 	/**
 	 * Runs at begining of constructor if any setup is required overried preffered
@@ -148,6 +152,9 @@ public abstract class Sprite implements Updatable, Location {
 		x = Integer.parseInt(split[0]);
 		y = Integer.parseInt(split[1]);
 		activePlayer = Boolean.parseBoolean(split[2]);
+		controllable = Boolean.parseBoolean(split[3]);
+
+		startingLocation = new Point((int) x, (int) y);
 
 	}
 
@@ -242,7 +249,7 @@ public abstract class Sprite implements Updatable, Location {
 	public void setY(double y) {
 		this.y = y;
 	}
-	
+
 	/**
 	 * 
 	 * @param x coord of sprite
@@ -436,7 +443,8 @@ public abstract class Sprite implements Updatable, Location {
 		if (this instanceof CameraSprite) {
 			return "";
 		}
-		return "sprite:" + getName() + ":" + ((int) x) + ";" + ((int) y) + ";" + activePlayer;
+		return "sprite:" + getName() + ":" + ((int) startingLocation.x) + ";" + ((int) startingLocation.y) + ";"
+				+ activePlayer + ";" + controllable;
 	}
 
 	public BufferedImage generateCursorImage() {
@@ -452,5 +460,19 @@ public abstract class Sprite implements Updatable, Location {
 
 		return cursorImg;
 
+	}
+
+	public void reset() {
+		x = startingLocation.x;
+		y = startingLocation.y;
+	}
+
+	public void setStartingLocation() {
+		setStartingLocation((int) x, (int) y);
+	}
+
+	public void setStartingLocation(int x, int y) {
+		startingLocation.x = x;
+		startingLocation.y = y;
 	}
 }

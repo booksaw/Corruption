@@ -176,7 +176,6 @@ public class Player extends Sprite {
 			// recently
 			KeyListener listen = (KeyListener) Corruption.main.controller.getListeners().get(0);
 			if (!isCrouching && listen.up && minPrior <= priorJump) {
-				System.out.println("player here2");
 				// basically getting the person to jump
 				jumpHeight = maxJump;
 				y = changeY(y + (jumpHeight * time), y);

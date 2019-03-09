@@ -1,4 +1,4 @@
 meta:leveldimensions:2000;576
 meta:cameralocation:0;0
 meta:backgroundcolor:100;100;100
-sprite:player:0;0;true
+sprite:player:0;0;true;true
