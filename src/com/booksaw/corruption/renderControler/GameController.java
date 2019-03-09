@@ -42,6 +42,7 @@ public class GameController extends RenderController {
 
 		} else {
 			lm = LevelManager.activeLevel;
+			lm.load();
 		}
 		lm.finalise();
 		Corruption.main.startClock();

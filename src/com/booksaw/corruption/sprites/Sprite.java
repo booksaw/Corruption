@@ -371,6 +371,15 @@ public abstract class Sprite implements Updatable, Location {
 	}
 
 	public void setActiveplayer(boolean active) {
+		if (active) {
+			// used to catch errors if this is run on level load
+			try {
+				LevelManager.activeLevel.clearActivePlayer();
+			} catch (Exception e) {
+
+			}
+		}
+
 		activePlayer = active;
 	}
 
@@ -472,7 +481,6 @@ public abstract class Sprite implements Updatable, Location {
 	}
 
 	public void setStartingLocation(int x, int y) {
-		startingLocation.x = x;
-		startingLocation.y = y;
+		startingLocation = new Point(x, y);
 	}
 }

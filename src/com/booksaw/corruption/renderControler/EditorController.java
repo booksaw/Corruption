@@ -83,6 +83,7 @@ public class EditorController extends RenderController {
 
 		} else {
 			lm = LevelManager.activeLevel;
+			lm.load();
 		}
 
 		lm.resetAll();
@@ -102,7 +103,6 @@ public class EditorController extends RenderController {
 	@Override
 	public void disable() {
 		Corruption.main.getFrame().setResizable(true);
-		System.out.println("resizable");
 	}
 
 	@Override

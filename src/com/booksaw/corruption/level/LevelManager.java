@@ -71,12 +71,21 @@ public class LevelManager {
 	 * @param level
 	 */
 	public LevelManager(File level) {
-		// storing the file
 		f = level;
+		load();
+	}
+
+	public void load() {
+		// resets all stored items
+		metaData = new ArrayList<>();
+		sprites = new ArrayList<>();
+		levelObjects = new ArrayList<>();
+		backgrounds = new ArrayList<>();
+		
 		// setting up the file reader
 		BufferedReader br = null;
 		try {
-			br = new BufferedReader(new FileReader(level));
+			br = new BufferedReader(new FileReader(f));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -339,6 +348,7 @@ public class LevelManager {
 	public void erase() {
 
 		// resets all stored items
+		metaData = new ArrayList<>();
 		sprites = new ArrayList<>();
 		levelObjects = new ArrayList<>();
 		backgrounds = new ArrayList<>();
@@ -357,6 +367,14 @@ public class LevelManager {
 			if (s.controllable) {
 				s.reset();
 
+			}
+		}
+	}
+
+	public void clearActivePlayer() {
+		for (Sprite s : sprites) {
+			if (s.activePlayer) {
+				s.setActiveplayer(false);
 			}
 		}
 	}
