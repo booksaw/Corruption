@@ -46,6 +46,7 @@ public class Corruption implements ActionListener, ComponentListener {
 	public RenderController controller;
 
 	public Corruption() {
+		Config.load();
 		// so things can find statically (only 1 is made per program so this isen't
 		// dangerous)
 		main = this;
@@ -54,6 +55,7 @@ public class Corruption implements ActionListener, ComponentListener {
 
 		// basic JFrame configuration
 		f = new JFrame("Corruption");
+		f.setIconImage(Config.logo.getImage());
 		f.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {

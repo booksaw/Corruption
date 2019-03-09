@@ -20,14 +20,14 @@ public class Player extends Sprite {
 	File assetFolder;
 
 	// used for jumping
-	double jumpHeight, weight = 0.005;
+	double jumpHeight, weight = 0.002;
 	// used to add a delay to jumps
-	int minPrior = 200, priorJump = 0;
+	int minPrior = 100, priorJump = 0;
 	// more jumping stuff (self explaniatory)
-	final double maxJump = 1;
+	final double maxJump = 0.6;
 
 	// the speed left and right the player can travel
-	private final double SPEED = 0.1;
+	private final double SPEED = 0.13;
 
 	public Player(String info) {
 		super(info);

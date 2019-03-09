@@ -1,6 +1,8 @@
 package com.booksaw.corruption;
 
-import javax.swing.Icon;
+import java.io.File;
+
+import javax.swing.ImageIcon;
 
 /**
  * Stores static final info
@@ -9,8 +11,13 @@ import javax.swing.Icon;
  *
  */
 public class Config {
+
 	public static final String ASSETSPATH = "resources";
 
-	public static final Icon logo = null;
+	static void load() {
+		logo = new ImageIcon(Utils.getImage(new File(ASSETSPATH + File.separator + "logoicon.png")));
+	}
+
+	public static ImageIcon logo = null;
 
 }

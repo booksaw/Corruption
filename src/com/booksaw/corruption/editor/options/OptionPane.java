@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
+import com.booksaw.corruption.Config;
 import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.language.Language;
 import com.booksaw.corruption.level.LevelManager;
@@ -28,7 +29,7 @@ public abstract class OptionPane implements ActionListener, KeyListener {
 	public OptionPane() {
 
 		f = new JFrame(getName());
-
+		f.setIconImage(Config.logo.getImage());
 	}
 
 	public abstract String getName();
