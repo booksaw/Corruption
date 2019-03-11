@@ -1,5 +1,6 @@
 package com.booksaw.corruption.sprites;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -8,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 
 import com.booksaw.corruption.Corruption;
+import com.booksaw.corruption.Selectable;
 import com.booksaw.corruption.Updatable;
 import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.level.Location;
@@ -20,7 +22,7 @@ import com.booksaw.corruption.render.GameCamera;
  * @author James
  *
  */
-public abstract class Sprite implements Updatable, Location {
+public abstract class Sprite extends Selectable implements Updatable, Location {
 
 	public static Sprite getSprite(Point p, List<Sprite> sprites) {
 		return getSprite(new Rectangle(p, new Dimension(1, 1)), sprites);
@@ -344,6 +346,12 @@ public abstract class Sprite implements Updatable, Location {
 
 				(int) (getAnimationStage() * d.getWidth()), 0, (int) ((getAnimationStage() + 1) * d.getWidth()),
 				(int) d.getHeight(), null);
+
+		if (selected) {
+			g.setColor(Color.WHITE);
+			g.drawRect((int) (x + cameraX), (int) (cameraHeight - (y + cameraY + (d.getHeight() * PIXELMULT))),
+					(int) (d.getWidth() * PIXELMULT), (int) (d.getHeight() * PIXELMULT));
+		}
 	}
 
 	/**
@@ -482,5 +490,18 @@ public abstract class Sprite implements Updatable, Location {
 
 	public void setStartingLocation(int x, int y) {
 		startingLocation = new Point(x, y);
+	}
+
+	@Override
+	public void applyOffset(Point p) {
+		x += p.x;
+		y += p.y;
+	}
+
+	@Override
+	public void delete() {
+
+		LevelManager.activeLevel.removeSprite(this);
+
 	}
 }

@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import com.booksaw.corruption.Selectable;
 import com.booksaw.corruption.level.Dimensions;
 import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.level.Location;
@@ -15,7 +16,7 @@ import com.booksaw.corruption.level.Location;
  * @author James
  *
  */
-public abstract class GameObject implements Location, Dimensions {
+public abstract class GameObject extends Selectable implements Location, Dimensions {
 
 	public boolean collidable = true;
 
@@ -95,7 +96,18 @@ public abstract class GameObject implements Location, Dimensions {
 
 	public void setLocation(Point p) {
 		x = p.x;
-		y = p.y; 
+		y = p.y;
+	}
+
+	@Override
+	public void applyOffset(Point p) {
+		x += p.x;
+		y += p.y;
+	}
+
+	@Override
+	public void delete() {
+		LevelManager.activeLevel.removeObject(this);
 	}
 
 }

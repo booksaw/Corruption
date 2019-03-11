@@ -5,7 +5,6 @@ import com.booksaw.corruption.editor.options.dimensions.HeightOption;
 import com.booksaw.corruption.editor.options.dimensions.WidthOption;
 import com.booksaw.corruption.editor.options.location.XOption;
 import com.booksaw.corruption.editor.options.location.YOption;
-import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.level.background.ColoredBackground;
 
 public class BackgroundSettings extends OptionPane {
@@ -35,7 +34,7 @@ public class BackgroundSettings extends OptionPane {
 
 	@Override
 	public void deleteThing() {
-		LevelManager.activeLevel.removeBackground(background);
+		background.delete();
 	}
 
 }

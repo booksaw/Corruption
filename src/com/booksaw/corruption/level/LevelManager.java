@@ -81,7 +81,7 @@ public class LevelManager {
 		sprites = new ArrayList<>();
 		levelObjects = new ArrayList<>();
 		backgrounds = new ArrayList<>();
-		
+
 		// setting up the file reader
 		BufferedReader br = null;
 		try {
@@ -281,7 +281,7 @@ public class LevelManager {
 		backgrounds.remove(b);
 	}
 
-	public void removeSprites(Sprite s) {
+	public void removeSprite(Sprite s) {
 		sprites.remove(s);
 	}
 

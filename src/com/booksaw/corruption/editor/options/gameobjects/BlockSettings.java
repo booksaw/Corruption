@@ -3,7 +3,6 @@ package com.booksaw.corruption.editor.options.gameobjects;
 import com.booksaw.corruption.editor.options.OptionPane;
 import com.booksaw.corruption.editor.options.location.XOption;
 import com.booksaw.corruption.editor.options.location.YOption;
-import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.level.objects.Block;
 
 public class BlockSettings extends OptionPane {
@@ -33,7 +32,7 @@ public class BlockSettings extends OptionPane {
 
 	@Override
 	public void deleteThing() {
-		LevelManager.activeLevel.removeObject(block);
+		block.delete();
 	}
 
 }

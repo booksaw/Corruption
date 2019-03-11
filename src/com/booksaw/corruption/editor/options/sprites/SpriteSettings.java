@@ -3,7 +3,6 @@ package com.booksaw.corruption.editor.options.sprites;
 import com.booksaw.corruption.editor.options.OptionPane;
 import com.booksaw.corruption.editor.options.location.XOption;
 import com.booksaw.corruption.editor.options.location.YOption;
-import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.sprites.Sprite;
 
 public class SpriteSettings extends OptionPane {
@@ -32,7 +31,7 @@ public class SpriteSettings extends OptionPane {
 
 	@Override
 	public void deleteThing() {
-		LevelManager.activeLevel.removeSprites(s);
+		s.delete();
 	}
 
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.level.LevelManager;
+import com.booksaw.corruption.listeners.EditorKeyListener;
 import com.booksaw.corruption.listeners.EditorMouseListener;
 import com.booksaw.corruption.listeners.KeyListener;
 import com.booksaw.corruption.listeners.Listener;
@@ -20,8 +21,9 @@ import com.booksaw.corruption.sprites.CameraSprite;
 public class EditorController extends RenderController {
 
 	GameCamera c;
-	KeyListener keyListener;
+	KeyListener gameListener;
 	EditorMouseListener mouseListener;
+	EditorKeyListener keyListener;
 	CameraSprite camera;
 
 	public EditorController() {
@@ -46,13 +48,16 @@ public class EditorController extends RenderController {
 
 	@Override
 	public List<Listener> generateListeners() {
-		keyListener = new KeyListener();
+		gameListener = new KeyListener();
 		mouseListener = new EditorMouseListener();
+		keyListener = new EditorKeyListener();
 
+		// important this order is used as some assumptions are made elsewhere
 		List<Listener> toReturn = new ArrayList<>();
-		toReturn.add(keyListener);
-		toReturn.add(mouseListener);
 
+		toReturn.add(mouseListener);
+		toReturn.add(keyListener);
+		toReturn.add(gameListener);
 		return toReturn;
 	}
 
@@ -61,6 +66,7 @@ public class EditorController extends RenderController {
 		List<Listener> toReturn = new ArrayList<>();
 		toReturn.add(keyListener);
 		toReturn.add(mouseListener);
+		toReturn.add(gameListener);
 
 		return toReturn;
 	}
@@ -100,7 +106,7 @@ public class EditorController extends RenderController {
 	public void insertSprite() {
 		Overlay.addOverlay(new SpriteOverlay());
 	}
-	
+
 	public void insertObject() {
 		Overlay.addOverlay(new ObjectOverlay());
 	}

@@ -6,10 +6,12 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.List;
 
+import com.booksaw.corruption.Selectable;
 import com.booksaw.corruption.level.Dimensions;
+import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.level.Location;
 
-public abstract class Background implements Dimensions, Location {
+public abstract class Background extends Selectable implements Dimensions, Location {
 
 	public static Background getBackground(Point p, List<Background> backgrounds) {
 		return getBackground(new Rectangle(p, new Dimension(1, 1)), backgrounds);
@@ -66,4 +68,15 @@ public abstract class Background implements Dimensions, Location {
 		return new Rectangle(x, y, width, height);
 	}
 
+	@Override
+	public void applyOffset(Point p) {
+		x += p.x;
+		y += p.y;
+	}
+
+	@Override
+	public void delete() {
+		LevelManager.activeLevel.removeBackground(this);
+	}
+	
 }

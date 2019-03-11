@@ -11,6 +11,7 @@ import javax.swing.SwingUtilities;
 
 import com.booksaw.corruption.Config;
 import com.booksaw.corruption.Corruption;
+import com.booksaw.corruption.Selectable;
 import com.booksaw.corruption.Utils;
 import com.booksaw.corruption.editor.options.LevelSettings;
 import com.booksaw.corruption.editor.options.background.BackgroundSettings;
@@ -84,7 +85,8 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if (selection == ActiveSelection.SPRITE || selection == ActiveSelection.SPRITECURSOR) {
+		if (selection == ActiveSelection.SPRITE || selection == ActiveSelection.SPRITECURSOR
+				|| selection == ActiveSelection.OBJECT || selection == ActiveSelection.OBJECTCURSOR) {
 			return;
 		}
 		if (SwingUtilities.isLeftMouseButton(e)) {
@@ -247,6 +249,10 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 
 	private void mainClickFinalize(MouseEvent e, Point p) {
 
+		if (SwingUtilities.isLeftMouseButton(e)) {
+			leftClickFinalize(p);
+			return;
+		}
 		Point temp = new Point(p.x + GameCamera.activeCamera.x,
 				GameCamera.cameraHeight - (p.y + GameCamera.activeCamera.y));
 
@@ -331,6 +337,31 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 			selection = ActiveSelection.MAIN;
 			Overlay.removeOverlay(ObjectCursorOverlay.objectOverlay);
 		}
+	}
+
+	private void leftClickFinalize(Point p) {
+		Point temp = new Point(p.x + GameCamera.activeCamera.x,
+				GameCamera.cameraHeight - (p.y + GameCamera.activeCamera.y));
+
+		GameObject o = GameObject.getObject(temp);
+		if (o != null) {
+			o.setSelected(true);
+			return;
+		}
+
+		Sprite s = Sprite.getSprite(temp, LevelManager.activeLevel.getSprites());
+		if (s != null) {
+			s.setSelected(true);
+			return;
+		}
+
+		Background b = Background.getBackground(temp, LevelManager.activeLevel.getBackgrounds());
+		if (b != null && (b instanceof ColoredBackground)) {
+			new BackgroundSettings((ColoredBackground) b).setVisible(true);
+			return;
+		}
+
+		Selectable.clearSelection();
 	}
 
 	@Override
