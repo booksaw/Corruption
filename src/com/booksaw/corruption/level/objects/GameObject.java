@@ -5,10 +5,10 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-import com.booksaw.corruption.Selectable;
 import com.booksaw.corruption.level.Dimensions;
 import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.level.Location;
+import com.booksaw.corruption.selection.Selectable;
 
 /**
  * Abstract class for game objects

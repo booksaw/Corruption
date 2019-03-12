@@ -1,9 +1,11 @@
-package com.booksaw.corruption;
+package com.booksaw.corruption.selection;
 
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.listeners.EditorKeyListener;
 import com.booksaw.corruption.listeners.Listener;
 
@@ -72,5 +74,7 @@ public abstract class Selectable {
 	public abstract void delete();
 
 	public abstract void applyOffset(Point p);
+
+	public abstract Rectangle getRectangle();
 
 }

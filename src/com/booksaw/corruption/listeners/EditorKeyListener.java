@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
 
-import com.booksaw.corruption.Selectable;
+import com.booksaw.corruption.selection.Selectable;
 
 public class EditorKeyListener implements Listener, KeyListener {
 

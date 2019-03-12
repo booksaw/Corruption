@@ -11,7 +11,6 @@ import javax.swing.SwingUtilities;
 
 import com.booksaw.corruption.Config;
 import com.booksaw.corruption.Corruption;
-import com.booksaw.corruption.Selectable;
 import com.booksaw.corruption.Utils;
 import com.booksaw.corruption.editor.options.LevelSettings;
 import com.booksaw.corruption.editor.options.background.BackgroundSettings;
@@ -39,6 +38,8 @@ import com.booksaw.corruption.render.overlays.SpriteCursorOverlay;
 import com.booksaw.corruption.render.overlays.SpriteOverlay;
 import com.booksaw.corruption.renderControler.EditorController;
 import com.booksaw.corruption.renderControler.RenderController;
+import com.booksaw.corruption.selection.DraggedSelection;
+import com.booksaw.corruption.selection.Selectable;
 import com.booksaw.corruption.sprites.Sprite;
 
 public class EditorMouseListener implements Listener, MouseListener, MouseMotionListener {
@@ -62,6 +63,14 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 			}
 			if (SwingUtilities.isLeftMouseButton(e))
 				DraggedBackground.background.setPoint(e.getPoint());
+
+		} else if (CursorSettings.selection == SELECTION.SELECTOR) {
+
+			if (DraggedSelection.selection == null) {
+				return;
+			}
+			if (SwingUtilities.isLeftMouseButton(e))
+				DraggedSelection.selection.setPoint(e.getPoint());
 
 		}
 	}
@@ -95,6 +104,8 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 				new DraggedBlock(e.getPoint());
 			} else if (CursorSettings.selection == SELECTION.BACKGROUND) {
 				new DraggedBackground(e.getPoint());
+			} else if (CursorSettings.selection == SELECTION.SELECTOR) {
+				new DraggedSelection(e.getPoint());
 			}
 		}
 	}
@@ -237,6 +248,20 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 					return;
 				}
 				DraggedBackground.background.finalise();
+				return;
+			}
+		} else if (CursorSettings.selection == SELECTION.SELECTOR) {
+			if (SwingUtilities.isLeftMouseButton(e)) {
+				if (DraggedSelection.selection == null) {
+					mainClickFinalize(e, e.getPoint());
+					return;
+				}
+				if (DraggedSelection.selection.getWidth() == 0 || DraggedSelection.selection.getHeight() == 0) {
+					mainClickFinalize(e, e.getPoint());
+					DraggedSelection.selection = null;
+					return;
+				}
+				DraggedSelection.selection.finalise();
 				return;
 			}
 		}

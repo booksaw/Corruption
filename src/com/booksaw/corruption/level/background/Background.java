@@ -6,10 +6,10 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.List;
 
-import com.booksaw.corruption.Selectable;
 import com.booksaw.corruption.level.Dimensions;
 import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.level.Location;
+import com.booksaw.corruption.selection.Selectable;
 
 public abstract class Background extends Selectable implements Dimensions, Location {
 
@@ -64,7 +64,7 @@ public abstract class Background extends Selectable implements Dimensions, Locat
 		this.height = height;
 	}
 
-	protected Rectangle getRectangle() {
+	public Rectangle getRectangle() {
 		return new Rectangle(x, y, width, height);
 	}
 

@@ -47,7 +47,7 @@ public class CameraSprite extends Sprite {
 	}
 
 	@Override
-	protected Rectangle getRectangle() {
+	public Rectangle getRectangle() {
 		return new Rectangle(-1, -1, 0, 0);
 	}
 

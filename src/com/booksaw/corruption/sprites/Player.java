@@ -226,7 +226,7 @@ public class Player extends Sprite {
 	 * Returns the rectangle of the players location at the momemtn
 	 */
 	@Override
-	protected Rectangle getRectangle() {
+	public Rectangle getRectangle() {
 
 		return getRectangle((int) x, (int) y);
 	}
@@ -327,6 +327,5 @@ public class Player extends Sprite {
 	protected String getName() {
 		return "player";
 	}
-
 
 }

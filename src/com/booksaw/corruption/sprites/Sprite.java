@@ -9,12 +9,12 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 
 import com.booksaw.corruption.Corruption;
-import com.booksaw.corruption.Selectable;
 import com.booksaw.corruption.Updatable;
 import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.level.Location;
 import com.booksaw.corruption.level.objects.GameObject;
 import com.booksaw.corruption.render.GameCamera;
+import com.booksaw.corruption.selection.Selectable;
 
 /**
  * Class all sprites extend, used to have basic information about sprites
@@ -114,7 +114,7 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 	 * 
 	 * @return
 	 */
-	protected abstract Rectangle getRectangle();
+	public abstract Rectangle getRectangle();
 
 	/**
 	 * Gives the hitbox of a character if it was at a specific location

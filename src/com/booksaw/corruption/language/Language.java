@@ -40,7 +40,7 @@ public class Language {
 
 		messages.put("cursor.block", "Block");
 		messages.put("cursor.background", "Background");
-		messages.put("cursor.door", "Door");
+		messages.put("cursor.selection", "Select");
 
 	}
 
