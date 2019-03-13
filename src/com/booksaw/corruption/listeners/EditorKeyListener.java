@@ -70,8 +70,9 @@ public class EditorKeyListener implements Listener, KeyListener {
 						String data = (String) t.getTransferData(DataFlavor.stringFlavor);
 
 						String[] split = data.split("\n");
+						Selectable.clearSelection();
 						for (String s : split) {
-							LevelManager.activeLevel.runLine(s);
+							LevelManager.activeLevel.runLine(s, true);
 						}
 
 					}

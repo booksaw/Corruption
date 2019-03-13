@@ -90,7 +90,6 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 	@Override
 	public void mouseMoved(MouseEvent e) {
 
-
 		Selectable s = Selectable.getSelectable(e.getPoint());
 		if (s == null) {
 			if (!CursorManager.normal) {

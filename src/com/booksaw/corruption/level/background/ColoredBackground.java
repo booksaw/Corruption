@@ -36,6 +36,27 @@ public class ColoredBackground extends Background {
 	public void draw(Graphics g, Rectangle camera) {
 		g.setColor(c);
 		g.fillRect((x - camera.x), GameCamera.cameraHeight - y - height - camera.y, width, height);
+
+		if (selected) {
+			int cameraX = camera.x;
+			int cameraHeight = camera.height;
+			int cameraY = camera.y;
+
+			g.setColor(Color.WHITE);
+			g.drawRect((int) (x - cameraX), (int) (cameraHeight - (y + cameraY + (getHeight()))), (int) (getWidth()),
+					(int) (getHeight()));
+			g.setColor(Color.LIGHT_GRAY);
+			g.fillOval((int) x - circleD / 2 - cameraX, (int) (cameraHeight - ((int) y + circleD / 2)), circleD,
+					circleD);
+			g.fillOval((int) ((int) x + (getWidth())) - circleD / 2 - cameraX,
+					(int) (cameraHeight - ((int) y + circleD / 2)), circleD, circleD);
+			g.fillOval((int) (int) x - circleD / 2 - cameraX,
+					(int) (cameraHeight - ((int) y + circleD / 2 + (getHeight()))), circleD, circleD);
+			g.fillOval((int) ((int) x + (getWidth())) - circleD / 2 - cameraX,
+					(int) (cameraHeight - ((int) y + circleD / 2 + (getHeight()))), circleD, circleD);
+
+		}
+
 	}
 
 	@Override

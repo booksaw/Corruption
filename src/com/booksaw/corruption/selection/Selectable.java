@@ -164,7 +164,9 @@ public abstract class Selectable implements Location, Dimensions {
 
 		switch (mode) {
 		case MOVE:
-			applyOffset(offset);
+			for (Selectable s : selectable) {
+				s.applyOffset(offset);
+			}
 			starting = p;
 			break;
 		case BL:

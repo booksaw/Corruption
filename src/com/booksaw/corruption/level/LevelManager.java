@@ -166,12 +166,16 @@ public class LevelManager {
 
 	}
 
+	public void runLine(String line) {
+		runLine(line, false);
+	}
+
 	/**
 	 * Manages setting what each line should be done
 	 * 
 	 * @param line
 	 */
-	public void runLine(String line) {
+	public void runLine(String line, boolean select) {
 		// splitting the line into its components
 		String[] split = line.split(":");
 		// setting which type of component it is
@@ -180,12 +184,12 @@ public class LevelManager {
 			makeMeta(split[1], split[2]);
 			break;
 		case "object":
-			makeObject(split[1], split[2]);
+			makeObject(split[1], split[2], select);
 			break;
 		case "background":
-			makeBackground(split[1], split[2]);
+			makeBackground(split[1], split[2], select);
 		case "sprite":
-			makeSprite(split[1], split[2]);
+			makeSprite(split[1], split[2], select);
 		}
 
 	}
@@ -217,32 +221,40 @@ public class LevelManager {
 	 * @param type what type of object it is
 	 * @param info info to be parsed into the object class
 	 */
-	private void makeObject(String type, String info) {
+	private void makeObject(String type, String info, boolean select) {
 
 		switch (type) {
 		case "block":
-			levelObjects.add(new Block(info));
+			Block b = new Block(info);
+			b.setSelected(select);
+			levelObjects.add(b);
 			break;
 		case "door":
-			levelObjects.add(new Door(info));
+			Door d = new Door(info);
+			d.setSelected(select);
+			levelObjects.add(d);
 			break;
 		}
 
 	}
 
-	private void makeBackground(String type, String info) {
+	private void makeBackground(String type, String info, boolean select) {
 		switch (type) {
 		case "colored":
-			backgrounds.add(new ColoredBackground(info));
+			ColoredBackground cb = new ColoredBackground(info);
+			cb.setSelected(select);
+			backgrounds.add(cb);
 			break;
 		}
 
 	}
 
-	private void makeSprite(String type, String info) {
+	private void makeSprite(String type, String info, boolean select) {
 		switch (type) {
 		case "player":
-			addSprite(new Player(info));
+			Player p = new Player(info);
+			p.setSelected(select);
+			addSprite(p);
 			break;
 		}
 
