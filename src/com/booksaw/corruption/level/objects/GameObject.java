@@ -39,13 +39,13 @@ public abstract class GameObject extends Selectable implements Location, Dimensi
 	/**
 	 * Location of the objects
 	 */
-	protected int x = 0, y = 0, width = 0, height = 0;
+	protected int width = 0, height = 0;
 
 	// Returns the rectangle of the object
 	public Rectangle getRectangle() {
 //		Rectangle r = new Rectangle(x, y, width, height);
 //		System.out.println("obj" + r.x + " " + r.y + " " + r.width + " " + r.height);
-		return new Rectangle(x, y, width, height);
+		return new Rectangle((int) x, (int) y, width, height);
 	}
 
 	/**
@@ -66,13 +66,14 @@ public abstract class GameObject extends Selectable implements Location, Dimensi
 			g.drawRect((int) (x + cameraX), (int) (cameraHeight - (y + cameraY + (getHeight()))), (int) (getWidth()),
 					(int) (getHeight()));
 			g.setColor(Color.LIGHT_GRAY);
-			g.fillOval((int) cameraX + x - circleD / 2, (int) (cameraHeight - (y + circleD / 2)), circleD, circleD);
-			g.fillOval((int) (cameraX + x + (getWidth())) - circleD / 2, (int) (cameraHeight - (y + circleD / 2)),
-					circleD, circleD);
-			g.fillOval((int) cameraX + x - circleD / 2, (int) (cameraHeight - (y + circleD / 2 + (getHeight()))),
-					circleD, circleD);
-			g.fillOval((int) (cameraX + x + (getWidth())) - circleD / 2,
-					(int) (cameraHeight - (y + circleD / 2 + (getHeight()))), circleD, circleD);
+			g.fillOval((int) cameraX + (int) x - circleD / 2, (int) (cameraHeight - ((int) y + circleD / 2)), circleD,
+					circleD);
+			g.fillOval((int) (cameraX + (int) x + (getWidth())) - circleD / 2,
+					(int) (cameraHeight - ((int) y + circleD / 2)), circleD, circleD);
+			g.fillOval((int) cameraX + (int) x - circleD / 2,
+					(int) (cameraHeight - ((int) y + circleD / 2 + (getHeight()))), circleD, circleD);
+			g.fillOval((int) (cameraX + (int) x + (getWidth())) - circleD / 2,
+					(int) (cameraHeight - ((int) y + circleD / 2 + (getHeight()))), circleD, circleD);
 
 		}
 
@@ -81,7 +82,7 @@ public abstract class GameObject extends Selectable implements Location, Dimensi
 	public abstract void renderS(Graphics g, Rectangle camera);
 
 	public int getX() {
-		return x;
+		return (int) x;
 	}
 
 	public void setX(int x) {
@@ -89,7 +90,7 @@ public abstract class GameObject extends Selectable implements Location, Dimensi
 	}
 
 	public int getY() {
-		return y;
+		return (int) y;
 	}
 
 	public void setY(int y) {
@@ -101,7 +102,8 @@ public abstract class GameObject extends Selectable implements Location, Dimensi
 	}
 
 	public void setWidth(int width) {
-		this.width = width;
+		if (width > 0)
+			this.width = width;
 	}
 
 	public int getHeight() {
@@ -109,7 +111,8 @@ public abstract class GameObject extends Selectable implements Location, Dimensi
 	}
 
 	public void setHeight(int height) {
-		this.height = height;
+		if (height > 0)
+			this.height = height;
 	}
 
 	public boolean needsSaving() {

@@ -49,8 +49,6 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 	// the multiplier for pixels
 	public static final int PIXELMULT = 5;
 
-	// location of sprite
-	protected double x, y;
 	// starting location of the sprite
 	protected Point startingLocation;
 
@@ -516,12 +514,12 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 
 	@Override
 	public int getWidth() {
-		return (int) dimensions.getWidth();
+		return (int) dimensions.getWidth() * PIXELMULT;
 	}
 
 	@Override
 	public int getHeight() {
-		return (int) dimensions.getHeight();
+		return (int) dimensions.getHeight() * PIXELMULT;
 	}
 
 	@Override

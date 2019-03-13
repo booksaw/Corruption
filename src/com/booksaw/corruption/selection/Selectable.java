@@ -18,9 +18,11 @@ import com.booksaw.corruption.render.GameCamera;
 
 public abstract class Selectable implements Location, Dimensions {
 
+	protected double x, y;
+
 	protected static final int circleD = 10;
 
-	private static Selectable s;
+	private static Selectable s = null;
 
 	private static List<Selectable> selectable = new ArrayList<>();
 
@@ -101,6 +103,38 @@ public abstract class Selectable implements Location, Dimensions {
 
 	public void hover(Point p) {
 
+		p = Utils.getScaledPoint(p, new Dimension(GameCamera.cameraWidth, GameCamera.cameraHeight));
+		p.y = GameCamera.cameraHeight - p.y;
+		if (p.x >= ((x + (getWidth())) - circleD) && p.x <= ((x + (getWidth())) + circleD)) {
+			// on right of block
+			if (p.y >= ((y + (getHeight())) - circleD) && p.y <= ((y + (getHeight())) + circleD)) {
+				// top right
+				mode = CursorMode.TR;
+				CursorManager.setCursor(Cursor.NE_RESIZE_CURSOR);
+				return;
+			} else if (p.y >= ((y) - circleD) && p.y <= ((y) + circleD)) {
+				// bottom right
+				mode = CursorMode.BR;
+				CursorManager.setCursor(Cursor.SE_RESIZE_CURSOR);
+				return;
+			}
+
+		} else if (p.x >= ((x) - circleD) && p.x <= ((x) + circleD)) {
+			// on left
+			if (p.y >= ((y + (getHeight())) - circleD) && p.y <= ((y + (getHeight())) + circleD)) {
+				// top left
+				mode = CursorMode.TL;
+				CursorManager.setCursor(Cursor.NW_RESIZE_CURSOR);
+				return;
+			} else if (p.y >= ((y) - circleD) && p.y <= ((y) + circleD)) {
+				// bottom left
+				mode = CursorMode.BL;
+				CursorManager.setCursor(Cursor.SW_RESIZE_CURSOR);
+				return;
+			}
+
+		}
+
 		CursorManager.setCursor(Cursor.MOVE_CURSOR);
 		mode = CursorMode.MOVE;
 	}
@@ -119,10 +153,50 @@ public abstract class Selectable implements Location, Dimensions {
 	public void drag(Point p) {
 		p = Utils.getScaledPoint(p, new Dimension(GameCamera.cameraWidth, GameCamera.cameraHeight));
 		p.y = GameCamera.cameraHeight - p.y;
+		Point offset = new Point(p.x - starting.x, p.y - starting.y);
+
 		switch (mode) {
 		case MOVE:
-			Point offset = new Point(p.x - starting.x, p.y - starting.y);
 			applyOffset(offset);
+			starting = p;
+			break;
+		case BL:
+			if (getWidth() - offset.x <= 0 || getX() + getWidth() < p.x) {
+				return;
+			}
+
+			if (getHeight() - offset.y <= 0 || getY() + getHeight() < p.y) {
+				return;
+			}
+			starting = p;
+			setWidth(getWidth() - offset.x);
+			setHeight(getHeight() - offset.y);
+			setX(p.x);
+			setY(p.y);
+			break;
+		case BR:
+
+			if (getHeight() - offset.y <= 0 || getY() + getHeight() < p.y) {
+				return;
+			}
+			starting = p;
+			setWidth(getWidth() + offset.x);
+			setHeight(getHeight() - offset.y);
+			setY(p.y);
+			break;
+		case TL:
+			if (getWidth() - offset.x <= 0 || getX() + getWidth() < p.x) {
+				return;
+			}
+
+			starting = p;
+			setWidth(getWidth() - offset.x);
+			setHeight(getHeight() + offset.y);
+			setX(p.x);
+			break;
+		case TR:
+			setWidth(getWidth() + offset.x);
+			setHeight(getHeight() + offset.y);
 			starting = p;
 			break;
 		}
@@ -135,7 +209,7 @@ public abstract class Selectable implements Location, Dimensions {
 	public abstract Rectangle getRectangle();
 
 	enum CursorMode {
-		MOVE;
+		MOVE, TR, TL, BR, BL;
 	}
 
 }
