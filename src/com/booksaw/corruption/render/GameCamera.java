@@ -31,7 +31,13 @@ public class GameCamera extends RenderInterface {
 	 */
 	public GameCamera(boolean image) {
 		this.image = image;
+//		this.image = true;
 		activeCamera = this;
+
+		if (!image) {
+			setPreferredSize(Corruption.origionalDimensions);
+			setSize(Corruption.origionalDimensions);
+		}
 	}
 
 	/**

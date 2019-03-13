@@ -79,9 +79,10 @@ public class EditorController extends RenderController {
 	public void show() {
 		super.show();
 		Corruption.main.getFrame().setResizable(false);
-		Corruption.main.getFrame().getContentPane().setPreferredSize(Corruption.origionalDimensions);
-		Corruption.main.getFrame().getContentPane().setSize(Corruption.origionalDimensions);
-		Corruption.main.getFrame().pack();
+
+		c.setSize(Corruption.origionalDimensions);
+		c.setPreferredSize(Corruption.origionalDimensions);
+//		Corruption.main.getFrame().pack();
 
 		LevelManager lm;
 		if (LevelManager.activeLevel == null) {

@@ -138,6 +138,7 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 		standing = getStanding();
 		walking = getWalking();
 		crouching = getCrouching();
+		resizable = false;
 
 	}
 

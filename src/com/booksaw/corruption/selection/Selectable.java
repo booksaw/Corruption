@@ -28,6 +28,7 @@ public abstract class Selectable implements Location, Dimensions {
 
 	private static CursorMode mode;
 	private static Point starting;
+	protected boolean resizable = true;
 
 	public static void clearSelection() {
 
@@ -107,35 +108,37 @@ public abstract class Selectable implements Location, Dimensions {
 		p = Utils.getScaledPoint(p, new Dimension(GameCamera.cameraWidth, GameCamera.cameraHeight));
 		p.y = GameCamera.cameraHeight - (p.y);
 //		p.x = p.x - GameCamera.activeCamera.x;
-		if (p.x + GameCamera.activeCamera.x >= ((x + (getWidth())) - circleD)
-				&& p.x <= ((x + (getWidth())) + circleD)) {
-			// on right of block
-			if (p.y >= ((y + (getHeight())) - circleD) && p.y <= ((y + (getHeight())) + circleD)) {
-				// top right
-				mode = CursorMode.TR;
-				CursorManager.setCursor(Cursor.NE_RESIZE_CURSOR);
-				return;
-			} else if (p.y >= ((y) - circleD) && p.y <= ((y) + circleD)) {
-				// bottom right
-				mode = CursorMode.BR;
-				CursorManager.setCursor(Cursor.SE_RESIZE_CURSOR);
-				return;
-			}
+		if (resizable) {
+			if (p.x + GameCamera.activeCamera.x >= ((x + (getWidth())) - circleD)
+					&& p.x <= ((x + (getWidth())) + circleD)) {
+				// on right of block
+				if (p.y >= ((y + (getHeight())) - circleD) && p.y <= ((y + (getHeight())) + circleD)) {
+					// top right
+					mode = CursorMode.TR;
+					CursorManager.setCursor(Cursor.NE_RESIZE_CURSOR);
+					return;
+				} else if (p.y >= ((y) - circleD) && p.y <= ((y) + circleD)) {
+					// bottom right
+					mode = CursorMode.BR;
+					CursorManager.setCursor(Cursor.SE_RESIZE_CURSOR);
+					return;
+				}
 
-		} else if (p.x + GameCamera.activeCamera.x >= ((x) - circleD) && p.x <= ((x) + circleD)) {
-			// on left
-			if (p.y >= ((y + (getHeight())) - circleD) && p.y <= ((y + (getHeight())) + circleD)) {
-				// top left
-				mode = CursorMode.TL;
-				CursorManager.setCursor(Cursor.NW_RESIZE_CURSOR);
-				return;
-			} else if (p.y >= ((y) - circleD) && p.y <= ((y) + circleD)) {
-				// bottom left
-				mode = CursorMode.BL;
-				CursorManager.setCursor(Cursor.SW_RESIZE_CURSOR);
-				return;
-			}
+			} else if (p.x + GameCamera.activeCamera.x >= ((x) - circleD) && p.x <= ((x) + circleD)) {
+				// on left
+				if (p.y >= ((y + (getHeight())) - circleD) && p.y <= ((y + (getHeight())) + circleD)) {
+					// top left
+					mode = CursorMode.TL;
+					CursorManager.setCursor(Cursor.NW_RESIZE_CURSOR);
+					return;
+				} else if (p.y >= ((y) - circleD) && p.y <= ((y) + circleD)) {
+					// bottom left
+					mode = CursorMode.BL;
+					CursorManager.setCursor(Cursor.SW_RESIZE_CURSOR);
+					return;
+				}
 
+			}
 		}
 
 		CursorManager.setCursor(Cursor.MOVE_CURSOR);
