@@ -48,6 +48,7 @@ public abstract class Selectable implements Location, Dimensions {
 	}
 
 	public static Selectable getSelectable(Point p) {
+		p.x = p.x + GameCamera.activeCamera.x;
 		if (s != null) {
 			return s;
 		}
@@ -55,6 +56,7 @@ public abstract class Selectable implements Location, Dimensions {
 		Rectangle r = new Rectangle(p.x, GameCamera.cameraHeight - p.y, 1, 1);
 		for (Selectable s : selectable) {
 			if (s.getRectangle().intersects(r)) {
+				System.out.println("found");
 				return s;
 			}
 		}
@@ -103,9 +105,12 @@ public abstract class Selectable implements Location, Dimensions {
 
 	public void hover(Point p) {
 
+		System.out.println(GameCamera.activeCamera.x);
 		p = Utils.getScaledPoint(p, new Dimension(GameCamera.cameraWidth, GameCamera.cameraHeight));
-		p.y = GameCamera.cameraHeight - p.y;
-		if (p.x >= ((x + (getWidth())) - circleD) && p.x <= ((x + (getWidth())) + circleD)) {
+		p.y = GameCamera.cameraHeight - (p.y);
+//		p.x = p.x - GameCamera.activeCamera.x;
+		if (p.x + GameCamera.activeCamera.x >= ((x + (getWidth())) - circleD)
+				&& p.x <= ((x + (getWidth())) + circleD)) {
 			// on right of block
 			if (p.y >= ((y + (getHeight())) - circleD) && p.y <= ((y + (getHeight())) + circleD)) {
 				// top right
@@ -119,7 +124,7 @@ public abstract class Selectable implements Location, Dimensions {
 				return;
 			}
 
-		} else if (p.x >= ((x) - circleD) && p.x <= ((x) + circleD)) {
+		} else if (p.x + GameCamera.activeCamera.x >= ((x) - circleD) && p.x <= ((x) + circleD)) {
 			// on left
 			if (p.y >= ((y + (getHeight())) - circleD) && p.y <= ((y + (getHeight())) + circleD)) {
 				// top left
@@ -152,7 +157,8 @@ public abstract class Selectable implements Location, Dimensions {
 
 	public void drag(Point p) {
 		p = Utils.getScaledPoint(p, new Dimension(GameCamera.cameraWidth, GameCamera.cameraHeight));
-		p.y = GameCamera.cameraHeight - p.y;
+		p.y = (GameCamera.cameraHeight) - (p.y);
+		p.x = p.x - GameCamera.activeCamera.x;
 		Point offset = new Point(p.x - starting.x, p.y - starting.y);
 
 		switch (mode) {

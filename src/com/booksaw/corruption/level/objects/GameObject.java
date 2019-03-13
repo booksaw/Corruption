@@ -63,16 +63,16 @@ public abstract class GameObject extends Selectable implements Location, Dimensi
 			int cameraY = camera.y;
 
 			g.setColor(Color.WHITE);
-			g.drawRect((int) (x + cameraX), (int) (cameraHeight - (y + cameraY + (getHeight()))), (int) (getWidth()),
+			g.drawRect((int) (x - cameraX), (int) (cameraHeight - (y + cameraY + (getHeight()))), (int) (getWidth()),
 					(int) (getHeight()));
 			g.setColor(Color.LIGHT_GRAY);
-			g.fillOval((int) cameraX + (int) x - circleD / 2, (int) (cameraHeight - ((int) y + circleD / 2)), circleD,
+			g.fillOval((int) x - circleD / 2 - cameraX, (int) (cameraHeight - ((int) y + circleD / 2)), circleD,
 					circleD);
-			g.fillOval((int) (cameraX + (int) x + (getWidth())) - circleD / 2,
+			g.fillOval((int) ((int) x + (getWidth())) - circleD / 2 - cameraX,
 					(int) (cameraHeight - ((int) y + circleD / 2)), circleD, circleD);
-			g.fillOval((int) cameraX + (int) x - circleD / 2,
+			g.fillOval((int) (int) x - circleD / 2 - cameraX,
 					(int) (cameraHeight - ((int) y + circleD / 2 + (getHeight()))), circleD, circleD);
-			g.fillOval((int) (cameraX + (int) x + (getWidth())) - circleD / 2,
+			g.fillOval((int) ((int) x + (getWidth())) - circleD / 2 - cameraX,
 					(int) (cameraHeight - ((int) y + circleD / 2 + (getHeight()))), circleD, circleD);
 
 		}

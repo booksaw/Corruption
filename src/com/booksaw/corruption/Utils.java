@@ -32,11 +32,11 @@ public class Utils {
 	}
 
 	public static Point getScaledPoint(Point p, Dimension currentDimensions) {
-		double x = ((currentDimensions.width / Corruption.origionalDimensions.width) * p.x);
-		p.x = (int) x;
-
-		double y = (currentDimensions.height / Corruption.origionalDimensions.height) * p.y;
-		p.y = (int) y;
+//		double x = ((currentDimensions.width / Corruption.origionalDimensions.width) * p.x);
+//		p.x = (int) x;
+//
+//		double y = (currentDimensions.height / Corruption.origionalDimensions.height) * p.y;
+//		p.y = (int) y;
 		return p;
 
 	}
