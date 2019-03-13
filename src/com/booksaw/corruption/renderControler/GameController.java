@@ -10,6 +10,7 @@ import com.booksaw.corruption.listeners.KeyListener;
 import com.booksaw.corruption.listeners.Listener;
 import com.booksaw.corruption.render.GameCamera;
 import com.booksaw.corruption.render.RenderInterface;
+import com.booksaw.corruption.selection.Selectable;
 
 public class GameController extends RenderController {
 
@@ -36,6 +37,8 @@ public class GameController extends RenderController {
 	@Override
 	public void show() {
 		super.show();
+		Selectable.clearSelection();
+
 		LevelManager lm;
 		if (LevelManager.activeLevel == null) {
 			lm = new LevelManager(new File("1.level"));

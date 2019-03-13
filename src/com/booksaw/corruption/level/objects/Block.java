@@ -45,7 +45,7 @@ public class Block extends GameObject {
 	 * Used to render the object
 	 */
 	@Override
-	public void render(Graphics g, Rectangle camera) {
+	public void renderS(Graphics g, Rectangle camera) {
 		g.setColor(c);
 		Rectangle r = getRectangle();
 		if (r.intersects(camera)) {

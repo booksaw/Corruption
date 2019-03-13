@@ -3,4 +3,6 @@ meta:cameralocation:0;0
 meta:backgroundcolor:100;100;100
 meta:cameralocation:0;0
 meta:backgroundcolor:100;100;100
+object:block:752;233;23;56;0;0;0
 sprite:player:0;0;true;true
+sprite:player:506;201;false;false

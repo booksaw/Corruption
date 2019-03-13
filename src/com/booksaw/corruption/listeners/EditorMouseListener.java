@@ -11,6 +11,7 @@ import javax.swing.SwingUtilities;
 
 import com.booksaw.corruption.Config;
 import com.booksaw.corruption.Corruption;
+import com.booksaw.corruption.CursorManager;
 import com.booksaw.corruption.Utils;
 import com.booksaw.corruption.editor.options.LevelSettings;
 import com.booksaw.corruption.editor.options.background.BackgroundSettings;
@@ -49,6 +50,17 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 	@Override
 	public void mouseDragged(MouseEvent e) {
 
+		if (selection == ActiveSelection.SPRITE || selection == ActiveSelection.SPRITECURSOR
+				|| selection == ActiveSelection.OBJECT || selection == ActiveSelection.OBJECTCURSOR) {
+			return;
+		}
+
+		Selectable s = Selectable.getSelectable(e.getPoint());
+		if (s != null) {
+			s.drag(e.getPoint());
+			return;
+		}
+
 		if (CursorSettings.selection == SELECTION.BLOCK) {
 
 			if (DraggedBlock.block == null) {
@@ -76,7 +88,17 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 	}
 
 	@Override
-	public void mouseMoved(MouseEvent w) {
+	public void mouseMoved(MouseEvent e) {
+
+		Selectable s = Selectable.getSelectable(e.getPoint());
+		if (s == null) {
+			if (!CursorManager.normal) {
+				CursorManager.resetCursor();
+			}
+			return;
+		}
+
+		s.hover(e.getPoint());
 	}
 
 	@Override
@@ -98,7 +120,14 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 				|| selection == ActiveSelection.OBJECT || selection == ActiveSelection.OBJECTCURSOR) {
 			return;
 		}
+
 		if (SwingUtilities.isLeftMouseButton(e)) {
+
+			Selectable s = Selectable.getSelectable(e.getPoint());
+			if (s != null) {
+				s.click(e.getPoint());
+				return;
+			}
 
 			if (CursorSettings.selection == SELECTION.BLOCK) {
 				new DraggedBlock(e.getPoint());
@@ -112,6 +141,12 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+
+		Selectable s = Selectable.getSelectable(e.getPoint());
+		if (s != null && SwingUtilities.isLeftMouseButton(e)) {
+			s.release(e.getPoint());
+			return;
+		}
 
 		Point p = Utils.getScaledPoint(e.getPoint(), GameCamera.activeCamera.getSize());
 		switch (selection) {

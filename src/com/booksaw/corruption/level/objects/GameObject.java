@@ -1,5 +1,6 @@
 package com.booksaw.corruption.level.objects;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -53,7 +54,31 @@ public abstract class GameObject extends Selectable implements Location, Dimensi
 	 * @param g      the graphics to render
 	 * @param camera the information of the camera
 	 */
-	public abstract void render(Graphics g, Rectangle camera);
+	public void render(Graphics g, Rectangle camera) {
+		renderS(g, camera);
+
+		if (selected) {
+			int cameraX = camera.x;
+			int cameraHeight = camera.height;
+			int cameraY = camera.y;
+
+			g.setColor(Color.WHITE);
+			g.drawRect((int) (x + cameraX), (int) (cameraHeight - (y + cameraY + (getHeight()))), (int) (getWidth()),
+					(int) (getHeight()));
+			g.setColor(Color.LIGHT_GRAY);
+			g.fillOval((int) cameraX + x - circleD / 2, (int) (cameraHeight - (y + circleD / 2)), circleD, circleD);
+			g.fillOval((int) (cameraX + x + (getWidth())) - circleD / 2, (int) (cameraHeight - (y + circleD / 2)),
+					circleD, circleD);
+			g.fillOval((int) cameraX + x - circleD / 2, (int) (cameraHeight - (y + circleD / 2 + (getHeight()))),
+					circleD, circleD);
+			g.fillOval((int) (cameraX + x + (getWidth())) - circleD / 2,
+					(int) (cameraHeight - (y + circleD / 2 + (getHeight()))), circleD, circleD);
+
+		}
+
+	}
+
+	public abstract void renderS(Graphics g, Rectangle camera);
 
 	public int getX() {
 		return x;

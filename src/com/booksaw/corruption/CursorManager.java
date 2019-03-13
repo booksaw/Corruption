@@ -7,16 +7,20 @@ import java.awt.image.BufferedImage;
 
 public class CursorManager {
 
+	public static boolean normal = true;
+
 	public static void setCursor(BufferedImage img) {
 
 		// Create a new blank cursor.
 		Cursor imgCursor = Toolkit.getDefaultToolkit().createCustomCursor(img, new Point(0, 0), "cursor image");
 
 		Corruption.main.getFrame().setCursor(imgCursor);
+		normal = true;
 	}
 
 	public static void resetCursor() {
 		Corruption.main.getFrame().setCursor(Cursor.getDefaultCursor());
+		normal = true;
 	}
 
 	public static void hideCursor() {
@@ -25,7 +29,12 @@ public class CursorManager {
 
 		// Create a new blank cursor.
 		Cursor imgCursor = Toolkit.getDefaultToolkit().createCustomCursor(img, new Point(0, 0), "blank cursor");
-
 		Corruption.main.getFrame().setCursor(imgCursor);
+		normal = true;
+	}
+
+	public static void setCursor(int cursortype) {
+		normal = false;
+		Corruption.main.getFrame().setCursor(new Cursor(cursortype));
 	}
 }

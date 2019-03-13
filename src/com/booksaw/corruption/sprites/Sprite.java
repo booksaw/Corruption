@@ -351,6 +351,15 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 			g.setColor(Color.WHITE);
 			g.drawRect((int) (x + cameraX), (int) (cameraHeight - (y + cameraY + (d.getHeight() * PIXELMULT))),
 					(int) (d.getWidth() * PIXELMULT), (int) (d.getHeight() * PIXELMULT));
+			g.setColor(Color.LIGHT_GRAY);
+			g.fillOval((int) x - circleD / 2, (int) (cameraHeight - (y + circleD / 2)), circleD, circleD);
+			g.fillOval((int) (x + (dimensions.getWidth() * PIXELMULT)) - circleD / 2,
+					(int) (cameraHeight - (y + circleD / 2)), circleD, circleD);
+			g.fillOval((int) x - circleD / 2,
+					(int) (cameraHeight - (y + circleD / 2 + (dimensions.getHeight() * PIXELMULT))), circleD, circleD);
+			g.fillOval((int) (x + (dimensions.getWidth() * PIXELMULT)) - circleD / 2,
+					(int) (cameraHeight - (y + circleD / 2 + (dimensions.getHeight() * PIXELMULT))), circleD, circleD);
+
 		}
 	}
 
@@ -504,4 +513,25 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 		LevelManager.activeLevel.removeSprite(this);
 
 	}
+
+	@Override
+	public int getWidth() {
+		return (int) dimensions.getWidth();
+	}
+
+	@Override
+	public int getHeight() {
+		return (int) dimensions.getHeight();
+	}
+
+	@Override
+	public void setWidth(int width) {
+
+	}
+
+	@Override
+	public void setHeight(int height) {
+
+	}
+
 }

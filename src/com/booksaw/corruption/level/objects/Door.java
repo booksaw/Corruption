@@ -44,7 +44,7 @@ public class Door extends GameObject {
 	}
 
 	@Override
-	public void render(Graphics g, Rectangle camera) {
+	public void renderS(Graphics g, Rectangle camera) {
 		if (open) {
 			g.drawImage(doorOpen, x - camera.x, (camera.height + camera.y) - (y + height), width, height, null);
 		} else {
