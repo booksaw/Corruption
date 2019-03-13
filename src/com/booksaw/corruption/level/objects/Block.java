@@ -63,8 +63,8 @@ public class Block extends GameObject {
 
 	@Override
 	public String toString() {
-		return "object:block:" + x + ";" + y + ";" + width + ";" + height + ";" + c.getRed() + ";" + c.getGreen() + ";"
-				+ c.getBlue();
+		return "object:block:" + (int) x + ";" + (int) y + ";" + width + ";" + height + ";" + c.getRed() + ";"
+				+ c.getGreen() + ";" + c.getBlue();
 	}
 
 }

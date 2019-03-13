@@ -29,9 +29,8 @@ public class GameCamera extends RenderInterface {
 	/**
 	 * literally just so we can static reference
 	 */
-	public GameCamera() {
-
-		image = true;
+	public GameCamera(boolean image) {
+		this.image = image;
 		activeCamera = this;
 	}
 

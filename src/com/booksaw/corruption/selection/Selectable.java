@@ -56,7 +56,6 @@ public abstract class Selectable implements Location, Dimensions {
 		Rectangle r = new Rectangle(p.x, GameCamera.cameraHeight - p.y, 1, 1);
 		for (Selectable s : selectable) {
 			if (s.getRectangle().intersects(r)) {
-				System.out.println("found");
 				return s;
 			}
 		}
@@ -105,7 +104,6 @@ public abstract class Selectable implements Location, Dimensions {
 
 	public void hover(Point p) {
 
-		System.out.println(GameCamera.activeCamera.x);
 		p = Utils.getScaledPoint(p, new Dimension(GameCamera.cameraWidth, GameCamera.cameraHeight));
 		p.y = GameCamera.cameraHeight - (p.y);
 //		p.x = p.x - GameCamera.activeCamera.x;

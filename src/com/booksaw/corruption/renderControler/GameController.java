@@ -25,7 +25,7 @@ public class GameController extends RenderController {
 
 	public GameController() {
 		gameController = this;
-		c = new GameCamera();
+		c = new GameCamera(true);
 	}
 
 	@Override

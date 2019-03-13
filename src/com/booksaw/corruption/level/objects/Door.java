@@ -46,9 +46,11 @@ public class Door extends GameObject {
 	@Override
 	public void renderS(Graphics g, Rectangle camera) {
 		if (open) {
-			g.drawImage(doorOpen, (int)x - camera.x, (camera.height + camera.y) - ((int)y + height), width, height, null);
+			g.drawImage(doorOpen, (int) x - camera.x, (camera.height + camera.y) - ((int) y + height), width, height,
+					null);
 		} else {
-			g.drawImage(doorClosed, (int)x - camera.x, (camera.height + camera.y) - ((int)y + height), width, height, null);
+			g.drawImage(doorClosed, (int) x - camera.x, (camera.height + camera.y) - ((int) y + height), width, height,
+					null);
 
 		}
 	}
@@ -68,7 +70,7 @@ public class Door extends GameObject {
 	@Override
 	public String toString() {
 
-		return "object:door:" + x + ";" + y + ";" + open;
+		return "object:door:" + (int) x + ";" + (int) y + ";" + open;
 	}
 
 	public void setLocation(Point p) {

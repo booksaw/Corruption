@@ -27,10 +27,9 @@ public class EditorController extends RenderController {
 	CameraSprite camera;
 
 	public EditorController() {
-
 		camera = new CameraSprite();
 		camera.setActiveplayer(true);
-		c = new GameCamera();
+		c = new GameCamera(false);
 	}
 
 	@Override
