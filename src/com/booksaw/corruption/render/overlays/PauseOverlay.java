@@ -1,7 +1,6 @@
 package com.booksaw.corruption.render.overlays;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
@@ -27,12 +26,10 @@ public class PauseOverlay extends Overlay {
 	public static PauseOverlay pause;
 
 	// so the rectangles are only genned on a window resize
-	public static  boolean genRects = false;
+	public static boolean genRects = false;
 	private PauseListener listener;
 
 	public static OPTIONS active = OPTIONS.RESUME;
-
-	Font f = new Font("Dialogue", Font.PLAIN, 20);
 
 	public PauseOverlay() {
 		pause = this;
@@ -54,8 +51,8 @@ public class PauseOverlay extends Overlay {
 				(getHeight() / 2) - (int) (getHeight() * 0.4), (int) (getWidth() * 0.6), 100, null);
 
 		// text colour
-		g.setColor(Color.GREEN);
-		g.setFont(f);
+		g.setColor(Config.fontColor);
+		g.setFont(Config.f);
 
 		// for the new button
 		String text = Language.getMessage("pause.resume");
@@ -65,11 +62,11 @@ public class PauseOverlay extends Overlay {
 		// if its selected drawing the triangles
 		if (active == OPTIONS.RESUME) {
 			int x = (getWidth() / 2) - (width / 2) - 30;
-			int y = (getHeight() / 2) - (int) (getHeight() * 0.4) + (int) (getHeight() * 0.35) - f.getSize() + 5;
-			g.drawImage(GameMenu.triangle, x, y, 15, f.getSize() - 5, null);
+			int y = (getHeight() / 2) - (int) (getHeight() * 0.4) + (int) (getHeight() * 0.35) - Config.f.getSize() + 5;
+			g.drawImage(GameMenu.triangle, x, y, 15, Config.f.getSize() - 5, null);
 
 			x = (getWidth() / 2) + (width / 2) + 15;
-			g.drawImage(GameMenu.triangle, x + 15, y, x, y + f.getSize() - 5, 0, 0, GameMenu.triangle.getWidth(),
+			g.drawImage(GameMenu.triangle, x + 15, y, x, y + Config.f.getSize() - 5, 0, 0, GameMenu.triangle.getWidth(),
 					GameMenu.triangle.getHeight(), null);
 
 		}
@@ -83,11 +80,11 @@ public class PauseOverlay extends Overlay {
 
 		if (active == OPTIONS.QUIT) {
 			int x = (getWidth() / 2) - (width / 2) - 30;
-			int y = (getHeight() / 2) - (int) (getHeight() * 0.4) + (int) (getHeight() * 0.5) - f.getSize() + 5;
-			g.drawImage(GameMenu.triangle, x, y, 15, f.getSize() - 5, null);
+			int y = (getHeight() / 2) - (int) (getHeight() * 0.4) + (int) (getHeight() * 0.5) - Config.f.getSize() + 5;
+			g.drawImage(GameMenu.triangle, x, y, 15, Config.f.getSize() - 5, null);
 
 			x = (getWidth() / 2) + (width / 2) + 15;
-			g.drawImage(GameMenu.triangle, x + 15, y, x, y + f.getSize() - 5, 0, 0, GameMenu.triangle.getWidth(),
+			g.drawImage(GameMenu.triangle, x + 15, y, x, y + Config.f.getSize() - 5, 0, 0, GameMenu.triangle.getWidth(),
 					GameMenu.triangle.getHeight(), null);
 		}
 
@@ -96,12 +93,12 @@ public class PauseOverlay extends Overlay {
 	public void setupRects() {
 
 		resumeRec = new Rectangle(0,
-				(getHeight() / 2) - (int) (getHeight() * 0.4) + (int) (getHeight() * 0.35) - f.getSize() + 5,
-				getWidth(), f.getSize() * 3);
+				(getHeight() / 2) - (int) (getHeight() * 0.4) + (int) (getHeight() * 0.35) - Config.f.getSize() + 5,
+				getWidth(), Config.f.getSize() * 3);
 
 		quitRec = new Rectangle(0,
-				(getHeight() / 2) - (int) (getHeight() * 0.4) + (int) (getHeight() * 0.5) - f.getSize() + 5, getWidth(),
-				f.getSize() * 3);
+				(getHeight() / 2) - (int) (getHeight() * 0.4) + (int) (getHeight() * 0.5) - Config.f.getSize() + 5,
+				getWidth(), Config.f.getSize() * 3);
 
 		// so rects arent re genned when not needed
 		genRects = true;

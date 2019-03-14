@@ -459,7 +459,7 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 				if (o.collisionMode == Mode.SOLID) {
 					return false;
 				} else if (o.collisionMode == Mode.DEATH) {
-					reset();
+					reset(true);
 					return true;
 				}
 			}
@@ -494,8 +494,21 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 	}
 
 	public void reset() {
+		reset(false);
+	}
+
+	private long prevReset = 0L;
+
+	public void reset(boolean fail) {
+
 		x = startingLocation.x;
 		y = startingLocation.y;
+
+		if (fail && (System.currentTimeMillis() - prevReset) > 20) {
+			LevelManager.activeLevel.fails++;
+		}
+
+		prevReset = System.currentTimeMillis();
 	}
 
 	public void setStartingLocation() {

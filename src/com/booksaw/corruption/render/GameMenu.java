@@ -1,7 +1,6 @@
 package com.booksaw.corruption.render;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -45,7 +44,6 @@ public class GameMenu extends RenderInterface {
 
 	private static final long serialVersionUID = -5002185708953339970L;
 	// font of the textSF
-	Font f = new Font("Dialogue", Font.PLAIN, 20);
 
 	// setting up static reference
 	public GameMenu() {
@@ -58,16 +56,16 @@ public class GameMenu extends RenderInterface {
 	public void setupRects() {
 
 		newRec = new Rectangle(0,
-				(getHeight() / 2) - (int) (getHeight() * 0.4) + (int) (getHeight() * 0.35) - f.getSize() + 5,
-				getWidth(), f.getSize() * 3);
+				(getHeight() / 2) - (int) (getHeight() * 0.4) + (int) (getHeight() * 0.35) - Config.f.getSize() + 5,
+				getWidth(), Config.f.getSize() * 3);
 
 		loadRec = new Rectangle(0,
-				(getHeight() / 2) - (int) (getHeight() * 0.4) + (int) (getHeight() * 0.5) - f.getSize() + 5, getWidth(),
-				f.getSize() * 3);
+				(getHeight() / 2) - (int) (getHeight() * 0.4) + (int) (getHeight() * 0.5) - Config.f.getSize() + 5,
+				getWidth(), Config.f.getSize() * 3);
 
 		editorRec = new Rectangle(0,
-				(getHeight() / 2) - (int) (getHeight() * 0.4) + (int) (getHeight() * 0.65) - f.getSize() + 5,
-				getWidth(), f.getSize() * 3);
+				(getHeight() / 2) - (int) (getHeight() * 0.4) + (int) (getHeight() * 0.65) - Config.f.getSize() + 5,
+				getWidth(), Config.f.getSize() * 3);
 
 		// so rects arent re genned when not needed
 		genRects = true;
@@ -96,8 +94,8 @@ public class GameMenu extends RenderInterface {
 				(int) (getWidth() * 0.6), 100, null);
 
 		// text colour
-		g.setColor(Color.GREEN);
-		g.setFont(f);
+		g.setColor(Config.fontColor);
+		g.setFont(Config.f);
 
 		// for the new button
 		String text = Language.getMessage("menu.new");
@@ -107,12 +105,12 @@ public class GameMenu extends RenderInterface {
 		// if its selected drawing the triangles
 		if (active == OPTIONS.NEW) {
 			int x = (getWidth() / 2) - (width / 2) - 30;
-			int y = (getHeight() / 2) - (int) (getHeight() * 0.4) + (int) (getHeight() * 0.35) - f.getSize() + 5;
-			g.drawImage(triangle, x, y, 15, f.getSize() - 5, null);
+			int y = (getHeight() / 2) - (int) (getHeight() * 0.4) + (int) (getHeight() * 0.35) - Config.f.getSize() + 5;
+			g.drawImage(triangle, x, y, 15, Config.f.getSize() - 5, null);
 
 			x = (getWidth() / 2) + (width / 2) + 15;
-			g.drawImage(triangle, x + 15, y, x, y + f.getSize() - 5, 0, 0, triangle.getWidth(), triangle.getHeight(),
-					null);
+			g.drawImage(triangle, x + 15, y, x, y + Config.f.getSize() - 5, 0, 0, triangle.getWidth(),
+					triangle.getHeight(), null);
 
 		}
 
@@ -125,12 +123,12 @@ public class GameMenu extends RenderInterface {
 
 		if (active == OPTIONS.LOAD) {
 			int x = (getWidth() / 2) - (width / 2) - 30;
-			int y = (getHeight() / 2) - (int) (getHeight() * 0.4) + (int) (getHeight() * 0.5) - f.getSize() + 5;
-			g.drawImage(triangle, x, y, 15, f.getSize() - 5, null);
+			int y = (getHeight() / 2) - (int) (getHeight() * 0.4) + (int) (getHeight() * 0.5) - Config.f.getSize() + 5;
+			g.drawImage(triangle, x, y, 15, Config.f.getSize() - 5, null);
 
 			x = (getWidth() / 2) + (width / 2) + 15;
-			g.drawImage(triangle, x + 15, y, x, y + f.getSize() - 5, 0, 0, triangle.getWidth(), triangle.getHeight(),
-					null);
+			g.drawImage(triangle, x + 15, y, x, y + Config.f.getSize() - 5, 0, 0, triangle.getWidth(),
+					triangle.getHeight(), null);
 
 		}
 
@@ -143,12 +141,12 @@ public class GameMenu extends RenderInterface {
 
 		if (active == OPTIONS.EDITOR) {
 			int x = (getWidth() / 2) - (width / 2) - 30;
-			int y = (getHeight() / 2) - (int) (getHeight() * 0.4) + (int) (getHeight() * 0.65) - f.getSize() + 5;
-			g.drawImage(triangle, x, y, 15, f.getSize() - 5, null);
+			int y = (getHeight() / 2) - (int) (getHeight() * 0.4) + (int) (getHeight() * 0.65) - Config.f.getSize() + 5;
+			g.drawImage(triangle, x, y, 15, Config.f.getSize() - 5, null);
 
 			x = (getWidth() / 2) + (width / 2) + 15;
-			g.drawImage(triangle, x + 15, y, x, y + f.getSize() - 5, 0, 0, triangle.getWidth(), triangle.getHeight(),
-					null);
+			g.drawImage(triangle, x + 15, y, x, y + Config.f.getSize() - 5, 0, 0, triangle.getWidth(),
+					triangle.getHeight(), null);
 
 		}
 

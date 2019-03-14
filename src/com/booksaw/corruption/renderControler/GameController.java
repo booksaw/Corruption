@@ -10,6 +10,8 @@ import com.booksaw.corruption.listeners.KeyListener;
 import com.booksaw.corruption.listeners.Listener;
 import com.booksaw.corruption.render.GameCamera;
 import com.booksaw.corruption.render.RenderInterface;
+import com.booksaw.corruption.render.overlays.GameOverlay;
+import com.booksaw.corruption.render.overlays.Overlay;
 import com.booksaw.corruption.selection.Selectable;
 
 public class GameController extends RenderController {
@@ -22,6 +24,7 @@ public class GameController extends RenderController {
 	private KeyListener listener;
 
 	public GameCamera c;
+	private GameOverlay gameOverlay;
 
 	public GameController() {
 		gameController = this;
@@ -48,6 +51,9 @@ public class GameController extends RenderController {
 			lm.load();
 		}
 		lm.finalise();
+
+		Overlay.addOverlay((gameOverlay = new GameOverlay()));
+
 		Corruption.main.startClock();
 	}
 
@@ -88,6 +94,11 @@ public class GameController extends RenderController {
 	@Override
 	public void back() {
 
+	}
+
+	@Override
+	public void disable() {
+		Overlay.removeOverlay(gameOverlay);
 	}
 
 }

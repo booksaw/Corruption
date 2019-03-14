@@ -41,8 +41,12 @@ public class LevelManager {
 
 	List<Background> backgrounds = new ArrayList<>();
 
+	public int fails = 0;
+	public int time = 0;
+	private long startTime;
+
 	// the file the level has been loaded from
-	File f;
+	private File f;
 	// all meta data so it can be executed
 	public List<Meta> metaData = new ArrayList<>();
 	// the dimensions of the level
@@ -157,6 +161,8 @@ public class LevelManager {
 		for (Meta m : metaData) {
 			m.execute();
 		}
+
+		startTime = System.currentTimeMillis();
 
 	}
 
@@ -358,6 +364,9 @@ public class LevelManager {
 				s.update(time);
 			}
 		}
+
+		this.time = (int) ((System.currentTimeMillis() - startTime) / 1000);
+
 	}
 
 	/**
@@ -395,6 +404,10 @@ public class LevelManager {
 				s.setActiveplayer(false);
 			}
 		}
+	}
+
+	public File getF() {
+		return f;
 	}
 
 }
