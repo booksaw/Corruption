@@ -15,41 +15,58 @@ public class Door extends GameObject {
 	private static BufferedImage doorClosed, doorOpen;
 	static final String PATH = Config.ASSETSPATH + File.separator + "door" + File.separator;
 
+	int centrex, centrey;
+
 	static {
 		doorClosed = Utils.getImage(new File(PATH + "doorclosed.png"));
 		doorOpen = Utils.getImage(new File(PATH + "dooropen.png"));
 	}
 
 	boolean open;
+	boolean left;
 
 	public Door(String info) {
 		String[] split = info.split(";");
-		x = Integer.parseInt(split[0]);
-		y = Integer.parseInt(split[1]);
+		centrex = Integer.parseInt(split[0]);
+		centrey = Integer.parseInt(split[1]);
 		open = Boolean.parseBoolean(split[2]);
+		left = Boolean.parseBoolean(split[3]);
 
 		height = doorClosed.getHeight() * Sprite.PIXELMULT;
 		width = ((open) ? doorOpen.getWidth() : doorClosed.getWidth()) * Sprite.PIXELMULT;
 		collisionMode = (open) ? Mode.SOLID : Mode.IGNORE;
+		calculatePosition();
 	}
 
 	public Door(Point p, boolean open) {
 		this.open = open;
-		x = p.x;
-		y = p.y;
+		centrex = p.x;
+		centrey = p.y;
+
+		left = true;
 
 		height = doorClosed.getHeight() * Sprite.PIXELMULT;
 		width = ((open) ? doorOpen.getWidth() : doorClosed.getWidth()) * Sprite.PIXELMULT;
 		collisionMode = (open) ? Mode.SOLID : Mode.IGNORE;
+		calculatePosition();
 	}
 
 	@Override
 	public void renderS(Graphics g, Rectangle camera) {
 		if (open) {
-			g.drawImage(doorOpen, (int) x - camera.x, (camera.height + camera.y) - ((int) y + height), width, height,
-					null);
+//			g.drawImage(doorOpen, (int) x - camera.x, (camera.height + camera.y) - ((int) y + height), width, height,
+//					null);
+			g.drawImage(doorOpen, (int) x - camera.x, (camera.height + camera.y) - ((int) y + height),
+					(int) (x - camera.x) + width, (camera.height + camera.y) - ((int) y),
+					(!left) ? 0 : doorOpen.getWidth(), 0, (left) ? 0 : doorOpen.getWidth(), doorOpen.getHeight(), null);
+
 		} else {
-			g.drawImage(doorClosed, (int) x - camera.x, (camera.height + camera.y) - ((int) y + height), width, height,
+//			g.drawImage(doorClosed, (int) x - camera.x, (camera.height + camera.y) - ((int) y + height), width, height,
+//					null);
+
+			g.drawImage(doorClosed, (int) x - camera.x, (camera.height + camera.y) - ((int) y + height),
+					(int) (x - camera.x) + width, (camera.height + camera.y) - ((int) y),
+					(left) ? 0 : doorClosed.getWidth(), 0, (!left) ? 0 : doorClosed.getWidth(), doorClosed.getHeight(),
 					null);
 
 		}
@@ -59,18 +76,20 @@ public class Door extends GameObject {
 		open = true;
 		collisionMode = Mode.IGNORE;
 		width = doorOpen.getWidth() * Sprite.PIXELMULT;
+		calculatePosition();
 	}
 
 	public void close() {
 		width = doorClosed.getWidth() * Sprite.PIXELMULT;
 		open = false;
 		collisionMode = Mode.SOLID;
+		calculatePosition();
 	}
 
 	@Override
 	public String toString() {
 
-		return "object:door:" + (int) x + ";" + (int) y + ";" + open;
+		return "object:door:" + (int) centrex + ";" + (int) centrey + ";" + open + ";" + left;
 	}
 
 	public void setLocation(Point p) {
@@ -88,6 +107,26 @@ public class Door extends GameObject {
 
 	public boolean isOpen() {
 		return open;
+	}
+
+	private void calculatePosition() {
+		if (left) {
+			x = centrex - width;
+			y = centrey;
+
+		} else {
+			x = centrex;
+			y = centrey;
+		}
+	}
+
+	public boolean isLeft() {
+		return left;
+	}
+
+	public void setLeft(boolean left) {
+		this.left = left;
+		calculatePosition();
 	}
 
 }

@@ -11,5 +11,6 @@ object:spike:315;391;25;30;d
 object:spike:390;10;25;30;u
 object:block:178;7;48;45;0;0;0
 object:block:800;13;2;1;0;0;0
+object:door:148;409;true;true
 sprite:player:0;0;true;true
 sprite:player:506;201;false;false

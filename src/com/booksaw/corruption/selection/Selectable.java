@@ -160,6 +160,9 @@ public abstract class Selectable implements Location, Dimensions {
 		p = Utils.getScaledPoint(p, new Dimension(GameCamera.cameraWidth, GameCamera.cameraHeight));
 		p.y = (GameCamera.cameraHeight) - (p.y);
 		p.x = p.x - GameCamera.activeCamera.x;
+		if (starting == null) {
+			return;
+		}
 		Point offset = new Point(p.x - starting.x, p.y - starting.y);
 
 		switch (mode) {

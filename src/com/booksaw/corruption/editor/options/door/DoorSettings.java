@@ -13,7 +13,7 @@ public class DoorSettings extends OptionPane {
 	public DoorSettings(Door d) {
 		super();
 		this.d = d;
-		
+
 		intialize();
 	}
 
@@ -27,7 +27,8 @@ public class DoorSettings extends OptionPane {
 		included.add(new XOption(d));
 		included.add(new YOption(d));
 		included.add(new OpenOption(d));
-		
+		included.add(new DoorDirection(d));
+
 	}
 
 	@Override
