@@ -26,7 +26,7 @@ public abstract class Selectable implements Location, Dimensions {
 
 	private static List<Selectable> selectable = new ArrayList<>();
 
-	private static CursorMode mode;
+	protected static CursorMode mode;
 	private static Point starting;
 	protected boolean resizable = true;
 
@@ -89,7 +89,7 @@ public abstract class Selectable implements Location, Dimensions {
 				}
 			}
 
-			if (!listener.ctrl) {
+			if (listener != null && !listener.ctrl) {
 				clearSelection();
 			}
 

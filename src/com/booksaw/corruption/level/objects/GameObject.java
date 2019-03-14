@@ -19,7 +19,7 @@ import com.booksaw.corruption.selection.Selectable;
  */
 public abstract class GameObject extends Selectable implements Location, Dimensions {
 
-	public boolean collidable = true;
+	public Mode collisionMode = Mode.SOLID;
 
 	public static GameObject getObject(Point p) {
 		return getObject(new Rectangle(p, new Dimension(1, 1)));

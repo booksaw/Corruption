@@ -23,6 +23,7 @@ public class Spike extends GameObject {
 	}
 
 	public static BufferedImage rotateClockwise90(BufferedImage src) {
+
 		int width = src.getWidth();
 		int height = src.getHeight();
 
@@ -44,7 +45,7 @@ public class Spike extends GameObject {
 
 	public Spike(String info) {
 
-		super();
+		collisionMode = Mode.DEATH;
 		// getting object data from the split
 		String[] split = info.split(";");
 		x = Integer.parseInt(split[0]);
@@ -72,6 +73,7 @@ public class Spike extends GameObject {
 	}
 
 	public Spike(Point p, Direction d) {
+		collisionMode = Mode.DEATH;
 		x = p.x;
 		y = p.y;
 		width = spikes.getWidth() * Sprite.PIXELMULT;

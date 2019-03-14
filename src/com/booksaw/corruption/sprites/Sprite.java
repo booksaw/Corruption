@@ -13,6 +13,7 @@ import com.booksaw.corruption.Updatable;
 import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.level.Location;
 import com.booksaw.corruption.level.objects.GameObject;
+import com.booksaw.corruption.level.objects.Mode;
 import com.booksaw.corruption.render.GameCamera;
 import com.booksaw.corruption.selection.Selectable;
 
@@ -453,9 +454,14 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 
 		// checks intersections with each rectangle
 		for (GameObject o : LevelManager.activeLevel.getLevelObjects()) {
-			if (o.getRectangle().intersects(r) && o.collidable) {
 
-				return false;
+			if (o.getRectangle().intersects(r)) {
+				if (o.collisionMode == Mode.SOLID) {
+					return false;
+				} else if (o.collisionMode == Mode.DEATH) {
+					reset();
+					return true;
+				}
 			}
 		}
 		return true;

@@ -30,7 +30,7 @@ public class Door extends GameObject {
 
 		height = doorClosed.getHeight() * Sprite.PIXELMULT;
 		width = ((open) ? doorOpen.getWidth() : doorClosed.getWidth()) * Sprite.PIXELMULT;
-		collidable = (open) ? false : true;
+		collisionMode = (open) ? Mode.SOLID : Mode.IGNORE;
 	}
 
 	public Door(Point p, boolean open) {
@@ -40,7 +40,7 @@ public class Door extends GameObject {
 
 		height = doorClosed.getHeight() * Sprite.PIXELMULT;
 		width = ((open) ? doorOpen.getWidth() : doorClosed.getWidth()) * Sprite.PIXELMULT;
-		collidable = (open) ? false : true;
+		collisionMode = (open) ? Mode.SOLID : Mode.IGNORE;
 	}
 
 	@Override
@@ -57,14 +57,14 @@ public class Door extends GameObject {
 
 	public void open() {
 		open = true;
-		collidable = false;
+		collisionMode = Mode.IGNORE;
 		width = doorOpen.getWidth() * Sprite.PIXELMULT;
 	}
 
 	public void close() {
 		width = doorClosed.getWidth() * Sprite.PIXELMULT;
 		open = false;
-		collidable = true;
+		collisionMode = Mode.SOLID;
 	}
 
 	@Override
