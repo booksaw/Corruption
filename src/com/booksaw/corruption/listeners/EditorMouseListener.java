@@ -19,6 +19,7 @@ import com.booksaw.corruption.editor.options.cursor.CursorSettings;
 import com.booksaw.corruption.editor.options.cursor.CursorSettings.SELECTION;
 import com.booksaw.corruption.editor.options.door.DoorSettings;
 import com.booksaw.corruption.editor.options.gameobjects.BlockSettings;
+import com.booksaw.corruption.editor.options.spike.SpikeSettings;
 import com.booksaw.corruption.editor.options.sprites.SpriteSettings;
 import com.booksaw.corruption.language.Language;
 import com.booksaw.corruption.level.LevelManager;
@@ -29,6 +30,7 @@ import com.booksaw.corruption.level.objects.Block;
 import com.booksaw.corruption.level.objects.Door;
 import com.booksaw.corruption.level.objects.DraggedBlock;
 import com.booksaw.corruption.level.objects.GameObject;
+import com.booksaw.corruption.level.objects.Spike;
 import com.booksaw.corruption.render.GameCamera;
 import com.booksaw.corruption.render.overlays.ActiveSelection;
 import com.booksaw.corruption.render.overlays.EditorOverlay;
@@ -323,6 +325,9 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 				return;
 			} else if (o instanceof Door) {
 				new DoorSettings((Door) o).setVisible(true);
+				return;
+			} else if (o instanceof Spike) {
+				new SpikeSettings((Spike) o).setVisible(true);
 				return;
 			}
 		}

@@ -21,6 +21,7 @@ import com.booksaw.corruption.level.meta.Meta;
 import com.booksaw.corruption.level.objects.Block;
 import com.booksaw.corruption.level.objects.Door;
 import com.booksaw.corruption.level.objects.GameObject;
+import com.booksaw.corruption.level.objects.Spike;
 import com.booksaw.corruption.sprites.Player;
 import com.booksaw.corruption.sprites.Sprite;
 
@@ -233,6 +234,11 @@ public class LevelManager {
 			Door d = new Door(info);
 			d.setSelected(select);
 			levelObjects.add(d);
+			break;
+		case "spike":
+			Spike s = new Spike(info);
+			s.setSelected(select);
+			levelObjects.add(s);
 			break;
 		}
 
