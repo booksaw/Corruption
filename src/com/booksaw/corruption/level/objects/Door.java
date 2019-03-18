@@ -129,4 +129,13 @@ public class Door extends GameObject {
 		calculatePosition();
 	}
 
+	@Override
+	public void applyOffset(Point p) {
+		centrex += p.x;
+		centrey += p.y;
+
+		calculatePosition();
+
+	}
+
 }

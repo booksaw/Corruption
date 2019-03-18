@@ -22,6 +22,10 @@ public class DraggedSelection extends Overlay {
 		this.y = startingLocation.y;
 		width = 0;
 		height = 0;
+		if (selection != null) {
+			Overlay.removeOverlay(selection);
+		}
+
 		selection = this;
 		Overlay.addOverlay(this);
 
@@ -75,13 +79,17 @@ public class DraggedSelection extends Overlay {
 		for (Selectable s : LevelManager.activeLevel.getLevelObjects()) {
 			run(s, r);
 		}
+
+		for (Selectable s : LevelManager.activeLevel.getBackgrounds()) {
+			run(s, r);
+		}
 	}
 
 	public void run(Selectable s, Rectangle r) {
 		if (s.getRectangle().intersects(r)) {
-			s.setSelected(true);
+			s.setSelected(true, true, true);
 		} else {
-			s.setSelected(false);
+			s.setSelected(false, true, true);
 		}
 	}
 

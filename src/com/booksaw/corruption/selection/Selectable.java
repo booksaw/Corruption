@@ -33,7 +33,7 @@ public abstract class Selectable implements Location, Dimensions {
 	public static void clearSelection() {
 
 		for (Selectable s : selectable) {
-			s.setSelected(false, false);
+			s.setSelected(false, false, false);
 		}
 		selectable = new ArrayList<>();
 	}
@@ -74,11 +74,11 @@ public abstract class Selectable implements Location, Dimensions {
 	}
 
 	public void setSelected(boolean selected) {
-		setSelected(selected, true);
+		setSelected(selected, true, false);
 
 	}
 
-	public void setSelected(boolean selected, boolean remove) {
+	public void setSelected(boolean selected, boolean remove, boolean ctrl) {
 
 		EditorKeyListener listener = null;
 		if (remove) {
@@ -89,7 +89,7 @@ public abstract class Selectable implements Location, Dimensions {
 				}
 			}
 
-			if (listener != null && !listener.ctrl) {
+			if (listener != null && !listener.ctrl && !ctrl) {
 				clearSelection();
 			}
 
