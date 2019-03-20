@@ -523,6 +523,8 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 	public void applyOffset(Point p) {
 		x += p.x;
 		y += p.y;
+		startingLocation = new Point((int) x, (int) y);
+
 	}
 
 	@Override

@@ -29,12 +29,11 @@ public class Door extends GameObject {
 		String[] split = info.split(";");
 		centrex = Integer.parseInt(split[0]);
 		centrey = Integer.parseInt(split[1]);
-		open = Boolean.parseBoolean(split[2]);
+		setOpen(Boolean.parseBoolean(split[2]));
 		left = Boolean.parseBoolean(split[3]);
 
 		height = doorClosed.getHeight() * Sprite.PIXELMULT;
-		width = ((open) ? doorOpen.getWidth() : doorClosed.getWidth()) * Sprite.PIXELMULT;
-		collisionMode = (open) ? Mode.SOLID : Mode.IGNORE;
+
 		calculatePosition();
 	}
 
@@ -53,6 +52,7 @@ public class Door extends GameObject {
 
 	@Override
 	public void renderS(Graphics g, Rectangle camera) {
+
 		if (open) {
 //			g.drawImage(doorOpen, (int) x - camera.x, (camera.height + camera.y) - ((int) y + height), width, height,
 //					null);
@@ -88,13 +88,15 @@ public class Door extends GameObject {
 
 	@Override
 	public String toString() {
-
+		calculatePosition();
 		return "object:door:" + (int) centrex + ";" + (int) centrey + ";" + open + ";" + left;
 	}
 
 	public void setLocation(Point p) {
-		this.x = p.x;
-		this.y = p.y;
+		centrex = p.x;
+		centrey = p.y;
+
+		calculatePosition();
 	}
 
 	public void setOpen(boolean open) {

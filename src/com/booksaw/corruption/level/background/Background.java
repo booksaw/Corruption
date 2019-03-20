@@ -78,5 +78,11 @@ public abstract class Background extends Selectable implements Dimensions, Locat
 	public void delete() {
 		LevelManager.activeLevel.removeBackground(this);
 	}
-	
+
+	public boolean needsSaving() {
+
+		if (width < 5 || height < 5)
+			return false;
+		return true;
+	}
 }

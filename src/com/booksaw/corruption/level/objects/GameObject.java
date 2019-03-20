@@ -117,7 +117,7 @@ public abstract class GameObject extends Selectable implements Location, Dimensi
 
 	public boolean needsSaving() {
 
-		if (width == 0 || height == 0)
+		if (width < 5 || height < 5)
 			return false;
 		return true;
 	}

@@ -13,6 +13,7 @@ import com.booksaw.corruption.listeners.Listener;
 import com.booksaw.corruption.render.GameCamera;
 import com.booksaw.corruption.render.RenderInterface;
 import com.booksaw.corruption.render.overlays.EditorOverlay;
+import com.booksaw.corruption.render.overlays.InteractableOverlay;
 import com.booksaw.corruption.render.overlays.ObjectOverlay;
 import com.booksaw.corruption.render.overlays.Overlay;
 import com.booksaw.corruption.render.overlays.SpriteOverlay;
@@ -109,6 +110,10 @@ public class EditorController extends RenderController {
 
 	public void insertObject() {
 		Overlay.addOverlay(new ObjectOverlay());
+	}
+
+	public void insertInteractable() {
+		Overlay.addOverlay(new InteractableOverlay());
 	}
 
 	@Override

@@ -26,6 +26,7 @@ import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.level.background.Background;
 import com.booksaw.corruption.level.background.ColoredBackground;
 import com.booksaw.corruption.level.background.DraggedBackground;
+import com.booksaw.corruption.level.interactable.Interactable;
 import com.booksaw.corruption.level.objects.Block;
 import com.booksaw.corruption.level.objects.Door;
 import com.booksaw.corruption.level.objects.DraggedBlock;
@@ -34,6 +35,8 @@ import com.booksaw.corruption.level.objects.Spike;
 import com.booksaw.corruption.render.GameCamera;
 import com.booksaw.corruption.render.overlays.ActiveSelection;
 import com.booksaw.corruption.render.overlays.EditorOverlay;
+import com.booksaw.corruption.render.overlays.InteractableCursorOverlay;
+import com.booksaw.corruption.render.overlays.InteractableOverlay;
 import com.booksaw.corruption.render.overlays.ObjectCursorOverlay;
 import com.booksaw.corruption.render.overlays.ObjectOverlay;
 import com.booksaw.corruption.render.overlays.Overlay;
@@ -53,7 +56,8 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 	public void mouseDragged(MouseEvent e) {
 
 		if (selection == ActiveSelection.SPRITE || selection == ActiveSelection.SPRITECURSOR
-				|| selection == ActiveSelection.OBJECT || selection == ActiveSelection.OBJECTCURSOR) {
+				|| selection == ActiveSelection.OBJECT || selection == ActiveSelection.OBJECTCURSOR
+				|| selection == ActiveSelection.INTERACTABLE || selection == ActiveSelection.INTERACTABLECURSOR) {
 			return;
 		}
 
@@ -119,7 +123,8 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 	@Override
 	public void mousePressed(MouseEvent e) {
 		if (selection == ActiveSelection.SPRITE || selection == ActiveSelection.SPRITECURSOR
-				|| selection == ActiveSelection.OBJECT || selection == ActiveSelection.OBJECTCURSOR) {
+				|| selection == ActiveSelection.OBJECT || selection == ActiveSelection.OBJECTCURSOR
+				|| selection == ActiveSelection.INTERACTABLE || selection == ActiveSelection.INTERACTABLECURSOR) {
 			return;
 		}
 
@@ -167,6 +172,12 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 		case OBJECTCURSOR:
 			ObjectCursorClick(e, p);
 			break;
+		case INTERACTABLE:
+			InteractableClick(p);
+			break;
+		case INTERACTABLECURSOR:
+			InteractableCursorClick(e, p);
+			break;
 		}
 
 	}
@@ -196,6 +207,18 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 		}
 
 		((EditorController) temp).insertObject();
+
+	}
+
+	public void insertInteractable() {
+
+		RenderController temp = Corruption.main.controller;
+
+		if (!(temp instanceof EditorController)) {
+			return;
+		}
+
+		((EditorController) temp).insertInteractable();
 
 	}
 
@@ -255,6 +278,14 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 				&& p.getY() < GameCamera.cameraHeight) {
 
 			insertObject();
+			return;
+		}
+		if (p.getX() > GameCamera.cameraWidth - (EditorOverlay.SQUARE * 7)
+				&& p.getY() > GameCamera.cameraHeight - EditorOverlay.SQUARE
+				&& p.getX() < GameCamera.cameraWidth - (EditorOverlay.SQUARE * 6)
+				&& p.getY() < GameCamera.cameraHeight) {
+
+			insertInteractable();
 			return;
 		}
 
@@ -391,6 +422,35 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 
 	}
 
+	private void InteractableCursorClick(MouseEvent e, Point p) {
+		if (SwingUtilities.isLeftMouseButton(e)) {
+
+			selection = ActiveSelection.MAIN;
+			Overlay.removeOverlay(InteractableCursorOverlay.interactableOverlay);
+			LevelManager.activeLevel.addInteractable(InteractableCursorOverlay.interactableOverlay.i);
+
+		} else if (SwingUtilities.isRightMouseButton(e)) {
+			selection = ActiveSelection.MAIN;
+			Overlay.removeOverlay(InteractableCursorOverlay.interactableOverlay);
+		}
+	}
+
+	private void InteractableClick(Point p) {
+		Overlay store = null;
+		for (Overlay o : Overlay.getActiveOverlays()) {
+			if (!(o instanceof InteractableOverlay)) {
+				continue;
+			}
+
+			store = o;
+			((InteractableOverlay) o).click(p);
+			break;
+		}
+
+		Overlay.removeOverlay(store);
+
+	}
+
 	private void ObjectCursorClick(MouseEvent e, Point p) {
 		if (SwingUtilities.isLeftMouseButton(e)) {
 
@@ -408,15 +468,22 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 		Point temp = new Point(p.x + GameCamera.activeCamera.x,
 				GameCamera.cameraHeight - (p.y + GameCamera.activeCamera.y));
 
+		Sprite s = Sprite.getSprite(temp, LevelManager.activeLevel.getSprites());
+		if (s != null) {
+			s.setSelected(true);
+			return;
+		}
+
 		GameObject o = GameObject.getObject(temp);
 		if (o != null) {
 			o.setSelected(true);
 			return;
 		}
 
-		Sprite s = Sprite.getSprite(temp, LevelManager.activeLevel.getSprites());
-		if (s != null) {
-			s.setSelected(true);
+		Interactable i = Interactable.getInteractable(temp, LevelManager.activeLevel.getInteractables());
+
+		if (i != null) {
+			i.setSelected(true);
 			return;
 		}
 

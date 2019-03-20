@@ -14,6 +14,7 @@ import java.util.List;
 import com.booksaw.corruption.Config;
 import com.booksaw.corruption.level.background.Background;
 import com.booksaw.corruption.level.background.ColoredBackground;
+import com.booksaw.corruption.level.interactable.Interactable;
 import com.booksaw.corruption.level.meta.BackgroundColorMeta;
 import com.booksaw.corruption.level.meta.CameraLocationMeta;
 import com.booksaw.corruption.level.meta.LevelDimensionsMeta;
@@ -40,6 +41,8 @@ public class LevelManager {
 	List<Sprite> sprites = new ArrayList<>();
 
 	List<Background> backgrounds = new ArrayList<>();
+
+	List<Interactable> interactables = new ArrayList<>();
 
 	public int fails = 0;
 	public int time = 0;
@@ -195,14 +198,19 @@ public class LevelManager {
 			break;
 		case "background":
 			makeBackground(split[1], split[2], select);
+			break;
 		case "sprite":
 			makeSprite(split[1], split[2], select);
+			break;
+		case "interactable":
+			makeInteractable(split[1], select);
+			break;
 		}
 
 	}
 
 	/**
-	 * Used to setup meta from the fil
+	 * Used to setup meta from the file
 	 * 
 	 * @param type what type of meta it is
 	 * @param info info to be parsed into the meta class
@@ -220,6 +228,10 @@ public class LevelManager {
 			metaData.add(new BackgroundColorMeta(info));
 		}
 
+	}
+
+	private void makeInteractable(String info, boolean select) {
+		interactables.add(new Interactable(info, select));
 	}
 
 	/**
@@ -284,6 +296,10 @@ public class LevelManager {
 		return sprites;
 	}
 
+	public List<Interactable> getInteractables() {
+		return interactables;
+	}
+	
 	public void addSprite(Sprite s) {
 		sprites.add(s);
 
@@ -297,6 +313,10 @@ public class LevelManager {
 		backgrounds.add(b);
 	}
 
+	public void addInteractable(Interactable i) {
+		interactables.add(i);
+	}
+
 	public void removeObject(GameObject o) {
 		levelObjects.remove(o);
 	}
@@ -307,6 +327,10 @@ public class LevelManager {
 
 	public void removeSprite(Sprite s) {
 		sprites.remove(s);
+	}
+
+	public void removeInteractable(Interactable i) {
+		interactables.remove(i);
 	}
 
 	public void save() {
@@ -330,7 +354,7 @@ public class LevelManager {
 
 			for (Background b : backgrounds) {
 				String s = b.toString();
-				if (!s.equals(""))
+				if (!s.equals("") && b.needsSaving())
 					pw.println(b);
 			}
 
@@ -338,6 +362,13 @@ public class LevelManager {
 				String st = s.toString();
 				if (!st.equals(""))
 					pw.println(s);
+			}
+
+			for (Interactable i : interactables) {
+				String s = i.toString();
+				if (!s.equals("")) {
+					pw.println(s);
+				}
 			}
 
 			pw.close();
@@ -379,6 +410,7 @@ public class LevelManager {
 		sprites = new ArrayList<>();
 		levelObjects = new ArrayList<>();
 		backgrounds = new ArrayList<>();
+		interactables = new ArrayList<>();
 		// resets the file to the default file
 		resetLevel(false);
 	}
