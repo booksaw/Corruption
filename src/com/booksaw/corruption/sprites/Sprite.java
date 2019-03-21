@@ -1,6 +1,5 @@
 package com.booksaw.corruption.sprites;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -125,6 +124,7 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 	protected abstract Rectangle getRectangle(int x, int y);
 
 	public Sprite() {
+		priority = 5;
 		// any sprite specific setup
 		setup();
 		// starting state
@@ -335,7 +335,12 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 	 * @param cameraY      location of camera y coord
 	 * @param cameraHeight the height of the camera
 	 */
-	public void draw(Graphics g, int cameraX, int cameraY, int cameraHeight) {
+	@Override
+	public void paintComp(Graphics g, Rectangle r) {
+
+		int cameraHeight = r.height;
+		int cameraX = r.x;
+		int cameraY = r.y;
 		Dimension d = getDisplayDimension();
 
 		g.drawImage(getActiveImage(Corruption.time),
@@ -346,21 +351,21 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 
 				(int) (getAnimationStage() * d.getWidth()), 0, (int) ((getAnimationStage() + 1) * d.getWidth()),
 				(int) d.getHeight(), null);
-
-		if (selected) {
-			g.setColor(Color.WHITE);
-			g.drawRect((int) (x - cameraX), (int) (cameraHeight - (y - cameraY + (d.getHeight() * PIXELMULT))),
-					(int) (d.getWidth() * PIXELMULT), (int) (d.getHeight() * PIXELMULT));
-			g.setColor(Color.LIGHT_GRAY);
-			g.fillOval((int) x - circleD / 2 - cameraX, (int) (cameraHeight - (y + circleD / 2)), circleD, circleD);
-			g.fillOval((int) (x + (dimensions.getWidth() * PIXELMULT)) - circleD / 2 - cameraX,
-					(int) (cameraHeight - (y + circleD / 2)), circleD, circleD);
-			g.fillOval((int) x - circleD / 2 - cameraX,
-					(int) (cameraHeight - (y + circleD / 2 + (dimensions.getHeight() * PIXELMULT))), circleD, circleD);
-			g.fillOval((int) (x + (dimensions.getWidth() * PIXELMULT)) - circleD / 2 - cameraX,
-					(int) (cameraHeight - (y + circleD / 2 + (dimensions.getHeight() * PIXELMULT))), circleD, circleD);
-
-		}
+//
+//		if (selected) {
+//			g.setColor(Color.WHITE);
+//			g.drawRect((int) (x - cameraX), (int) (cameraHeight - (y - cameraY + (d.getHeight() * PIXELMULT))),
+//					(int) (d.getWidth() * PIXELMULT), (int) (d.getHeight() * PIXELMULT));
+//			g.setColor(Color.LIGHT_GRAY);
+//			g.fillOval((int) x - circleD / 2 - cameraX, (int) (cameraHeight - (y + circleD / 2)), circleD, circleD);
+//			g.fillOval((int) (x + (dimensions.getWidth() * PIXELMULT)) - circleD / 2 - cameraX,
+//					(int) (cameraHeight - (y + circleD / 2)), circleD, circleD);
+//			g.fillOval((int) x - circleD / 2 - cameraX,
+//					(int) (cameraHeight - (y + circleD / 2 + (dimensions.getHeight() * PIXELMULT))), circleD, circleD);
+//			g.fillOval((int) (x + (dimensions.getWidth() * PIXELMULT)) - circleD / 2 - cameraX,
+//					(int) (cameraHeight - (y + circleD / 2 + (dimensions.getHeight() * PIXELMULT))), circleD, circleD);
+//
+//		}
 	}
 
 	/**

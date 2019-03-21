@@ -1,7 +1,9 @@
 package com.booksaw.corruption.selection;
 
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -9,6 +11,7 @@ import java.util.List;
 
 import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.CursorManager;
+import com.booksaw.corruption.Renderable;
 import com.booksaw.corruption.Utils;
 import com.booksaw.corruption.level.Dimensions;
 import com.booksaw.corruption.level.Location;
@@ -16,7 +19,7 @@ import com.booksaw.corruption.listeners.EditorKeyListener;
 import com.booksaw.corruption.listeners.Listener;
 import com.booksaw.corruption.render.GameCamera;
 
-public abstract class Selectable implements Location, Dimensions {
+public abstract class Selectable extends Renderable implements Location, Dimensions {
 
 	protected double x, y;
 
@@ -219,6 +222,33 @@ public abstract class Selectable implements Location, Dimensions {
 	public abstract void applyOffset(Point p);
 
 	public abstract Rectangle getRectangle();
+
+	protected abstract void paintComp(Graphics g, Rectangle r);
+
+	@Override
+	public void paint(Graphics g, Rectangle r) {
+		paintComp(g, r);
+
+		if (selected) {
+			int cameraX = r.x;
+			int cameraHeight = r.height;
+			int cameraY = r.y;
+
+			g.setColor(Color.WHITE);
+			g.drawRect((int) (x - cameraX), (int) (cameraHeight - (y + cameraY + (getHeight()))), (int) (getWidth()),
+					(int) (getHeight()));
+			g.setColor(Color.LIGHT_GRAY);
+			g.fillOval((int) x - circleD / 2 - cameraX, (int) (cameraHeight - ((int) y + circleD / 2)), circleD,
+					circleD);
+			g.fillOval((int) ((int) x + (getWidth())) - circleD / 2 - cameraX,
+					(int) (cameraHeight - ((int) y + circleD / 2)), circleD, circleD);
+			g.fillOval((int) (int) x - circleD / 2 - cameraX,
+					(int) (cameraHeight - ((int) y + circleD / 2 + (getHeight()))), circleD, circleD);
+			g.fillOval((int) ((int) x + (getWidth())) - circleD / 2 - cameraX,
+					(int) (cameraHeight - ((int) y + circleD / 2 + (getHeight()))), circleD, circleD);
+
+		}
+	}
 
 	enum CursorMode {
 		MOVE, TR, TL, BR, BL;

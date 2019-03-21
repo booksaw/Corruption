@@ -47,7 +47,7 @@ public class ObjectOverlay extends Overlay {
 				(int) Corruption.origionalDimensions.getHeight() - 100, 20, 20);
 
 		for (GameObject o : objects.keySet()) {
-			o.render(g, new Rectangle(0, 0, 0, 0));
+			o.paint(g, new Rectangle(0, 0, 0, 0));
 
 		}
 

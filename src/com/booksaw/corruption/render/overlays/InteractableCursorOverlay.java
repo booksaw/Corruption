@@ -33,7 +33,7 @@ public class InteractableCursorOverlay extends Overlay {
 		p.x = p.x = p.x - f.getLocationOnScreen().x;
 		i.setLocation(p);
 
-		i.draw(g, new Rectangle(0, 0, GameCamera.cameraWidth, GameCamera.cameraHeight));
+		i.paint(g, new Rectangle(0, 0, GameCamera.cameraWidth, GameCamera.cameraHeight));
 
 	}
 

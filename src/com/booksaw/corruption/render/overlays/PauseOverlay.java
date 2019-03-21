@@ -14,6 +14,7 @@ import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.listeners.ListenerManager;
 import com.booksaw.corruption.listeners.PauseListener;
 import com.booksaw.corruption.render.GameMenu;
+import com.booksaw.corruption.renderControler.EditorController;
 import com.booksaw.corruption.renderControler.MenuController;
 
 public class PauseOverlay extends Overlay {
@@ -148,7 +149,7 @@ public class PauseOverlay extends Overlay {
 			break;
 		case QUIT:
 
-			if (LevelManager.activeLevel.hasChanged()) {
+			if (LevelManager.activeLevel.hasChanged() && Corruption.main.controller instanceof EditorController) {
 				int result = JOptionPane.showConfirmDialog(Corruption.main.getFrame(),
 						Language.getMessage("pause.save"), Language.getMessage("title"),
 						JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, Config.logo);

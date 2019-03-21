@@ -33,7 +33,7 @@ public class ObjectCursorOverlay extends Overlay {
 		p.x = p.x = p.x - f.getLocationOnScreen().x;
 		o.setLocation(p);
 
-		o.render(g, new Rectangle(0, 0, GameCamera.cameraWidth, GameCamera.cameraHeight));
+		o.paint(g, new Rectangle(0, 0, GameCamera.cameraWidth, GameCamera.cameraHeight));
 
 	}
 

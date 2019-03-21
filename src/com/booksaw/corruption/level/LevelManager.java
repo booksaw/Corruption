@@ -9,9 +9,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.booksaw.corruption.Config;
+import com.booksaw.corruption.Renderable;
 import com.booksaw.corruption.level.background.Background;
 import com.booksaw.corruption.level.background.ColoredBackground;
 import com.booksaw.corruption.level.interactable.Interactable;
@@ -43,6 +45,8 @@ public class LevelManager {
 	List<Background> backgrounds = new ArrayList<>();
 
 	List<Interactable> interactables = new ArrayList<>();
+
+	List<Renderable> toRender = new ArrayList<>();
 
 	public int fails = 0;
 	public int time = 0;
@@ -89,6 +93,7 @@ public class LevelManager {
 		sprites = new ArrayList<>();
 		levelObjects = new ArrayList<>();
 		backgrounds = new ArrayList<>();
+		toRender = new ArrayList<>();
 
 		// setting up the file reader
 		BufferedReader br = null;
@@ -231,7 +236,7 @@ public class LevelManager {
 	}
 
 	private void makeInteractable(String info, boolean select) {
-		interactables.add(new Interactable(info, select));
+		addInteractable(new Interactable(info, select));
 	}
 
 	/**
@@ -246,17 +251,17 @@ public class LevelManager {
 		case "block":
 			Block b = new Block(info);
 			b.setSelected(select);
-			levelObjects.add(b);
+			addObject(b);
 			break;
 		case "door":
 			Door d = new Door(info);
 			d.setSelected(select);
-			levelObjects.add(d);
+			addObject(d);
 			break;
 		case "spike":
 			Spike s = new Spike(info);
 			s.setSelected(select);
-			levelObjects.add(s);
+			addObject(s);
 			break;
 		}
 
@@ -267,7 +272,7 @@ public class LevelManager {
 		case "colored":
 			ColoredBackground cb = new ColoredBackground(info);
 			cb.setSelected(select);
-			backgrounds.add(cb);
+			addBackground(cb);
 			break;
 		}
 
@@ -299,38 +304,50 @@ public class LevelManager {
 	public List<Interactable> getInteractables() {
 		return interactables;
 	}
-	
+
 	public void addSprite(Sprite s) {
 		sprites.add(s);
+		toRender.add(s);
+		sortRenderable();
 
 	}
 
 	public void addObject(GameObject o) {
 		levelObjects.add(o);
+		toRender.add(o);
+		sortRenderable();
 	}
 
 	public void addBackground(Background b) {
 		backgrounds.add(b);
+		toRender.add(b);
+		sortRenderable();
 	}
 
 	public void addInteractable(Interactable i) {
 		interactables.add(i);
+		toRender.add(i);
+		sortRenderable();
 	}
 
 	public void removeObject(GameObject o) {
 		levelObjects.remove(o);
+		toRender.remove(o);
 	}
 
 	public void removeBackground(Background b) {
 		backgrounds.remove(b);
+		toRender.remove(b);
 	}
 
 	public void removeSprite(Sprite s) {
 		sprites.remove(s);
+		toRender.remove(s);
 	}
 
 	public void removeInteractable(Interactable i) {
 		interactables.remove(i);
+		toRender.remove(i);
 	}
 
 	public void save() {
@@ -411,6 +428,7 @@ public class LevelManager {
 		levelObjects = new ArrayList<>();
 		backgrounds = new ArrayList<>();
 		interactables = new ArrayList<>();
+		toRender = new ArrayList<>();
 		// resets the file to the default file
 		resetLevel(false);
 	}
@@ -440,6 +458,31 @@ public class LevelManager {
 
 	public File getF() {
 		return f;
+	}
+
+	public List<Renderable> getToRender() {
+		return toRender;
+	}
+
+	public void sortRenderable() {
+		Renderable[] renders = toRender.toArray(new Renderable[toRender.size()]);
+
+		boolean changed = false;
+		Renderable temp;
+
+		for (int i = 0; i < renders.length && !changed; i++) {
+			changed = false;
+			for (int j = 1; j < renders.length - i; j++) {
+				if (renders[j - 1].getPriority() < renders[j].getPriority()) {
+					temp = renders[j - 1];
+					renders[j - 1] = renders[j];
+					renders[j] = temp;
+					changed = true;
+				}
+			}
+		}
+
+		toRender = new ArrayList<>(Arrays.asList(renders));
 	}
 
 }

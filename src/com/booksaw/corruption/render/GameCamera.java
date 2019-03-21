@@ -4,11 +4,8 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import com.booksaw.corruption.Corruption;
+import com.booksaw.corruption.Renderable;
 import com.booksaw.corruption.level.LevelManager;
-import com.booksaw.corruption.level.background.Background;
-import com.booksaw.corruption.level.interactable.Interactable;
-import com.booksaw.corruption.level.objects.GameObject;
-import com.booksaw.corruption.sprites.Sprite;
 
 /**
  * This class is used to render the game play
@@ -57,23 +54,30 @@ public class GameCamera extends RenderInterface {
 		g.setColor(LevelManager.activeLevel.backgroundColor);
 		g.fillRect(0, 0, getWidth(), getHeight());
 
-		for (Background b : LevelManager.activeLevel.getBackgrounds()) {
-			b.draw(g, new Rectangle(x, y, cameraWidth, cameraHeight));
+		Rectangle r = new Rectangle(x, y, cameraWidth, cameraHeight);
+
+		for (Renderable re : LevelManager.activeLevel.getToRender()) {
+			re.paint(g, r);
 		}
 
-		for (Interactable i : LevelManager.activeLevel.getInteractables()) {
-			i.draw(g, new Rectangle(x, y, cameraWidth, cameraHeight));
-		}
-
-		// looping through all the objects and givng them a turn to render
-		for (GameObject o : LevelManager.activeLevel.getLevelObjects()) {
-			o.render(g, new Rectangle(x, y, cameraWidth, cameraHeight));
-		}
-
-		// filling the player
-		for (Sprite s : LevelManager.activeLevel.getSprites()) {
-			s.draw(g, x, y, cameraHeight);
-		}
+//
+//		for (Background b : LevelManager.activeLevel.getBackgrounds()) {
+//			b.draw(g, new Rectangle(x, y, cameraWidth, cameraHeight));
+//		}
+//
+//		for (Interactable i : LevelManager.activeLevel.getInteractables()) {
+//			i.draw(g, new Rectangle(x, y, cameraWidth, cameraHeight));
+//		}
+//
+//		// looping through all the objects and givng them a turn to render
+//		for (GameObject o : LevelManager.activeLevel.getLevelObjects()) {
+//			o.render(g, new Rectangle(x, y, cameraWidth, cameraHeight));
+//		}
+//
+//		// filling the player
+//		for (Sprite s : LevelManager.activeLevel.getSprites()) {
+//			s.draw(g, x, y, cameraHeight);
+//		}
 
 	}
 

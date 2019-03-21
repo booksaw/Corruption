@@ -1,6 +1,5 @@
 package com.booksaw.corruption.level.interactable;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -40,6 +39,7 @@ public class Interactable extends Selectable {
 
 	public Interactable(String ref, boolean select) {
 		super();
+		priority = 25;
 		// getting object data from the split
 		String[] split = ref.split(";");
 		x = Integer.parseInt(split[0]);
@@ -125,28 +125,29 @@ public class Interactable extends Selectable {
 		return "interactable:" + (int) x + ";" + (int) y + ";" + width + ";" + height + ";" + name;
 	}
 
-	public void draw(Graphics g, Rectangle c) {
+	@Override
+	public void paintComp(Graphics g, Rectangle c) {
 		g.drawImage(image, (int) x - c.x, c.height - (int) y - height, width, height, null);
 
-		if (selected) {
-			int cameraX = c.x;
-			int cameraHeight = c.height;
-			int cameraY = c.y;
-
-			g.setColor(Color.WHITE);
-			g.drawRect((int) (x - cameraX), (int) (cameraHeight - (y + cameraY + (getHeight()))), (int) (getWidth()),
-					(int) (getHeight()));
-			g.setColor(Color.LIGHT_GRAY);
-			g.fillOval((int) x - circleD / 2 - cameraX, (int) (cameraHeight - ((int) y + circleD / 2)), circleD,
-					circleD);
-			g.fillOval((int) ((int) x + (getWidth())) - circleD / 2 - cameraX,
-					(int) (cameraHeight - ((int) y + circleD / 2)), circleD, circleD);
-			g.fillOval((int) (int) x - circleD / 2 - cameraX,
-					(int) (cameraHeight - ((int) y + circleD / 2 + (getHeight()))), circleD, circleD);
-			g.fillOval((int) ((int) x + (getWidth())) - circleD / 2 - cameraX,
-					(int) (cameraHeight - ((int) y + circleD / 2 + (getHeight()))), circleD, circleD);
-
-		}
+//		if (selected) {
+//			int cameraX = c.x;
+//			int cameraHeight = c.height;
+//			int cameraY = c.y;
+//
+//			g.setColor(Color.WHITE);
+//			g.drawRect((int) (x - cameraX), (int) (cameraHeight - (y + cameraY + (getHeight()))), (int) (getWidth()),
+//					(int) (getHeight()));
+//			g.setColor(Color.LIGHT_GRAY);
+//			g.fillOval((int) x - circleD / 2 - cameraX, (int) (cameraHeight - ((int) y + circleD / 2)), circleD,
+//					circleD);
+//			g.fillOval((int) ((int) x + (getWidth())) - circleD / 2 - cameraX,
+//					(int) (cameraHeight - ((int) y + circleD / 2)), circleD, circleD);
+//			g.fillOval((int) (int) x - circleD / 2 - cameraX,
+//					(int) (cameraHeight - ((int) y + circleD / 2 + (getHeight()))), circleD, circleD);
+//			g.fillOval((int) ((int) x + (getWidth())) - circleD / 2 - cameraX,
+//					(int) (cameraHeight - ((int) y + circleD / 2 + (getHeight()))), circleD, circleD);
+//
+//		}
 	}
 
 	public void setLocation(Point p) {

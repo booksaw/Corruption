@@ -52,7 +52,7 @@ public class CameraSprite extends Sprite {
 	}
 
 	@Override
-	public void draw(Graphics g, int cameraX, int cameraY, int cameraHeight) {
+	public void paint(Graphics g, Rectangle r) {
 	}
 
 	@Override

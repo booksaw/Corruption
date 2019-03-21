@@ -11,7 +11,7 @@ public class ColoredBackground extends Background {
 	Color c;
 
 	public ColoredBackground(String ref) {
-
+		super();
 		// getting object data from the split
 		String[] split = ref.split(";");
 		x = Integer.parseInt(split[0]);
@@ -24,6 +24,7 @@ public class ColoredBackground extends Background {
 	}
 
 	public ColoredBackground(Rectangle position, Color c) {
+		super();
 		x = position.x;
 		y = position.y;
 		width = position.width;
@@ -33,29 +34,9 @@ public class ColoredBackground extends Background {
 	}
 
 	@Override
-	public void draw(Graphics g, Rectangle camera) {
+	public void paintComp(Graphics g, Rectangle camera) {
 		g.setColor(c);
-		g.fillRect((x - camera.x), GameCamera.cameraHeight - y - height - camera.y, width, height);
-
-		if (selected) {
-			int cameraX = camera.x;
-			int cameraHeight = camera.height;
-			int cameraY = camera.y;
-
-			g.setColor(Color.WHITE);
-			g.drawRect((int) (x - cameraX), (int) (cameraHeight - (y + cameraY + (getHeight()))), (int) (getWidth()),
-					(int) (getHeight()));
-			g.setColor(Color.LIGHT_GRAY);
-			g.fillOval((int) x - circleD / 2 - cameraX, (int) (cameraHeight - ((int) y + circleD / 2)), circleD,
-					circleD);
-			g.fillOval((int) ((int) x + (getWidth())) - circleD / 2 - cameraX,
-					(int) (cameraHeight - ((int) y + circleD / 2)), circleD, circleD);
-			g.fillOval((int) (int) x - circleD / 2 - cameraX,
-					(int) (cameraHeight - ((int) y + circleD / 2 + (getHeight()))), circleD, circleD);
-			g.fillOval((int) ((int) x + (getWidth())) - circleD / 2 - cameraX,
-					(int) (cameraHeight - ((int) y + circleD / 2 + (getHeight()))), circleD, circleD);
-
-		}
+		g.fillRect(((int) x - camera.x), GameCamera.cameraHeight - (int) y - height - camera.y, width, height);
 
 	}
 

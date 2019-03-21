@@ -68,11 +68,11 @@ public class DraggedBlock extends Block {
 	}
 
 	@Override
-	public void render(Graphics g, Rectangle camera) {
+	public void renderS(Graphics g, Rectangle camera) {
 
-		super.render(g, camera);
+		super.renderS(g, camera);
 	}
-	
+
 //	/**
 //	 * Used if the game camera location is changed.
 //	 * Can use the same point as the point hasnt been influenced by camera offset yet

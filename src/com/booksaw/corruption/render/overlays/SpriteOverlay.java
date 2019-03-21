@@ -46,7 +46,7 @@ public class SpriteOverlay extends Overlay {
 				(int) Corruption.origionalDimensions.getHeight() - 100, 20, 20);
 
 		for (Sprite s : sprites.keySet()) {
-			s.draw(g, 0, 0, 0);
+			s.paint(g, new Rectangle(0, 0, 0, 0));
 
 		}
 

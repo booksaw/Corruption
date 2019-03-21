@@ -53,9 +53,9 @@ public class DraggedBackground extends ColoredBackground {
 	}
 
 	@Override
-	public void draw(Graphics g, Rectangle camera) {
+	public void paintComp(Graphics g, Rectangle camera) {
 
-		super.draw(g, camera);
+		super.paintComp(g, camera);
 	}
 
 //	/**

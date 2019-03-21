@@ -4,6 +4,7 @@ import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.awt.Rectangle;
 
 import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.CursorManager;
@@ -32,7 +33,7 @@ public class SpriteCursorOverlay extends Overlay {
 		p.x = p.x = p.x - f.getLocationOnScreen().x;
 		s.setLocation(p);
 
-		s.draw(g, 0, 0, GameCamera.cameraHeight);
+		s.paint(g, new Rectangle(0, 0, GameCamera.cameraWidth, GameCamera.cameraHeight));
 
 	}
 

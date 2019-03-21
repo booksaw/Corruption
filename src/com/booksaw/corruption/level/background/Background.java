@@ -1,7 +1,6 @@
 package com.booksaw.corruption.level.background;
 
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.List;
@@ -28,12 +27,14 @@ public abstract class Background extends Selectable implements Dimensions, Locat
 		return null;
 	}
 
-	int x, y, width, height;
+	public Background() {
+		priority = 50;
+	}
 
-	public abstract void draw(Graphics g, Rectangle camera);
+	int width, height;
 
 	public int getX() {
-		return x;
+		return (int) x;
 	}
 
 	public void setX(int x) {
@@ -41,7 +42,7 @@ public abstract class Background extends Selectable implements Dimensions, Locat
 	}
 
 	public int getY() {
-		return y;
+		return (int) y;
 	}
 
 	public void setY(int y) {
@@ -65,7 +66,7 @@ public abstract class Background extends Selectable implements Dimensions, Locat
 	}
 
 	public Rectangle getRectangle() {
-		return new Rectangle(x, y, width, height);
+		return new Rectangle((int) x, (int) y, width, height);
 	}
 
 	@Override

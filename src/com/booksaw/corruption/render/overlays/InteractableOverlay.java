@@ -45,7 +45,7 @@ public class InteractableOverlay extends Overlay {
 				(int) Corruption.origionalDimensions.getHeight() - 100, 20, 20);
 
 		for (Interactable i : interactables.keySet()) {
-			i.draw(g, new Rectangle(0, 0, 0, 0));
+			i.paint(g, new Rectangle(0, 0, 0, 0));
 
 		}
 
