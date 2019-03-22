@@ -17,8 +17,10 @@ public class Run {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
 		}
-
+		
 		new Corruption();
 	}
+
+
 
 }
