@@ -4,8 +4,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.booksaw.corruption.Config;
@@ -32,16 +32,16 @@ public class Interactable extends Selectable {
 		return null;
 	}
 
-	private final String PATH = Config.ASSETSPATH + File.separator + "interactable" + File.separator;
+	private static final String PATH = Config.ASSETSPATH + File.separator + "interactable" + File.separator;
+	private static final int DEFAULTPRIORITY = 25;
 
 	String name;
-	BufferedImage image;
+	List<InteractableComponent> images = new ArrayList<>();
 	int width, height;
 	YamlConfiguration config;
 
-	public Interactable(String ref, boolean select) {
+	public Interactable(String ref, boolean select, LevelManager lm) {
 		super();
-		priority = 25;
 		// getting object data from the split
 		String[] split = ref.split(";");
 		x = Integer.parseInt(split[0]);
@@ -50,24 +50,48 @@ public class Interactable extends Selectable {
 		height = Integer.parseInt(split[3]);
 
 		name = split[4];
-
-		image = Utils.getImage(new File(PATH + name + ".png"));
-
-		config = new YamlConfiguration(new File(PATH + name + ".yml"));
-//		System.out.println(config.getSetting("test.test1"));
-//		config.set("test.test2", "hello");
-		config.saveConfiguration();
+		loadConfig(lm);
+//		image = Utils.getImage(new File(PATH + name + ".png"));
 
 	}
 
-	public Interactable(String name) {
+	public Interactable(String name, LevelManager lm) {
 		this.name = name;
 		x = -1;
 		y = -1;
-		image = Utils.getImage(new File(PATH + name + ".png"));
+//		image = Utils.getImage(new File(PATH + name + ".png"));
 
-		width = image.getWidth() * Sprite.PIXELMULT;
-		height = image.getHeight() * Sprite.PIXELMULT;
+//		width = image.getWidth() * Sprite.PIXELMULT;
+//		height = image.getHeight() * Sprite.PIXELMULT;
+		loadConfig(lm);
+
+		width = images.get(0).img.getWidth() * Sprite.PIXELMULT;
+		height = images.get(0).img.getHeight() * Sprite.PIXELMULT;
+
+	}
+
+	public void loadConfig(LevelManager lm) {
+		config = new YamlConfiguration(new File(PATH + name + ".yml"));
+
+		List<String> imgStringL = config.getStringList("images");
+
+		if (config.isNull() || imgStringL == null) {
+			InteractableComponent i = new InteractableComponent(this, Utils.getImage(new File(PATH + name + ".png")),
+					DEFAULTPRIORITY);
+			System.out.println(LevelManager.activeLevel);
+			lm.addInteractableComponent(i);
+			images.add(i);
+
+			return;
+		}
+
+		for (String str : imgStringL) {
+			// TODO
+			InteractableComponent i = new InteractableComponent(this, Utils.getImage(new File(PATH + str + ".png")),
+					DEFAULTPRIORITY);
+			lm.addInteractableComponent(i);
+			images.add(i);
+		}
 
 	}
 
@@ -114,6 +138,11 @@ public class Interactable extends Selectable {
 	@Override
 	public void delete() {
 		LevelManager.activeLevel.removeInteractable(this);
+
+		for (InteractableComponent i : images) {
+			LevelManager.activeLevel.removeInteractableComponent(i);
+		}
+
 	}
 
 	@Override
@@ -134,7 +163,6 @@ public class Interactable extends Selectable {
 
 	@Override
 	public void paintComp(Graphics g, Rectangle c) {
-		g.drawImage(image, (int) x - c.x, c.height - (int) y - height, width, height, null);
 
 //		if (selected) {
 //			int cameraX = c.x;

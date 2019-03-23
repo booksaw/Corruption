@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -38,7 +39,11 @@ public class YamlConfiguration {
 
 		for (String temp : split) {
 			if (toReturn == null) {
-				toReturn = obj.get(temp);
+				try {
+					toReturn = obj.get(temp);
+				} catch (Exception e) {
+					return null;
+				}
 				continue;
 			}
 
@@ -76,12 +81,14 @@ public class YamlConfiguration {
 	}
 
 	/**
-	 * Uses recursion to generate a final string to be printed which represents the file
+	 * Uses recursion to generate a final string to be printed which represents the
+	 * file
 	 * 
-	 * @param obj - The map to generate the output for
-	 * @param level - The indentation level (usually leave at 0 and leave the recursion to change
+	 * @param obj       - The map to generate the output for
+	 * @param level     - The indentation level (usually leave at 0 and leave the
+	 *                  recursion to change
 	 * @param priortree - The prior reference ie (foo.bar)
-	 * @return - The output for that map 
+	 * @return - The output for that map
 	 */
 	@SuppressWarnings("unchecked")
 	private String saveCon(Map<String, Object> obj, int level, String priortree) {
@@ -122,4 +129,17 @@ public class YamlConfiguration {
 		return toReturn;
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<String> getStringList(String ref) {
+		Object o = getSetting(ref);
+		if (o instanceof ArrayList<?>) {
+			return (ArrayList<String>) o;
+		}
+		return null;
+	}
+
+	public boolean isNull() {
+		return obj == null || obj.size() == 0;
+	}
+	
 }

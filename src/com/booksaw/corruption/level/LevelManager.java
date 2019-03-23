@@ -17,6 +17,7 @@ import com.booksaw.corruption.Renderable;
 import com.booksaw.corruption.level.background.Background;
 import com.booksaw.corruption.level.background.ColoredBackground;
 import com.booksaw.corruption.level.interactable.Interactable;
+import com.booksaw.corruption.level.interactable.InteractableComponent;
 import com.booksaw.corruption.level.meta.BackgroundColorMeta;
 import com.booksaw.corruption.level.meta.CameraLocationMeta;
 import com.booksaw.corruption.level.meta.LevelDimensionsMeta;
@@ -45,6 +46,7 @@ public class LevelManager {
 	List<Background> backgrounds = new ArrayList<>();
 
 	List<Interactable> interactables = new ArrayList<>();
+	List<InteractableComponent> components = new ArrayList<>();
 
 	List<Renderable> toRender = new ArrayList<>();
 
@@ -95,6 +97,7 @@ public class LevelManager {
 		backgrounds = new ArrayList<>();
 		interactables = new ArrayList<>();
 		toRender = new ArrayList<>();
+		components = new ArrayList<>();
 
 		// setting up the file reader
 		BufferedReader br = null;
@@ -237,7 +240,7 @@ public class LevelManager {
 	}
 
 	private void makeInteractable(String info, boolean select) {
-		addInteractable(new Interactable(info, select));
+		addInteractable(new Interactable(info, select, this));
 	}
 
 	/**
@@ -327,6 +330,12 @@ public class LevelManager {
 
 	public void addInteractable(Interactable i) {
 		interactables.add(i);
+//		toRender.add(i);
+//		sortRenderable();
+	}
+
+	public void addInteractableComponent(InteractableComponent i) {
+		components.add(i);
 		toRender.add(i);
 		sortRenderable();
 	}
@@ -348,6 +357,11 @@ public class LevelManager {
 
 	public void removeInteractable(Interactable i) {
 		interactables.remove(i);
+//		toRender.remove(i);
+	}
+
+	public void removeInteractableComponent(InteractableComponent i) {
+		components.remove(i);
 		toRender.remove(i);
 	}
 
@@ -430,6 +444,7 @@ public class LevelManager {
 		backgrounds = new ArrayList<>();
 		interactables = new ArrayList<>();
 		toRender = new ArrayList<>();
+		components = new ArrayList<>();
 
 		// resets the file to the default file
 		resetLevel(false);
