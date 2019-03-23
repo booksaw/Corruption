@@ -78,7 +78,6 @@ public class Interactable extends Selectable {
 		if (config.isNull() || imgStringL == null) {
 			InteractableComponent i = new InteractableComponent(this, Utils.getImage(new File(PATH + name + ".png")),
 					DEFAULTPRIORITY);
-			System.out.println(LevelManager.activeLevel);
 			lm.addInteractableComponent(i);
 			images.add(i);
 

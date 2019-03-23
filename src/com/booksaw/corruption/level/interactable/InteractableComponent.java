@@ -26,7 +26,5 @@ public class InteractableComponent extends Renderable {
 	public BufferedImage getImg() {
 		return img;
 	}
-	
-	
 
 }
