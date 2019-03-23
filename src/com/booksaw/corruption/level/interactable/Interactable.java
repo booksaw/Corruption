@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.booksaw.corruption.Config;
 import com.booksaw.corruption.Utils;
+import com.booksaw.corruption.configuration.YamlConfiguration;
 import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.selection.Selectable;
 import com.booksaw.corruption.sprites.Sprite;
@@ -36,6 +37,7 @@ public class Interactable extends Selectable {
 	String name;
 	BufferedImage image;
 	int width, height;
+	YamlConfiguration config;
 
 	public Interactable(String ref, boolean select) {
 		super();
@@ -50,6 +52,11 @@ public class Interactable extends Selectable {
 		name = split[4];
 
 		image = Utils.getImage(new File(PATH + name + ".png"));
+
+		config = new YamlConfiguration(new File(PATH + name + ".yml"));
+//		System.out.println(config.getSetting("test.test1"));
+//		config.set("test.test2", "hello");
+		config.saveConfiguration();
 
 	}
 
