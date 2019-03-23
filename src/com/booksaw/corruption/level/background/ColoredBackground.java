@@ -43,8 +43,8 @@ public class ColoredBackground extends Background {
 	@Override
 	public String toString() {
 
-		return "background:colored:" + x + ";" + y + ";" + width + ";" + height + ";" + c.getRed() + ";" + c.getGreen()
-				+ ";" + c.getBlue();
+		return "background:colored:" + (int) x + ";" + (int) y + ";" + width + ";" + height + ";" + c.getRed() + ";"
+				+ c.getGreen() + ";" + c.getBlue();
 
 	}
 

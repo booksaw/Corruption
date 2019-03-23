@@ -93,6 +93,7 @@ public class LevelManager {
 		sprites = new ArrayList<>();
 		levelObjects = new ArrayList<>();
 		backgrounds = new ArrayList<>();
+		interactables = new ArrayList<>();
 		toRender = new ArrayList<>();
 
 		// setting up the file reader
@@ -429,6 +430,7 @@ public class LevelManager {
 		backgrounds = new ArrayList<>();
 		interactables = new ArrayList<>();
 		toRender = new ArrayList<>();
+
 		// resets the file to the default file
 		resetLevel(false);
 	}
