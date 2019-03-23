@@ -77,7 +77,7 @@ public class Interactable extends Selectable {
 
 		if (config.isNull() || imgStringL == null) {
 			InteractableComponent i = new InteractableComponent(this, Utils.getImage(new File(PATH + name + ".png")),
-					DEFAULTPRIORITY);
+					DEFAULTPRIORITY, 1);
 			lm.addInteractableComponent(i);
 			images.add(i);
 
@@ -85,9 +85,12 @@ public class Interactable extends Selectable {
 		}
 
 		for (String str : imgStringL) {
-			// TODO
-			InteractableComponent i = new InteractableComponent(this, Utils.getImage(new File(PATH + str + ".png")),
-					DEFAULTPRIORITY);
+
+			String[] split = str.split(":");
+
+			InteractableComponent i = new InteractableComponent(this,
+					Utils.getImage(new File(PATH + split[0] + ".png")), Integer.parseInt(split[1]),
+					Integer.parseInt(split[2]));
 			lm.addInteractableComponent(i);
 			images.add(i);
 		}
@@ -163,25 +166,10 @@ public class Interactable extends Selectable {
 	@Override
 	public void paintComp(Graphics g, Rectangle c) {
 
-//		if (selected) {
-//			int cameraX = c.x;
-//			int cameraHeight = c.height;
-//			int cameraY = c.y;
-//
-//			g.setColor(Color.WHITE);
-//			g.drawRect((int) (x - cameraX), (int) (cameraHeight - (y + cameraY + (getHeight()))), (int) (getWidth()),
-//					(int) (getHeight()));
-//			g.setColor(Color.LIGHT_GRAY);
-//			g.fillOval((int) x - circleD / 2 - cameraX, (int) (cameraHeight - ((int) y + circleD / 2)), circleD,
-//					circleD);
-//			g.fillOval((int) ((int) x + (getWidth())) - circleD / 2 - cameraX,
-//					(int) (cameraHeight - ((int) y + circleD / 2)), circleD, circleD);
-//			g.fillOval((int) (int) x - circleD / 2 - cameraX,
-//					(int) (cameraHeight - ((int) y + circleD / 2 + (getHeight()))), circleD, circleD);
-//			g.fillOval((int) ((int) x + (getWidth())) - circleD / 2 - cameraX,
-//					(int) (cameraHeight - ((int) y + circleD / 2 + (getHeight()))), circleD, circleD);
-//
-//		}
+		for (InteractableComponent temp : images) {
+			temp.paint(g, c);
+		}
+
 	}
 
 	public void setLocation(Point p) {

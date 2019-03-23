@@ -27,7 +27,7 @@ public class YamlConfiguration {
 		try {
 			inputStream = new FileInputStream(f);
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			return;
 		}
 		obj = yaml.load(inputStream);
 	}
@@ -63,11 +63,6 @@ public class YamlConfiguration {
 
 	public void saveConfiguration() {
 
-//		try {
-//			yaml.dump(saveCon(obj, 0), new FileWriter(f));
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
 		FileWriter pw;
 		try {
 			pw = new FileWriter(f);
@@ -141,5 +136,5 @@ public class YamlConfiguration {
 	public boolean isNull() {
 		return obj == null || obj.size() == 0;
 	}
-	
+
 }

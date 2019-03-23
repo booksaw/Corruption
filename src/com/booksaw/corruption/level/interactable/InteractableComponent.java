@@ -11,7 +11,7 @@ public class InteractableComponent extends Renderable {
 	Interactable parent;
 	BufferedImage img;
 
-	public InteractableComponent(Interactable parent, BufferedImage img, int priority) {
+	public InteractableComponent(Interactable parent, BufferedImage img, int priority, int scale) {
 		this.parent = parent;
 		this.img = img;
 		this.priority = priority;

@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.booksaw.corruption.Corruption;
@@ -70,6 +71,27 @@ public abstract class Selectable extends Renderable implements Location, Dimensi
 		Selectable.selectable = selectable;
 	}
 
+	public void sortSelectable() {
+		Selectable[] s = selectable.toArray(new Selectable[selectable.size()]);
+
+		boolean changed = false;
+		Selectable temp;
+
+		for (int i = 0; i < s.length && !changed; i++) {
+			changed = false;
+			for (int j = 1; j < s.length - i; j++) {
+				if (s[j - 1].getPriority() < s[j].getPriority()) {
+					temp = s[j - 1];
+					s[j - 1] = s[j];
+					s[j] = temp;
+					changed = true;
+				}
+			}
+		}
+
+		selectable = new ArrayList<>(Arrays.asList(s));
+	}
+
 	protected boolean selected = false;
 
 	public boolean isSelected() {
@@ -103,6 +125,7 @@ public abstract class Selectable extends Renderable implements Location, Dimensi
 			}
 		}
 		this.selected = selected;
+		sortSelectable();
 
 	}
 
@@ -223,7 +246,7 @@ public abstract class Selectable extends Renderable implements Location, Dimensi
 
 	public abstract Rectangle getRectangle();
 
-	protected abstract void paintComp(Graphics g, Rectangle r);
+	protected abstract void paintComp(Graphics g, Rectangle c);
 
 	@Override
 	public void paint(Graphics g, Rectangle r) {

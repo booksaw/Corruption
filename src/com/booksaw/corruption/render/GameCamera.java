@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.Renderable;
 import com.booksaw.corruption.level.LevelManager;
+import com.booksaw.corruption.level.interactable.Interactable;
 
 /**
  * This class is used to render the game play
@@ -58,6 +59,12 @@ public class GameCamera extends RenderInterface {
 
 		for (Renderable re : LevelManager.activeLevel.getToRender()) {
 			re.paint(g, r);
+		}
+
+		for (Interactable i : LevelManager.activeLevel.getInteractables()) {
+			if (i.isSelected()) {
+				i.paint(g, r);
+			}
 		}
 
 //
