@@ -6,5 +6,10 @@ package com.booksaw.corruption;
  *
  */
 public interface Updatable {
+	
+	/**
+	 * Used to update an object
+	 * @param time the time since the last update (as clock cycles are not always consistant)
+	 */
 	public abstract void update(int time);
 }

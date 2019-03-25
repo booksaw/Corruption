@@ -24,6 +24,11 @@ import com.booksaw.corruption.renderControler.EditorController;
 import com.booksaw.corruption.renderControler.MenuController;
 import com.booksaw.corruption.renderControler.RenderController;
 
+/**
+ * Main class of the project
+ * @author James
+ *
+ */
 public class Corruption implements ActionListener, ComponentListener {
 
 	// Statically reference this object
@@ -45,6 +50,9 @@ public class Corruption implements ActionListener, ComponentListener {
 	// Which renderer is currently active
 	public RenderController controller;
 
+	/**
+	 * Construcor to start the game, and show the frame
+	 */
 	public Corruption() {
 		Config.load();
 		// so things can find statically (only 1 is made per program so this isen't
@@ -93,6 +101,9 @@ public class Corruption implements ActionListener, ComponentListener {
 
 	}
 
+	/**
+	 * Used to start the clock, using a specific method to ensure the clock is only started once
+	 */
 	public void startClock() {
 		if (t != null && t.isRunning()) {
 			return;
@@ -103,6 +114,10 @@ public class Corruption implements ActionListener, ComponentListener {
 		t.start();
 	}
 
+	/**
+	 * Used to set the active render controller
+	 * @param renderController the new render controller
+	 */
 	public void setActive(RenderController renderController) {
 		setActive(renderController, new Dimension(f.getContentPane().getWidth(), f.getContentPane().getHeight()));
 	}

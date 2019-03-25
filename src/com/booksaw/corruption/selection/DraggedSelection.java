@@ -12,11 +12,21 @@ import com.booksaw.corruption.listeners.Listener;
 import com.booksaw.corruption.render.GameCamera;
 import com.booksaw.corruption.render.overlays.Overlay;
 
+/**
+ * Used so the user can drag out a selection in the editor
+ * 
+ * @author James
+ *
+ */
 public class DraggedSelection extends Overlay {
 	public static DraggedSelection selection;
 	Point starting, present;
 	int x, y, width, height;
 
+	/**
+	 * 
+	 * @param startingLocation the location that the user started the drag
+	 */
 	public DraggedSelection(Point startingLocation) {
 		this.x = startingLocation.x;
 		this.y = startingLocation.y;
@@ -44,6 +54,9 @@ public class DraggedSelection extends Overlay {
 
 	}
 
+	/**
+	 * Removing the overlay etc
+	 */
 	public void finalise() {
 		selection = null;
 
@@ -51,14 +64,29 @@ public class DraggedSelection extends Overlay {
 
 	}
 
+	/**
+	 * Giving the width of the selection
+	 * 
+	 * @return
+	 */
 	public int getWidth() {
 		return width;
 	}
 
+	/**
+	 * Giving the height of the selection
+	 * 
+	 * @return
+	 */
 	public int getHeight() {
 		return height;
 	}
 
+	/**
+	 * Setting the second point of the selection
+	 * 
+	 * @param p the second point
+	 */
 	public void setPoint(Point p) {
 		present = p;
 		p.y = GameCamera.cameraHeight - (p.y + GameCamera.activeCamera.y);
@@ -83,8 +111,18 @@ public class DraggedSelection extends Overlay {
 		for (Selectable s : LevelManager.activeLevel.getBackgrounds()) {
 			run(s, r);
 		}
+
+		for (Selectable s : LevelManager.activeLevel.getInteractables()) {
+			run(s, r);
+		}
 	}
 
+	/**
+	 * Used to test of that selectable object is intersecting, then acts on it
+	 * 
+	 * @param s
+	 * @param r
+	 */
 	public void run(Selectable s, Rectangle r) {
 		if (s.getRectangle().intersects(r)) {
 			s.setSelected(true, true, true);
@@ -104,13 +142,5 @@ public class DraggedSelection extends Overlay {
 	public void resize() {
 
 	}
-
-//	/**
-//	 * Used if the game camera location is changed.
-//	 * Can use the same point as the point hasnt been influenced by camera offset yet
-//	 */
-//	public void update() {
-//		setPoint(present);
-//	}
 
 }

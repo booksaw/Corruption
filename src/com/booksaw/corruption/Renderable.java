@@ -16,10 +16,19 @@ public abstract class Renderable {
 	 */
 	protected int priority = 15;
 
+	/**
+	 * Used to give the rending priority of the object, lower the better
+	 * @return
+	 */
 	public int getPriority() {
 		return priority;
 	}
 
+	/**
+	 * Used to paint the object
+	 * @param g the graphics controller
+	 * @param r the camera rectangle
+	 */
 	public abstract void paint(Graphics g, Rectangle r);
 
 }

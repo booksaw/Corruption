@@ -20,20 +20,31 @@ import com.booksaw.corruption.listeners.EditorKeyListener;
 import com.booksaw.corruption.listeners.Listener;
 import com.booksaw.corruption.render.GameCamera;
 
+/**
+ * Any object which can be selected will extend this class
+ * 
+ * @author James
+ *
+ */
 public abstract class Selectable extends Renderable implements Location, Dimensions {
-
+	// location
 	protected double x, y;
-
+	// the circle for the selecting overlay
 	protected static final int circleD = 10;
-
 	private static Selectable s = null;
 
+	// a list of all selected items
 	private static List<Selectable> selectable = new ArrayList<>();
 
+	// tracking what the cursor is doing at the moment
 	protected static CursorMode mode;
 	private static Point starting;
+	// tracking if each object is resizable
 	protected boolean resizable = true;
 
+	/**
+	 * Used to remove all selectables
+	 */
 	public static void clearSelection() {
 
 		for (Selectable s : selectable) {
@@ -42,16 +53,30 @@ public abstract class Selectable extends Renderable implements Location, Dimensi
 		selectable = new ArrayList<>();
 	}
 
+	/**
+	 * Delets all selected items
+	 */
 	public static void deleteSelected() {
 		for (Selectable s : selectable) {
 			s.delete();
 		}
 	}
 
+	/**
+	 * Gives a list of all selected objects
+	 * 
+	 * @return list of all selected objects
+	 */
 	public static List<Selectable> getSelectables() {
 		return selectable;
 	}
 
+	/**
+	 * returns the selectable at that point
+	 * 
+	 * @param p the point to check for
+	 * @return the selectable at that point
+	 */
 	public static Selectable getSelectable(Point p) {
 		p.x = p.x + GameCamera.activeCamera.x;
 		if (s != null) {
@@ -67,10 +92,19 @@ public abstract class Selectable extends Renderable implements Location, Dimensi
 		return null;
 	}
 
+	/**
+	 * Used to set the selectable list
+	 * 
+	 * @param selectable
+	 */
 	public static void setSelectable(List<Selectable> selectable) {
 		Selectable.selectable = selectable;
 	}
 
+	/**
+	 * Sorts the selectables based on their priority (so higher rendering priorities
+	 * are selected first)
+	 */
 	public void sortSelectable() {
 		Selectable[] s = selectable.toArray(new Selectable[selectable.size()]);
 
@@ -92,17 +126,36 @@ public abstract class Selectable extends Renderable implements Location, Dimensi
 		selectable = new ArrayList<>(Arrays.asList(s));
 	}
 
+	// tracking if that object is selected
 	protected boolean selected = false;
 
+	/**
+	 * Returns if that object is selected
+	 * 
+	 * @return
+	 */
 	public boolean isSelected() {
 		return selected;
 	}
 
+	/**
+	 * Sets if that object is selected
+	 * 
+	 * @param selected
+	 */
 	public void setSelected(boolean selected) {
 		setSelected(selected, true, false);
 
 	}
 
+	/**
+	 * Sets if that object is selected
+	 * 
+	 * @param selected if the object is selected
+	 * @param remove   if (on removal) this should be removed from the List, used so
+	 *                 clear selection works.
+	 * @param ctrl     if the ctrl key (or equivalent) is pressed
+	 */
 	public void setSelected(boolean selected, boolean remove, boolean ctrl) {
 
 		EditorKeyListener listener = null;
@@ -129,6 +182,12 @@ public abstract class Selectable extends Renderable implements Location, Dimensi
 
 	}
 
+	/**
+	 * used to calculate what icon the mouse should take up when hovering over a
+	 * selectegd item
+	 * 
+	 * @param p
+	 */
 	public void hover(Point p) {
 
 		p = Utils.getScaledPoint(p, new Dimension(GameCamera.cameraWidth, GameCamera.cameraHeight));
@@ -171,17 +230,33 @@ public abstract class Selectable extends Renderable implements Location, Dimensi
 		mode = CursorMode.MOVE;
 	}
 
+	/**
+	 * Keeping track of the start location of the click in case the selection is
+	 * moved around the screen
+	 * 
+	 * @param p
+	 */
 	public void click(Point p) {
 		s = this;
 		starting = Utils.getScaledPoint(p, new Dimension(GameCamera.cameraWidth, GameCamera.cameraHeight));
 		starting.y = GameCamera.cameraHeight - starting.y;
 	}
 
+	/**
+	 * Used to inform the object when the user has stopped interacting
+	 * 
+	 * @param p
+	 */
 	public void release(Point p) {
 		p.y = GameCamera.cameraHeight - p.y;
 		s = null;
 	}
 
+	/**
+	 * Used so the user can drag parts of the object
+	 * 
+	 * @param p
+	 */
 	public void drag(Point p) {
 		p = Utils.getScaledPoint(p, new Dimension(GameCamera.cameraWidth, GameCamera.cameraHeight));
 		p.y = (GameCamera.cameraHeight) - (p.y);
@@ -240,12 +315,31 @@ public abstract class Selectable extends Renderable implements Location, Dimensi
 		}
 	}
 
+	/**
+	 * Used to delete the selectable
+	 */
 	public abstract void delete();
 
+	/**
+	 * Used to apply an offset (for if the user drags the object
+	 * 
+	 * @param p
+	 */
 	public abstract void applyOffset(Point p);
 
+	/**
+	 * Used to get the collision box of the object
+	 * 
+	 * @return
+	 */
 	public abstract Rectangle getRectangle();
 
+	/**
+	 * Used to paint something which extends a selectable
+	 * 
+	 * @param g
+	 * @param c
+	 */
 	protected abstract void paintComp(Graphics g, Rectangle c);
 
 	@Override
@@ -273,6 +367,11 @@ public abstract class Selectable extends Renderable implements Location, Dimensi
 		}
 	}
 
+	/**
+	 * Used to keep track of what the cursor can do at the moment
+	 * @author James
+	 *
+	 */
 	enum CursorMode {
 		MOVE, TR, TL, BR, BL;
 	}

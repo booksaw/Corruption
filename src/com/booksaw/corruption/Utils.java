@@ -31,6 +31,12 @@ public class Utils {
 
 	}
 
+	/**
+	 * At the moment not in use but may be used to scale a point to a point on the image screen
+	 * @param p the point
+	 * @param currentDimensions - the dimensions of the window at the moment
+	 * @return the location of that point on the original window
+	 */
 	public static Point getScaledPoint(Point p, Dimension currentDimensions) {
 //		double x = ((currentDimensions.width / Corruption.origionalDimensions.width) * p.x);
 //		p.x = (int) x;

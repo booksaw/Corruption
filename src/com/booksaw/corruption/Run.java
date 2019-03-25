@@ -11,6 +11,10 @@ import javax.swing.UIManager;
  */
 public class Run {
 
+	/**
+	 * Main method
+	 * @param args
+	 */
 	public static void main(String[] args) {
 
 		try {

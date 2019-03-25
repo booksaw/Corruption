@@ -65,7 +65,7 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 	public boolean controllable = false;
 
 	/**
-	 * Runs at begining of constructor if any setup is required overried preffered
+	 * Runs at beginning of constructor if any setup is required override preferred
 	 * to constructor as simpler to write for used for things like setting up an
 	 * asset folder
 	 */
@@ -351,21 +351,7 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 
 				(int) (getAnimationStage() * d.getWidth()), 0, (int) ((getAnimationStage() + 1) * d.getWidth()),
 				(int) d.getHeight(), null);
-//
-//		if (selected) {
-//			g.setColor(Color.WHITE);
-//			g.drawRect((int) (x - cameraX), (int) (cameraHeight - (y - cameraY + (d.getHeight() * PIXELMULT))),
-//					(int) (d.getWidth() * PIXELMULT), (int) (d.getHeight() * PIXELMULT));
-//			g.setColor(Color.LIGHT_GRAY);
-//			g.fillOval((int) x - circleD / 2 - cameraX, (int) (cameraHeight - (y + circleD / 2)), circleD, circleD);
-//			g.fillOval((int) (x + (dimensions.getWidth() * PIXELMULT)) - circleD / 2 - cameraX,
-//					(int) (cameraHeight - (y + circleD / 2)), circleD, circleD);
-//			g.fillOval((int) x - circleD / 2 - cameraX,
-//					(int) (cameraHeight - (y + circleD / 2 + (dimensions.getHeight() * PIXELMULT))), circleD, circleD);
-//			g.fillOval((int) (x + (dimensions.getWidth() * PIXELMULT)) - circleD / 2 - cameraX,
-//					(int) (cameraHeight - (y + circleD / 2 + (dimensions.getHeight() * PIXELMULT))), circleD, circleD);
-//
-//		}
+
 	}
 
 	/**
@@ -392,6 +378,11 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 		}
 	}
 
+	/**
+	 * Used to set this to be the sprite the camera follows
+	 * 
+	 * @param active
+	 */
 	public void setActiveplayer(boolean active) {
 		if (active) {
 			// used to catch errors if this is run on level load
@@ -472,8 +463,16 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 		return true;
 	}
 
+	/**
+	 * Used to get the file name of the sprite
+	 * 
+	 * @return
+	 */
 	protected abstract String getName();
 
+	/**
+	 * Used to save all the information about the sprite
+	 */
 	@Override
 	public String toString() {
 		if (this instanceof CameraSprite) {
@@ -498,10 +497,17 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 
 	}
 
+	/**
+	 * Used to move the player back to their start location
+	 */
 	public void reset() {
 		reset(false);
 	}
 
+	/**
+	 * Tracking how long since prev reset, so player cannot die on the same spikes
+	 * twice without actually messing up twice
+	 */
 	private long prevReset = 0L;
 
 	public void reset(boolean fail) {
@@ -516,10 +522,18 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 		prevReset = System.currentTimeMillis();
 	}
 
+	/**
+	 * Sets the current location of the sprite to be the starting location
+	 */
 	public void setStartingLocation() {
 		setStartingLocation((int) x, (int) y);
 	}
 
+	/**
+	 * Sets the current starting location of the sprite to be the location given 
+	 * @param x the x coord
+	 * @param y the y coord
+	 */
 	public void setStartingLocation(int x, int y) {
 		startingLocation = new Point(x, y);
 	}
