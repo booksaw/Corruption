@@ -35,8 +35,10 @@ public enum Interaction {
 
 		@Override
 		public boolean run(String[] args, Sprite s, Interactable i) {
-			s.setX(i.getX() + (Double.parseDouble(args[1]) * i.getWidth()));
-			s.setY(i.getY() + (Double.parseDouble(args[2]) * i.getHeight()));
+			boolean centre = (args[1].equals("centre"));
+
+			s.setX((i.getX() + (Double.parseDouble(args[2]) * i.getWidth())) - ((centre) ? s.getWidth() / 2 : 0));
+			s.setY((i.getY() + (Double.parseDouble(args[3]) * i.getHeight())) - ((centre) ? s.getHeight() / 2 : 0));
 			return false;
 		}
 
