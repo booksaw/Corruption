@@ -1,0 +1,12 @@
+images:
+- table:10:1
+# format: file (DO NOT INCLUDE .png):priority:scale
+
+interact:
+- kill
+
+# Options include
+# - kill (kills player)
+# - spawn (moves player to spawn)
+# - tp:x:y (moves player to that location)
+# - relativetp:mode:x:y (moves player to that percentage of the screen, mode - CENTRE, CORNER

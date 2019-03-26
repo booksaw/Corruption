@@ -40,6 +40,9 @@ public class Interactable extends Selectable {
 	int width, height;
 	YamlConfiguration config;
 
+	// pre loaded for faster use
+	List<String> interactions = new ArrayList<>();
+
 	public Interactable(String ref, boolean select, LevelManager lm) {
 		super();
 		// getting object data from the split
@@ -93,6 +96,10 @@ public class Interactable extends Selectable {
 					Integer.parseInt(split[2]));
 			lm.addInteractableComponent(i);
 			images.add(i);
+		}
+
+		for (String str : config.getStringList("interact")) {
+			interactions.add(str);
 		}
 
 	}
@@ -178,11 +185,18 @@ public class Interactable extends Selectable {
 	}
 
 	public boolean interact(Sprite s) {
-		// TODO
-		return false;
-		
+
+		boolean toReturn = true;
+
+		for (String str : interactions) {
+			if (!Interaction.execute(str, s, this)) {
+				toReturn = false;
+			}
+		}
+		return toReturn;
+
 	}
-	
+
 	public boolean updateInteraction(Sprite s) {
 		// TODO
 		return false;
