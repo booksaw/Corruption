@@ -79,6 +79,11 @@ public class Player extends Sprite {
 	 */
 	@Override
 	public void update(int time) {
+
+		if (sortInteractables()) {
+			return;
+		}
+
 		double tempX = x;
 		// storing a temp value of x so any values
 
@@ -327,7 +332,5 @@ public class Player extends Sprite {
 	protected String getName() {
 		return "player";
 	}
-
-	
 
 }

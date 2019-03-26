@@ -177,4 +177,15 @@ public class Interactable extends Selectable {
 		y = p.y;
 	}
 
+	public boolean interact(Sprite s) {
+		// TODO
+		return false;
+		
+	}
+	
+	public boolean updateInteraction(Sprite s) {
+		// TODO
+		return false;
+	}
+
 }

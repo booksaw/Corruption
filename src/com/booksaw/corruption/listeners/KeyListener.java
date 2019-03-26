@@ -17,7 +17,7 @@ import com.booksaw.corruption.render.overlays.PauseOverlay;
 public class KeyListener implements java.awt.event.KeyListener, Listener {
 
 	// all options for user input
-	public boolean left = false, right = false, down = false, up = false;
+	public boolean left = false, right = false, down = false, up = false, interact = false;
 
 	/**
 	 * Activating the key pressed
@@ -25,7 +25,6 @@ public class KeyListener implements java.awt.event.KeyListener, Listener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 
-		
 		if (PauseOverlay.paused) {
 			return;
 		}
@@ -51,6 +50,10 @@ public class KeyListener implements java.awt.event.KeyListener, Listener {
 			break;
 		case 82:
 			LevelManager.activeLevel.reset();
+			break;
+		case 69:
+			interact = true;
+			break;
 		}
 
 	}
@@ -75,6 +78,9 @@ public class KeyListener implements java.awt.event.KeyListener, Listener {
 			break;
 		case 32:
 			up = false;
+			break;
+		case 69:
+			interact = false;
 			break;
 		}
 

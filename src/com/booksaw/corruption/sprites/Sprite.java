@@ -11,8 +11,10 @@ import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.Updatable;
 import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.level.Location;
+import com.booksaw.corruption.level.interactable.Interactable;
 import com.booksaw.corruption.level.objects.GameObject;
 import com.booksaw.corruption.level.objects.Mode;
+import com.booksaw.corruption.listeners.KeyListener;
 import com.booksaw.corruption.render.GameCamera;
 import com.booksaw.corruption.selection.Selectable;
 
@@ -38,6 +40,8 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 
 		return null;
 	}
+
+	Interactable currentInteractable = null;
 
 	// stores which animation is being run
 	private AnimationState state;
@@ -530,7 +534,8 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 	}
 
 	/**
-	 * Sets the current starting location of the sprite to be the location given 
+	 * Sets the current starting location of the sprite to be the location given
+	 * 
 	 * @param x the x coord
 	 * @param y the y coord
 	 */
@@ -571,6 +576,32 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 	@Override
 	public void setHeight(int height) {
 
+	}
+
+	/**
+	 * Used to make checks for interactables should be run at the beginning of the
+	 * update method
+	 * 
+	 * @return true if interactable is handling the update, false if sprite should
+	 *         still handle it
+	 */
+	public boolean sortInteractables() {
+
+		if (currentInteractable != null && currentInteractable.getRectangle().intersects(getRectangle())) {
+			return currentInteractable.updateInteraction(this);
+
+		}
+
+		if (!((KeyListener) Corruption.main.controller.getListeners().get(0)).interact) {
+			return false;
+		}
+
+		currentInteractable = Interactable.getInteractable(getRectangle(), LevelManager.activeLevel.getInteractables());
+
+		if (currentInteractable == null) {
+			return false;
+		}
+		return currentInteractable.interact(this);
 	}
 
 }
