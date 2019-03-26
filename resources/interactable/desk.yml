@@ -1,0 +1,11 @@
+images:
+- desk2:25:1
+- desk1:5:1
+
+interact:
+- relativetp:centre:0.21:0.65
+- direction:right
+
+options: 
+  stopMove: true
+  

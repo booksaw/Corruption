@@ -502,4 +502,8 @@ public class LevelManager {
 		toRender = new ArrayList<>(Arrays.asList(renders));
 	}
 
+	public void finish() {
+
+	}
+
 }

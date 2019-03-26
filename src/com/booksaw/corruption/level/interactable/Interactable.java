@@ -43,8 +43,11 @@ public class Interactable extends Selectable {
 	// pre loaded for faster use
 	List<String> interactions = new ArrayList<>();
 
+	boolean stopMove;
+
 	/**
 	 * Used to load an interactable from file
+	 * 
 	 * @param ref
 	 * @param select
 	 * @param lm
@@ -66,6 +69,7 @@ public class Interactable extends Selectable {
 
 	/**
 	 * Used to just take a name as an input (for creation not loading)
+	 * 
 	 * @param name
 	 * @param lm
 	 */
@@ -109,9 +113,14 @@ public class Interactable extends Selectable {
 			images.add(i);
 		}
 
-		for (String str : config.getStringList("interact")) {
-			interactions.add(str);
+		List<String> interact = config.getStringList("interact");
+		if (interact != null) {
+			for (String str : interact) {
+				interactions.add(str);
+			}
 		}
+
+		stopMove = config.getBoolean("options.stopMove");
 
 	}
 
@@ -204,12 +213,16 @@ public class Interactable extends Selectable {
 				toReturn = false;
 			}
 		}
-		return toReturn;
+		return toReturn || stopMove;
 
 	}
 
 	public boolean updateInteraction(Sprite s) {
-		// TODO
+
+		if (stopMove) {
+			return true;
+		}
+
 		return false;
 	}
 

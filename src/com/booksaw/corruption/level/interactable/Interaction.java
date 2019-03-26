@@ -42,6 +42,20 @@ public enum Interaction {
 			return false;
 		}
 
+	}), DIRECTION("direction", new InteractionOption() {
+
+		@Override
+		public boolean run(String[] args, Sprite s, Interactable i) {
+
+			if (args[0].equals("left")) {
+				s.right = false;
+			} else {
+				s.right = true;
+			}
+
+			return false;
+		}
+
 	});
 
 	public static boolean execute(String info, Sprite s, Interactable i) {

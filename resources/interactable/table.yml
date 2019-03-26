@@ -5,8 +5,12 @@ images:
 interact:
 - kill
 
+#options:
+#  stopMove: t/f
+
 # Options include
 # - kill (kills player)
 # - spawn (moves player to spawn)
 # - tp:x:y (moves player to that location)
-# - relativetp:mode:x:y (moves player to that percentage of the screen, mode - CENTRE, CORNER
+# - relativetp:mode:x:y (moves player to that percentage of the screen, mode - centre, corner
+# - direction:(left, right)

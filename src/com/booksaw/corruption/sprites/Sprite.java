@@ -61,7 +61,7 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 	// images in all the standard states
 	public BufferedImage standing, walking, crouching;
 	// names are clear
-	boolean right, isCrouching;
+	public boolean right, isCrouching;
 	// number of animation stages for each state
 	protected int standingMax = 1, crouchingMax = 2, walkingMax = 2;
 
@@ -591,6 +591,8 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 			return currentInteractable.updateInteraction(this);
 
 		}
+
+		currentInteractable = null;
 
 		if (!((KeyListener) Corruption.main.controller.getListeners().get(0)).interact) {
 			return false;

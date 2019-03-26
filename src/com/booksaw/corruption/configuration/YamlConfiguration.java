@@ -133,6 +133,14 @@ public class YamlConfiguration {
 		return null;
 	}
 
+	public boolean getBoolean(String ref) {
+		Object o = getSetting(ref);
+		if (o instanceof Boolean) {
+			return (Boolean) o;
+		}
+		return false;
+	}
+
 	public boolean isNull() {
 		return obj == null || obj.size() == 0;
 	}
