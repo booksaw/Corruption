@@ -32,7 +32,7 @@ public class Interactable extends Selectable {
 		return null;
 	}
 
-	private static final String PATH = Config.ASSETSPATH + File.separator + "interactable" + File.separator;
+	public static final String PATH = Config.ASSETSPATH + File.separator + "interactable" + File.separator;
 	private static final int DEFAULTPRIORITY = 25;
 
 	String name;
@@ -43,6 +43,12 @@ public class Interactable extends Selectable {
 	// pre loaded for faster use
 	List<String> interactions = new ArrayList<>();
 
+	/**
+	 * Used to load an interactable from file
+	 * @param ref
+	 * @param select
+	 * @param lm
+	 */
 	public Interactable(String ref, boolean select, LevelManager lm) {
 		super();
 		// getting object data from the split
@@ -58,6 +64,11 @@ public class Interactable extends Selectable {
 
 	}
 
+	/**
+	 * Used to just take a name as an input (for creation not loading)
+	 * @param name
+	 * @param lm
+	 */
 	public Interactable(String name, LevelManager lm) {
 		this.name = name;
 		x = -1;

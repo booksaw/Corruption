@@ -5,12 +5,14 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
 import com.booksaw.corruption.Corruption;
+import com.booksaw.corruption.configuration.YamlConfiguration;
+import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.level.interactable.Interactable;
-import com.booksaw.corruption.level.interactable.InteractableList;
 import com.booksaw.corruption.listeners.EditorMouseListener;
 
 public class InteractableOverlay extends Overlay {
@@ -22,8 +24,10 @@ public class InteractableOverlay extends Overlay {
 		int x = 70;
 		int y = 50;
 
-		for (InteractableList l : InteractableList.values()) {
-			Interactable i = InteractableList.getInteractable(l);
+		YamlConfiguration config = new YamlConfiguration(new File(Interactable.PATH + "interactables.yml"));
+
+		for (String str : config.getStringList("list")) {
+			Interactable i = new Interactable(str, LevelManager.activeLevel);
 			Rectangle d = i.getRectangle();
 
 			i.setX(x);
@@ -55,7 +59,6 @@ public class InteractableOverlay extends Overlay {
 		Rectangle r = new Rectangle(p, new Dimension(1, 1));
 
 		for (Entry<Interactable, Rectangle> temp : interactables.entrySet()) {
-
 
 			if (r.intersects(temp.getValue())) {
 				select(temp.getKey());
