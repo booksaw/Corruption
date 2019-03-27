@@ -12,6 +12,6 @@ options:
   stopMove: true
   
 delay:
-- direction:left
+- finish
   
   

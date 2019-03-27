@@ -1,10 +1,13 @@
-meta:leveldimensions:2000;576
-meta:cameralocation:0;0
-meta:backgroundcolor:100;100;100
-object:block:-38;406;432;24;255;255;255
-object:block:383;489;12;121;255;255;255
-object:door:394;429;true;true
-background:colored:-17;429;403;149;153;153;255
-sprite:player:357;10;true;true
-interactable:208;430;83;37;table
-interactable:430;-12;135;77;desk
+level:
+- meta:leveldimensions:2000;576
+- meta:cameralocation:0;0
+- meta:backgroundcolor:100;100;100
+- object:block:-38;406;432;24;255;255;255
+- object:block:383;489;12;121;255;255;255
+- object:door:394;429;true;true
+- background:colored:-17;429;403;149;153;153;255
+- sprite:player:357;10;true;true
+- interactable:208;430;83;37;table
+- interactable:430;-12;135;77;desk
+
+nextLevel: "2.level"

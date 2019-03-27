@@ -18,6 +18,11 @@ public abstract class Overlay {
 	}
 
 	public static void removeOverlay(Overlay overlay) {
+
+		if (overlay == null) {
+			return;
+		}
+
 		overlay.hide();
 		activeOverlays.remove(overlay);
 

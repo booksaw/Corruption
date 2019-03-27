@@ -141,6 +141,14 @@ public class YamlConfiguration {
 		return false;
 	}
 
+	public String getString(String ref) {
+		Object o = getSetting(ref);
+		if (o != null) {
+			return o.toString();
+		}
+		return "";
+	}
+
 	public boolean isNull() {
 		return obj == null || obj.size() == 0;
 	}

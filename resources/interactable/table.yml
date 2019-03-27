@@ -16,3 +16,5 @@ interact:
 # - direction:(left, right)
 # - time:(stop, start) 
 # - delay:(amount millis):ref
+# - finish (ends the level)
+

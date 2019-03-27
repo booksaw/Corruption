@@ -81,6 +81,15 @@ public enum Interaction {
 			return false;
 		}
 
+	}), FINISH("finish", new InteractionOption() {
+
+		@Override
+		public boolean run(String[] args, Sprite s, Interactable i) {
+
+			LevelManager.activeLevel.finish();
+			return false;
+		}
+
 	});
 
 	public static boolean execute(String info, Sprite s, Interactable i) {

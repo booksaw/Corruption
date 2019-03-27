@@ -15,6 +15,7 @@ import java.util.List;
 import com.booksaw.corruption.Config;
 import com.booksaw.corruption.Renderable;
 import com.booksaw.corruption.Updatable;
+import com.booksaw.corruption.configuration.YamlConfiguration;
 import com.booksaw.corruption.level.background.Background;
 import com.booksaw.corruption.level.background.ColoredBackground;
 import com.booksaw.corruption.level.interactable.Interactable;
@@ -27,6 +28,7 @@ import com.booksaw.corruption.level.objects.Block;
 import com.booksaw.corruption.level.objects.Door;
 import com.booksaw.corruption.level.objects.GameObject;
 import com.booksaw.corruption.level.objects.Spike;
+import com.booksaw.corruption.renderControler.GameController;
 import com.booksaw.corruption.sprites.Player;
 import com.booksaw.corruption.sprites.Sprite;
 
@@ -56,6 +58,9 @@ public class LevelManager {
 	public int time = 0;
 	private boolean trackTime = true;
 	private long startTime;
+
+	private YamlConfiguration config;
+	private String nextLevel;
 
 	// the file the level has been loaded from
 	private File f;
@@ -103,33 +108,44 @@ public class LevelManager {
 		components = new ArrayList<>();
 		updatable = new ArrayList<>();
 
+		config = new YamlConfiguration(f);
+
+		nextLevel = config.getString("nextLevel");
+
 		// setting up the file reader
-		BufferedReader br = null;
-		try {
-			br = new BufferedReader(new FileReader(f));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		boolean read = false;
-		// line to store read liens to
-		String line = "";
-		try {
-			while ((line = br.readLine()) != null) {
-				read = true;
-				runLine(line);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		BufferedReader br = null;
+//		try {
+//			br = new BufferedReader(new FileReader(f));
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//		boolean read = false;
+//		// line to store read liens to
+//		String line = "";
+//		try {
+//			while ((line = br.readLine()) != null) {
+//				read = true;
+//				runLine(line);
+//			}
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 
-		if (!read) {
+		List<String> levelInfo = config.getStringList("level");
+
+		if (levelInfo == null || levelInfo.size() == 0) {
 			resetLevel();
+			return;
 		}
 
-		try {
-			br.close();
-		} catch (Exception e) {
+		for (String str : levelInfo) {
+			runLine(str);
 		}
+
+//		try {
+//			br.close();
+//		} catch (Exception e) {
+//		}
 
 	}
 
@@ -371,46 +387,47 @@ public class LevelManager {
 
 	public void save() {
 
-		try {
-			PrintWriter pw = new PrintWriter(f);
+		List<String> level = new ArrayList<>();
 
-			for (Meta m : metaData) {
-				String s = m.toString();
-				if (!s.equals(""))
-					pw.println(m);
-			}
-
-			for (GameObject o : levelObjects) {
-				if (o.needsSaving()) {
-					String s = o.toString();
-					if (!s.equals(""))
-						pw.println(o);
-				}
-			}
-
-			for (Background b : backgrounds) {
-				String s = b.toString();
-				if (!s.equals("") && b.needsSaving())
-					pw.println(b);
-			}
-
-			for (Sprite s : sprites) {
-				String st = s.toString();
-				if (!st.equals(""))
-					pw.println(s);
-			}
-
-			for (Interactable i : interactables) {
-				String s = i.toString();
-				if (!s.equals("")) {
-					pw.println(s);
-				}
-			}
-
-			pw.close();
-			changed = false;
-		} catch (Exception e) {
+		for (Meta m : metaData) {
+			String s = m.toString();
+			if (!s.equals(""))
+				level.add(s);
 		}
+
+		for (GameObject o : levelObjects) {
+			if (o.needsSaving()) {
+				String s = o.toString();
+				if (!s.equals(""))
+					level.add(s);
+			}
+		}
+
+		for (Background b : backgrounds) {
+			String s = b.toString();
+			if (!s.equals("") && b.needsSaving())
+				level.add(s);
+		}
+
+		for (Sprite s : sprites) {
+			String st = s.toString();
+			if (!st.equals(""))
+				level.add(st);
+		}
+
+		for (Interactable i : interactables) {
+			String s = i.toString();
+			if (!s.equals("")) {
+				level.add(s);
+			}
+		}
+
+		changed = false;
+		config.set("level", level);
+		config.set("nextLevel", nextLevel);
+
+		config.saveConfiguration();
+
 	}
 
 	public boolean hasChanged() {
@@ -525,7 +542,8 @@ public class LevelManager {
 	}
 
 	public void finish() {
-
+		GameController gc = new GameController(nextLevel);
+		gc.show();
 	}
 
 	public void stopTime() {
@@ -533,7 +551,6 @@ public class LevelManager {
 	}
 
 	public void startTime() {
-		System.out.println("running");
 		this.startTime = (int) ((System.currentTimeMillis() - (time * 1000)) / 1000);
 		this.time = (int) ((System.currentTimeMillis() - startTime) / 1000);
 		trackTime = true;
@@ -541,6 +558,14 @@ public class LevelManager {
 
 	public List<Updatable> getUpdatable() {
 		return updatable;
+	}
+
+	public String getNextLevel() {
+		return nextLevel;
+	}
+
+	public void setNextLevel(String nextLevel) {
+		this.nextLevel = nextLevel;
 	}
 
 }
