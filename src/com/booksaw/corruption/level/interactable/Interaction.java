@@ -1,5 +1,6 @@
 package com.booksaw.corruption.level.interactable;
 
+import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.sprites.Sprite;
 
 public enum Interaction {
@@ -47,11 +48,35 @@ public enum Interaction {
 		@Override
 		public boolean run(String[] args, Sprite s, Interactable i) {
 
-			if (args[0].equals("left")) {
+			if (args[1].equals("left")) {
 				s.right = false;
 			} else {
 				s.right = true;
 			}
+
+			return false;
+		}
+
+	}), TIME("time", new InteractionOption() {
+
+		@Override
+		public boolean run(String[] args, Sprite s, Interactable i) {
+
+			if (args[1].equals("stop")) {
+				LevelManager.activeLevel.stopTime();
+			} else {
+				LevelManager.activeLevel.startTime();
+			}
+
+			return false;
+		}
+
+	}), DELAY("delay", new InteractionOption() {
+
+		@Override
+		public boolean run(String[] args, Sprite s, Interactable i) {
+
+			new DelayedInteraction(i, Integer.parseInt(args[1]), s, args[2]);
 
 			return false;
 		}

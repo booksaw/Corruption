@@ -14,3 +14,5 @@ interact:
 # - tp:x:y (moves player to that location)
 # - relativetp:mode:x:y (moves player to that percentage of the screen, mode - centre, corner
 # - direction:(left, right)
+# - time:(stop, start) 
+# - delay:(amount millis):ref

@@ -14,6 +14,7 @@ import java.util.List;
 
 import com.booksaw.corruption.Config;
 import com.booksaw.corruption.Renderable;
+import com.booksaw.corruption.Updatable;
 import com.booksaw.corruption.level.background.Background;
 import com.booksaw.corruption.level.background.ColoredBackground;
 import com.booksaw.corruption.level.interactable.Interactable;
@@ -49,9 +50,11 @@ public class LevelManager {
 	List<InteractableComponent> components = new ArrayList<>();
 
 	List<Renderable> toRender = new ArrayList<>();
+	List<Updatable> updatable = new ArrayList<>();
 
 	public int fails = 0;
 	public int time = 0;
+	private boolean trackTime = true;
 	private long startTime;
 
 	// the file the level has been loaded from
@@ -98,6 +101,7 @@ public class LevelManager {
 		interactables = new ArrayList<>();
 		toRender = new ArrayList<>();
 		components = new ArrayList<>();
+		updatable = new ArrayList<>();
 
 		// setting up the file reader
 		BufferedReader br = null;
@@ -421,6 +425,8 @@ public class LevelManager {
 		activeLevel = this;
 	}
 
+	private List<Updatable> toRemove = new ArrayList<>();
+
 	public void update(int time) {
 		for (Sprite s : sprites) {
 			if (s.controllable) {
@@ -428,8 +434,23 @@ public class LevelManager {
 			}
 		}
 
-		this.time = (int) ((System.currentTimeMillis() - startTime) / 1000);
+		toRemove = new ArrayList<>();
 
+		for (Updatable u : updatable) {
+			u.update(time);
+		}
+
+		for (Updatable u : toRemove) {
+			updatable.remove(u);
+		}
+
+		if (trackTime)
+			this.time = (int) ((System.currentTimeMillis() - startTime) / 1000);
+
+	}
+
+	public List<Updatable> getToRemove() {
+		return toRemove;
 	}
 
 	/**
@@ -445,6 +466,7 @@ public class LevelManager {
 		interactables = new ArrayList<>();
 		toRender = new ArrayList<>();
 		components = new ArrayList<>();
+		updatable = new ArrayList<>();
 
 		// resets the file to the default file
 		resetLevel(false);
@@ -504,6 +526,21 @@ public class LevelManager {
 
 	public void finish() {
 
+	}
+
+	public void stopTime() {
+		trackTime = false;
+	}
+
+	public void startTime() {
+		System.out.println("running");
+		this.startTime = (int) ((System.currentTimeMillis() - (time * 1000)) / 1000);
+		this.time = (int) ((System.currentTimeMillis() - startTime) / 1000);
+		trackTime = true;
+	}
+
+	public List<Updatable> getUpdatable() {
+		return updatable;
 	}
 
 }

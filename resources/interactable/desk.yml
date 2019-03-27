@@ -5,7 +5,13 @@ images:
 interact:
 - relativetp:centre:0.21:0.65
 - direction:right
+- time:stop
+- delay:1000:delay
 
 options: 
   stopMove: true
+  
+delay:
+- direction:left
+  
   
