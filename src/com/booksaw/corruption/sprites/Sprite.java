@@ -12,6 +12,7 @@ import com.booksaw.corruption.Updatable;
 import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.level.Location;
 import com.booksaw.corruption.level.interactable.Interactable;
+import com.booksaw.corruption.level.interactable.Interactable.InteractionMode;
 import com.booksaw.corruption.level.objects.GameObject;
 import com.booksaw.corruption.level.objects.Mode;
 import com.booksaw.corruption.listeners.KeyListener;
@@ -594,16 +595,21 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 
 		currentInteractable = null;
 
-		if (!((KeyListener) Corruption.main.controller.getListeners().get(0)).interact) {
-			return false;
-		}
-
 		currentInteractable = Interactable.getInteractable(getRectangle(), LevelManager.activeLevel.getInteractables());
 
 		if (currentInteractable == null) {
 			return false;
 		}
-		return currentInteractable.interact(this);
+
+		if (currentInteractable.getMode() == InteractionMode.COLLIDE) {
+			return currentInteractable.interact(this);
+		}
+
+		if (((KeyListener) Corruption.main.controller.getListeners().get(0)).interact) {
+			return currentInteractable.interact(this);
+
+		}
+		return false;
 	}
 
 }

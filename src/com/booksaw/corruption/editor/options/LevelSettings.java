@@ -6,6 +6,7 @@ import com.booksaw.corruption.editor.options.menu.CameraY;
 import com.booksaw.corruption.editor.options.menu.LevelColor;
 import com.booksaw.corruption.editor.options.menu.LevelDimensionX;
 import com.booksaw.corruption.editor.options.menu.LevelDimensionY;
+import com.booksaw.corruption.editor.options.menu.NextLevel;
 
 public class LevelSettings extends OptionPane {
 
@@ -24,6 +25,7 @@ public class LevelSettings extends OptionPane {
 		included.add(new CameraY());
 		included.add(new LevelDimensionX());
 		included.add(new LevelDimensionY());
+		included.add(new NextLevel());
 		included.add(new LevelColor(Corruption.main.getFrame()));
 	}
 

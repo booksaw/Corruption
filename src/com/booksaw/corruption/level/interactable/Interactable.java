@@ -43,7 +43,8 @@ public class Interactable extends Selectable {
 	// pre loaded for faster use
 	List<String> interactions = new ArrayList<>();
 
-	boolean stopMove;
+	boolean stopMove = false;
+	InteractionMode mode = InteractionMode.INTERACT;
 
 	/**
 	 * Used to load an interactable from file
@@ -121,7 +122,7 @@ public class Interactable extends Selectable {
 		}
 
 		stopMove = config.getBoolean("options.stopMove");
-
+		mode = InteractionMode.getInteactionMode(config.getString("options.mode"));
 	}
 
 	@Override
@@ -226,4 +227,33 @@ public class Interactable extends Selectable {
 		return false;
 	}
 
+	
+	
+	public InteractionMode getMode() {
+		return mode;
+	}
+
+
+
+	public enum InteractionMode {
+		INTERACT("interact"), COLLIDE("collide");
+
+		String ref;
+
+		private InteractionMode(String ref) {
+			this.ref = ref;
+		}
+
+		public static InteractionMode getInteactionMode(String s) {
+
+			for (InteractionMode i : InteractionMode.values()) {
+				if (i.ref.equals(s)) {
+					return i;
+				}
+			}
+
+			return null;
+
+		}
+	}
 }

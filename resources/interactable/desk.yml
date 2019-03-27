@@ -10,6 +10,7 @@ interact:
 
 options: 
   stopMove: true
+  mode: collide
   
 delay:
 - finish
