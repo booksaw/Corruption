@@ -13,6 +13,7 @@ public class Run {
 
 	/**
 	 * Main method
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -21,10 +22,8 @@ public class Run {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
 		}
-		
+
 		new Corruption();
 	}
-
-
 
 }

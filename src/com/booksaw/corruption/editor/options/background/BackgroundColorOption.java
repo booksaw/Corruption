@@ -16,7 +16,7 @@ public class BackgroundColorOption extends ColorPicker {
 	}
 
 	@Override
-	public void saveData() {
+	public void saveColor() {
 		b.setC(c);
 	}
 

@@ -15,7 +15,7 @@ public class LevelColor extends ColorPicker {
 	}
 
 	@Override
-	public void saveData() {
+	public void saveColor() {
 		BackgroundColorMeta m = null;
 		for (Meta temp : LevelManager.activeLevel.metaData) {
 			if (temp instanceof BackgroundColorMeta) {
