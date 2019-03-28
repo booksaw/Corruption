@@ -74,7 +74,11 @@ public class PauseOverlay extends Overlay {
 
 		// for the load button
 		// for more see new
-		text = Language.getMessage("pause.quit");
+		if (Corruption.main.controller instanceof EditorController) {
+			text = Language.getMessage("pause.savequit");
+		} else {
+			text = Language.getMessage("pause.quit");
+		}
 		width = g.getFontMetrics().stringWidth(text);
 		g.drawString(text, (getWidth() / 2) - (width / 2),
 				(getHeight() / 2) - (int) (getHeight() * 0.4) + (int) (getHeight() * 0.5));

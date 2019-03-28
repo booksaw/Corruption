@@ -36,6 +36,7 @@ public class Language {
 
 		messages.put("pause.resume", "Resume");
 		messages.put("pause.quit", "Quit");
+		messages.put("pause.savequit", "Save and Quit");
 		messages.put("pause.save", "Do you want to save?");
 
 		messages.put("cursor.block", "Block");
