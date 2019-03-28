@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 /**
  * Used to keep the curosr selecting the correct object
+ * 
  * @author James
  *
  */
@@ -19,6 +20,7 @@ public class CursorManager {
 
 	/**
 	 * Sets the cursor to the image given
+	 * 
 	 * @param img the image to set
 	 */
 	public static void setCursor(BufferedImage img) {
@@ -53,6 +55,7 @@ public class CursorManager {
 
 	/**
 	 * Used to set the cursor to a given cursor type
+	 * 
 	 * @param cursortype the Cursor.THING to set the cursor to
 	 */
 	public static void setCursor(int cursortype) {

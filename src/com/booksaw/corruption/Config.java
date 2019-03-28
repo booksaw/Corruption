@@ -30,7 +30,7 @@ public class Config {
 	/**
 	 * Used to load a logo image
 	 */
-	static void load() {
+	public static void load() {
 		logo = new ImageIcon(Utils.getImage(new File(ASSETSPATH + File.separator + "logoicon.png")));
 	}
 

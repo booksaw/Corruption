@@ -1,6 +1,8 @@
 package com.booksaw.corruption.listeners;
 
+import java.awt.AWTException;
 import java.awt.Point;
+import java.awt.Robot;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -13,6 +15,7 @@ import com.booksaw.corruption.Config;
 import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.CursorManager;
 import com.booksaw.corruption.Utils;
+import com.booksaw.corruption.editor.options.ColorPicker;
 import com.booksaw.corruption.editor.options.LevelSettings;
 import com.booksaw.corruption.editor.options.background.BackgroundSettings;
 import com.booksaw.corruption.editor.options.cursor.CursorSettings;
@@ -57,7 +60,8 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 
 		if (selection == ActiveSelection.SPRITE || selection == ActiveSelection.SPRITECURSOR
 				|| selection == ActiveSelection.OBJECT || selection == ActiveSelection.OBJECTCURSOR
-				|| selection == ActiveSelection.INTERACTABLE || selection == ActiveSelection.INTERACTABLECURSOR) {
+				|| selection == ActiveSelection.INTERACTABLE || selection == ActiveSelection.INTERACTABLECURSOR
+				|| selection == ActiveSelection.EYEDROPPER) {
 			return;
 		}
 
@@ -96,6 +100,10 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 	@Override
 	public void mouseMoved(MouseEvent e) {
 
+		if (selection == ActiveSelection.EYEDROPPER) {
+			return;
+		}
+
 		Selectable s = Selectable.getSelectable(e.getPoint());
 		if (s == null) {
 			if (!CursorManager.normal) {
@@ -124,7 +132,8 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 	public void mousePressed(MouseEvent e) {
 		if (selection == ActiveSelection.SPRITE || selection == ActiveSelection.SPRITECURSOR
 				|| selection == ActiveSelection.OBJECT || selection == ActiveSelection.OBJECTCURSOR
-				|| selection == ActiveSelection.INTERACTABLE || selection == ActiveSelection.INTERACTABLECURSOR) {
+				|| selection == ActiveSelection.INTERACTABLE || selection == ActiveSelection.INTERACTABLECURSOR
+				|| selection == ActiveSelection.EYEDROPPER) {
 			return;
 		}
 
@@ -177,6 +186,18 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 			break;
 		case INTERACTABLECURSOR:
 			InteractableCursorClick(e, p);
+			break;
+		case EYEDROPPER:
+
+			try {
+				Robot r = new Robot();
+
+				ColorPicker.p.click(r.getPixelColor(e.getXOnScreen(), e.getYOnScreen()));
+
+			} catch (AWTException e1) {
+				break;
+			}
+
 			break;
 		}
 
