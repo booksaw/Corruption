@@ -6,8 +6,7 @@ level:
 - object:block:383;489;12;121;255;255;255
 - object:door:394;429;true;true
 - background:colored:-17;429;403;149;153;153;255
-- sprite:player:357;10;true;true
+- sprite:player:125;458;true;true
 - interactable:208;430;83;37;table
 - interactable:430;-12;135;77;desk
-
-nextLevel: "2.level"
+nextLevel: 2.level

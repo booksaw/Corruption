@@ -19,4 +19,14 @@ public enum ObjectList {
 		return null;
 	}
 
+	public static ObjectList getObjectEnum(GameObject o) {
+		if (o instanceof Door) {
+			return DOOR;
+		} else if (o instanceof Spike) {
+			return SPIKE;
+		}
+
+		return null;
+	}
+
 }

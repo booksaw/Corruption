@@ -34,6 +34,7 @@ import com.booksaw.corruption.level.objects.Block;
 import com.booksaw.corruption.level.objects.Door;
 import com.booksaw.corruption.level.objects.DraggedBlock;
 import com.booksaw.corruption.level.objects.GameObject;
+import com.booksaw.corruption.level.objects.ObjectList;
 import com.booksaw.corruption.level.objects.Spike;
 import com.booksaw.corruption.render.GameCamera;
 import com.booksaw.corruption.render.overlays.ActiveSelection;
@@ -478,6 +479,8 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 			selection = ActiveSelection.MAIN;
 			Overlay.removeOverlay(ObjectCursorOverlay.objectOverlay);
 			LevelManager.activeLevel.addObject(ObjectCursorOverlay.objectOverlay.o);
+			Overlay.addOverlay(new ObjectCursorOverlay(
+					ObjectList.getObject(ObjectList.getObjectEnum(ObjectCursorOverlay.objectOverlay.o))));
 
 		} else if (SwingUtilities.isRightMouseButton(e)) {
 			selection = ActiveSelection.MAIN;
