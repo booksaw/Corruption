@@ -7,6 +7,8 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
+import javax.sound.midi.Synthesizer;
+
 import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.Updatable;
 import com.booksaw.corruption.level.LevelManager;
@@ -609,6 +611,8 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 			return currentInteractable.interact(this);
 
 		}
+
+		currentInteractable = null;
 		return false;
 	}
 
