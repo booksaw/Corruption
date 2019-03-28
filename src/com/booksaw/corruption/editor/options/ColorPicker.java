@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
-import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -234,7 +233,7 @@ public abstract class ColorPicker extends MessageOption implements ActionListene
 		}
 
 		/**
-		 * Overpainting component, so it can have different colors
+		 * Overpainting component, so it can have different colours
 		 */
 		@Override
 		public void paintComponent(Graphics g) {
@@ -242,32 +241,30 @@ public abstract class ColorPicker extends MessageOption implements ActionListene
 			Graphics2D g2d = (Graphics2D) g;
 
 			g2d.setColor(normalColor);
-			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); // For High
-																										// quality
 			g2d.fillRect(0, 0, getWidth(), getHeight());
 
 			super.paintComponent(g);
 		}
 
 		@Override
-		public void mouseClicked(MouseEvent arg0) {
+		public void mouseClicked(MouseEvent e) {
 		}
 
 		@Override
-		public void mouseEntered(MouseEvent arg0) {
+		public void mouseEntered(MouseEvent e) {
 		}
 
 		@Override
-		public void mouseExited(MouseEvent arg0) {
+		public void mouseExited(MouseEvent e) {
 
 		}
 
 		@Override
-		public void mousePressed(MouseEvent arg0) {
+		public void mousePressed(MouseEvent e) {
 		}
 
 		@Override
-		public void mouseReleased(MouseEvent arg0) {
+		public void mouseReleased(MouseEvent e) {
 		}
 	}
 }
