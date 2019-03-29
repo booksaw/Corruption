@@ -149,6 +149,16 @@ public class YamlConfiguration {
 		return "";
 	}
 
+	public int getInteger(String ref) {
+		Object o = getSetting(ref);
+
+		try {
+			return Integer.parseInt(o.toString());
+		} catch (Exception e) {
+			return 0;
+		}
+	}
+
 	public boolean isNull() {
 		return obj == null || obj.size() == 0;
 	}

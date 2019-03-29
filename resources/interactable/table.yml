@@ -8,6 +8,7 @@ interact:
 #options:
 #  stopMove: t/f
 #  mode: (interact, collide)
+#  scale: (default scale in editor)
 
 # Options include
 # - kill (kills player)

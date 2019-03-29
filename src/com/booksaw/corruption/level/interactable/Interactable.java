@@ -39,6 +39,7 @@ public class Interactable extends Selectable {
 	List<InteractableComponent> images = new ArrayList<>();
 	int width, height;
 	YamlConfiguration config;
+	int scale = Sprite.PIXELMULT;
 
 	// pre loaded for faster use
 	List<String> interactions = new ArrayList<>();
@@ -84,8 +85,8 @@ public class Interactable extends Selectable {
 //		height = image.getHeight() * Sprite.PIXELMULT;
 		loadConfig(lm);
 
-		width = images.get(0).img.getWidth() * Sprite.PIXELMULT;
-		height = images.get(0).img.getHeight() * Sprite.PIXELMULT;
+		width = images.get(0).img.getWidth() * scale;
+		height = images.get(0).img.getHeight() * scale;
 
 	}
 
@@ -123,6 +124,12 @@ public class Interactable extends Selectable {
 
 		stopMove = config.getBoolean("options.stopMove");
 		mode = InteractionMode.getInteactionMode(config.getString("options.mode"));
+		scale = config.getInteger("options.sacle");
+
+		if (scale == 0) {
+			scale = Sprite.PIXELMULT;
+		}
+
 	}
 
 	@Override
@@ -227,13 +234,9 @@ public class Interactable extends Selectable {
 		return false;
 	}
 
-	
-	
 	public InteractionMode getMode() {
 		return mode;
 	}
-
-
 
 	public enum InteractionMode {
 		INTERACT("interact"), COLLIDE("collide");

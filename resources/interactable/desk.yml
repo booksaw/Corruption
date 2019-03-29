@@ -11,6 +11,7 @@ interact:
 options: 
   stopMove: true
   mode: collide
+  scale: 10
   
 delay:
 - finish
