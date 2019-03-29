@@ -31,8 +31,11 @@ public class Door extends GameObject {
 		centrey = Integer.parseInt(split[1]);
 		setOpen(Boolean.parseBoolean(split[2]));
 		left = Boolean.parseBoolean(split[3]);
+		width = Integer.parseInt(split[4]);
 
 		height = doorClosed.getHeight() * Sprite.PIXELMULT;
+
+		height = Integer.parseInt(split[5]);
 
 		calculatePosition();
 	}
@@ -89,7 +92,8 @@ public class Door extends GameObject {
 	@Override
 	public String toString() {
 		calculatePosition();
-		return "object:door:" + (int) centrex + ";" + (int) centrey + ";" + open + ";" + left;
+		return "object:door:" + (int) centrex + ";" + (int) centrey + ";" + open + ";" + left + ";" + width + ";"
+				+ height;
 	}
 
 	public void setLocation(Point p) {

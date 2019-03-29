@@ -240,6 +240,7 @@ public abstract class Selectable extends Renderable implements Location, Dimensi
 		s = this;
 		starting = Utils.getScaledPoint(p, new Dimension(GameCamera.cameraWidth, GameCamera.cameraHeight));
 		starting.y = GameCamera.cameraHeight - starting.y;
+		starting.x += GameCamera.activeCamera.x;
 	}
 
 	/**
@@ -249,6 +250,7 @@ public abstract class Selectable extends Renderable implements Location, Dimensi
 	 */
 	public void release(Point p) {
 		p.y = GameCamera.cameraHeight - p.y;
+		p.x += GameCamera.activeCamera.x;
 		s = null;
 	}
 
@@ -260,11 +262,11 @@ public abstract class Selectable extends Renderable implements Location, Dimensi
 	public void drag(Point p) {
 		p = Utils.getScaledPoint(p, new Dimension(GameCamera.cameraWidth, GameCamera.cameraHeight));
 		p.y = (GameCamera.cameraHeight) - (p.y);
-		p.x = p.x - GameCamera.activeCamera.x;
+		p.x = p.x + GameCamera.activeCamera.x;
 		if (starting == null) {
 			return;
 		}
-		Point offset = new Point(p.x - starting.x, p.y - starting.y);
+		Point offset = new Point((p.x - starting.x), p.y - starting.y);
 
 		switch (mode) {
 		case MOVE:
@@ -369,6 +371,7 @@ public abstract class Selectable extends Renderable implements Location, Dimensi
 
 	/**
 	 * Used to keep track of what the cursor can do at the moment
+	 * 
 	 * @author James
 	 *
 	 */

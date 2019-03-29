@@ -79,20 +79,25 @@ public class EditorController extends RenderController {
 	@Override
 	public void show() {
 		super.show();
-		Corruption.main.getFrame().setResizable(false);
+//		Corruption.main.getFrame().setResizable(false);
 
-		c.setSize(Corruption.origionalDimensions);
-		c.setPreferredSize(Corruption.origionalDimensions);
+//		c.setSize(Corruption.origionalDimensions);
+//		c.setPreferredSize(Corruption.origionalDimensions);
 //		Corruption.main.getFrame().pack();
 
 		LevelManager lm;
-		if (LevelManager.activeLevel == null) {
-			lm = new LevelManager(new File("1.level"));
 
-		} else {
-			lm = LevelManager.activeLevel;
-			lm.load();
+		File f = new File(GameController.level);
+
+		if (!f.exists()) {
+			MenuController mc = new MenuController();
+			mc.show();
+			return;
 		}
+
+		lm = new LevelManager(f);
+
+		lm.finalise();
 
 		lm.resetAll();
 

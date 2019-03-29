@@ -26,6 +26,7 @@ import com.booksaw.corruption.renderControler.RenderController;
 
 /**
  * Main class of the project
+ * 
  * @author James
  *
  */
@@ -102,7 +103,8 @@ public class Corruption implements ActionListener, ComponentListener {
 	}
 
 	/**
-	 * Used to start the clock, using a specific method to ensure the clock is only started once
+	 * Used to start the clock, using a specific method to ensure the clock is only
+	 * started once
 	 */
 	public void startClock() {
 		if (t != null && t.isRunning()) {
@@ -116,10 +118,12 @@ public class Corruption implements ActionListener, ComponentListener {
 
 	/**
 	 * Used to set the active render controller
+	 * 
 	 * @param renderController the new render controller
 	 */
 	public void setActive(RenderController renderController) {
-		setActive(renderController, new Dimension(f.getContentPane().getWidth(), f.getContentPane().getHeight()));
+		// TODO
+		setActive(renderController, origionalDimensions);
 	}
 
 	/**
@@ -135,10 +139,14 @@ public class Corruption implements ActionListener, ComponentListener {
 		ListenerManager.clearListeners();
 		if (this.controller != null)
 			this.controller.disable();
+
 		// adding the renderer
 		this.controller = controller;
+
 		RenderInterface activeRenderer = controller.getRenderer();
 		activeRenderer.setPreferredSize(d);
+		activeRenderer.setSize(d);
+
 		f.setContentPane(new JPanel());
 		f.setContentPane(activeRenderer);
 		f.pack();

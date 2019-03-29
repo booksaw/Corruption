@@ -25,7 +25,7 @@ public class GameController extends RenderController {
 
 	public GameCamera c;
 	private GameOverlay gameOverlay;
-	private String level = "1.level";
+	public static String level = "1.level";
 
 	public GameController() {
 		gameController = this;
@@ -36,7 +36,7 @@ public class GameController extends RenderController {
 	public GameController(String level) {
 		gameController = this;
 		c = new GameCamera(true);
-		this.level = level;
+		GameController.level = level;
 	}
 
 	@Override
@@ -51,7 +51,6 @@ public class GameController extends RenderController {
 		Selectable.clearSelection();
 
 		LevelManager lm;
-//		if (LevelManager.activeLevel == null) {
 
 		File f = new File(level);
 
@@ -63,10 +62,6 @@ public class GameController extends RenderController {
 
 		lm = new LevelManager(f);
 
-//		} else {
-//			lm = LevelManager.activeLevel;
-//			lm.load();
-//		}
 		lm.finalise();
 
 		Overlay.addOverlay((gameOverlay = new GameOverlay()));

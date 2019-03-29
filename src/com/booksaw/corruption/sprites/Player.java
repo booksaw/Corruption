@@ -21,10 +21,13 @@ public class Player extends Sprite {
 
 	// used for jumping
 	double jumpHeight, weight = 0.002;
+	boolean released = false, doubleJump = false;
+	int jumpDirection = 0;
+
 	// used to add a delay to jumps
 	int minPrior = 100, priorJump = 0;
 	// more jumping stuff (self explaniatory)
-	final double maxJump = 0.6;
+	final double maxJump = 0.625;
 
 	// the speed left and right the player can travel
 	private final double SPEED = 0.13;
@@ -172,6 +175,8 @@ public class Player extends Sprite {
 	 */
 	private void calculateY(int time) {
 		// if the player is on the ground
+		KeyListener listen = (KeyListener) Corruption.main.controller.getListeners().get(0);
+
 		if (canJump() && jumpHeight < 0) {
 			priorJump += time;
 			// resetting the height
@@ -179,16 +184,32 @@ public class Player extends Sprite {
 
 			// if they actually want to jump and aren't crouching and they havent jumped to
 			// recently
-			KeyListener listen = (KeyListener) Corruption.main.controller.getListeners().get(0);
 			if (!isCrouching && listen.up && minPrior <= priorJump) {
 				// basically getting the person to jump
 				jumpHeight = maxJump;
 				y = changeY(y + (jumpHeight * time), y);
 				jumpHeight -= weight;
 				priorJump = 0;
+				released = false;
+				doubleJump = false;
+				jumpDirection = 0;
 			}
 
 		} else {
+			int result = canWallJump();
+			if (result != 0 && !isCrouching && listen.up) {
+				doubleJump = true;
+				jumpDirection = result;
+				// basically getting the person to jump
+				jumpHeight = maxJump;
+				y = changeY(y + (jumpHeight * time), y);
+				jumpHeight -= weight;
+				priorJump = 0;
+
+			} else if (!listen.up) {
+				released = true;
+			}
+
 			// if they can't jump accelerating them towards the ground
 			y = changeY(y + (jumpHeight * time), y);
 			jumpHeight -= (weight * time);
@@ -225,6 +246,22 @@ public class Player extends Sprite {
 		}
 
 		return true;
+	}
+
+	private int canWallJump() {
+
+		if (released) {
+			if (!canGo(x - 1, y) && jumpDirection != -1) {
+				return -1;
+			}
+
+			if (!canGo(x + 1, y) && jumpDirection != 1) {
+				return 1;
+			}
+
+		}
+		return 0;
+
 	}
 
 	/**
@@ -266,6 +303,7 @@ public class Player extends Sprite {
 
 		// if the player can go there return just change
 		if (canGo(change, y)) {
+
 			return change;
 		}
 

@@ -5,7 +5,6 @@ import java.util.List;
 import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.listeners.Listener;
 import com.booksaw.corruption.render.RenderInterface;
-import com.booksaw.corruption.render.overlays.Overlay;
 
 public abstract class RenderController {
 
@@ -13,7 +12,6 @@ public abstract class RenderController {
 
 	public void show() {
 		Corruption.main.setActive(this);
-		Overlay.clearOverlays();
 	}
 
 	public abstract RenderInterface getRenderer();
