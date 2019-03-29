@@ -13,7 +13,6 @@ import com.booksaw.corruption.Config;
 import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.Utils;
 import com.booksaw.corruption.language.Language;
-import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.renderControler.EditorController;
 import com.booksaw.corruption.renderControler.GameController;
 
@@ -242,8 +241,7 @@ public class GameMenu extends RenderInterface {
 			return;
 		}
 
-		LevelManager lm = new LevelManager(fc.getSelectedFile());
-		lm.setActive();
+		GameController.level = fc.getSelectedFile().getPath();
 	}
 
 }
