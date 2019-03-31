@@ -19,5 +19,5 @@ Any contribution is greatfully recieved, please fork and push any changes.
 ## Authors
 
 * **James McNair** - *Project manager* - [Booksaw](http://github.com/booksaw)
-* **Mehru** - *Idea contributor* - [Mehru1214](https://github.com/Mehru1214)
+* **Mehru** - *Graphic design* - [Mehru1214](https://github.com/Mehru1214)
 
