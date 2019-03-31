@@ -9,6 +9,7 @@ level:
 - object:block:600;-2;119;29;0;0;0
 - object:block:775;84;31;112;0;0;0
 - object:spike:718;-1;302;28;u
+- object:block:884;51;122;24;0;0;0
 - background:colored:1;-31;406;274;162;34;34
 - sprite:player:61;39;true;true
 - interactable:193;-8;96;34;table

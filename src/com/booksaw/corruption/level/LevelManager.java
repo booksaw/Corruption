@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.booksaw.corruption.Config;
+import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.Renderable;
 import com.booksaw.corruption.Updatable;
 import com.booksaw.corruption.configuration.YamlConfiguration;
@@ -28,6 +29,7 @@ import com.booksaw.corruption.level.objects.Block;
 import com.booksaw.corruption.level.objects.Door;
 import com.booksaw.corruption.level.objects.GameObject;
 import com.booksaw.corruption.level.objects.Spike;
+import com.booksaw.corruption.renderControler.EditorController;
 import com.booksaw.corruption.renderControler.GameController;
 import com.booksaw.corruption.sprites.Player;
 import com.booksaw.corruption.sprites.Sprite;
@@ -553,6 +555,12 @@ public class LevelManager {
 	}
 
 	public void finish() {
+		if (Corruption.main.controller instanceof EditorController) {
+			reset();
+			((EditorController) Corruption.main.controller).toogleTestMode();
+			return;
+		}
+
 		GameController gc = new GameController(nextLevel);
 		gc.show();
 	}

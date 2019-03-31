@@ -95,7 +95,7 @@ public enum Interaction {
 		@Override
 		public boolean run(String[] args, Sprite s, Interactable i) {
 			s.setCheckpoint();
-			
+
 			return false;
 		}
 
