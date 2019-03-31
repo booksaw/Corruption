@@ -3,7 +3,7 @@ images:
 # format: file (DO NOT INCLUDE .png):priority:scale
 
 interact:
-- kill
+- checkpoint
 
 #options:
 #  stopMove: t/f
@@ -19,4 +19,5 @@ interact:
 # - time:(stop, start) 
 # - delay:(amount millis):ref
 # - finish (ends the level)
+# - checkpoint (when the player dies they go back to there)
 

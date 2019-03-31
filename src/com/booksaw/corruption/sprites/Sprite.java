@@ -56,6 +56,7 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 
 	// starting location of the sprite
 	protected Point startingLocation;
+	protected Point checkpointLocaiton;
 
 	// for hit boxes
 	protected Dimension dimensions, crouchDimensions;
@@ -162,6 +163,7 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 		controllable = Boolean.parseBoolean(split[3]);
 
 		startingLocation = new Point((int) x, (int) y);
+		checkpointLocaiton = new Point(startingLocation.x, startingLocation.y);
 
 	}
 
@@ -502,6 +504,10 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 
 	}
 
+	public void setCheckpoint() {
+		checkpointLocaiton = new Point((int) x, (int) y);
+	}
+
 	/**
 	 * Used to move the player back to their start location
 	 */
@@ -517,8 +523,8 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 
 	public void reset(boolean fail) {
 
-		x = startingLocation.x;
-		y = startingLocation.y;
+		x = checkpointLocaiton.x;
+		y = checkpointLocaiton.y;
 
 		if (fail && (System.currentTimeMillis() - prevReset) > 20) {
 			LevelManager.activeLevel.fails++;
@@ -542,6 +548,7 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 	 */
 	public void setStartingLocation(int x, int y) {
 		startingLocation = new Point(x, y);
+		checkpointLocaiton = new Point(x, y);
 	}
 
 	@Override
@@ -549,6 +556,7 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 		x += p.x;
 		y += p.y;
 		startingLocation = new Point((int) x, (int) y);
+		checkpointLocaiton = new Point((int) x, (int) y);
 
 	}
 

@@ -90,6 +90,15 @@ public enum Interaction {
 			return false;
 		}
 
+	}), CHECKPOINT("checkpoint", new InteractionOption() {
+
+		@Override
+		public boolean run(String[] args, Sprite s, Interactable i) {
+			s.setCheckpoint();
+			
+			return false;
+		}
+
 	});
 
 	public static boolean execute(String info, Sprite s, Interactable i) {
