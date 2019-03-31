@@ -329,6 +329,15 @@ public class LevelManager {
 		return interactables;
 	}
 
+	public Sprite getActivePlayer() {
+		for (Sprite s : sprites) {
+			if (s.activePlayer) {
+				return s;
+			}
+		}
+		return null;
+	}
+
 	public void addSprite(Sprite s) {
 		sprites.add(s);
 		toRender.add(s);

@@ -16,6 +16,8 @@ import com.booksaw.corruption.render.overlays.PauseOverlay;
  */
 public class KeyListener implements java.awt.event.KeyListener, Listener {
 
+	public static KeyListener listen;
+
 	// all options for user input
 	public boolean left = false, right = false, down = false, up = false, interact = false;
 
@@ -94,13 +96,14 @@ public class KeyListener implements java.awt.event.KeyListener, Listener {
 	@Override
 	public void activate(JFrame f) {
 		f.addKeyListener(this);
+		listen = this;
 
 	}
 
 	@Override
 	public void disable(JFrame f) {
 		f.removeKeyListener(this);
-
+		listen = null;
 	}
 
 	public void pause() {

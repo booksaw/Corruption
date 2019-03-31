@@ -10,7 +10,9 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
 
+import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.level.LevelManager;
+import com.booksaw.corruption.renderControler.EditorController;
 import com.booksaw.corruption.selection.Selectable;
 
 public class EditorKeyListener implements Listener, KeyListener {
@@ -42,6 +44,9 @@ public class EditorKeyListener implements Listener, KeyListener {
 			break;
 		case 17:
 			ctrl = true;
+			break;
+		case 84:
+			((EditorController) Corruption.main.controller).toogleTestMode();
 			break;
 		case 67:
 			if (ctrl) {

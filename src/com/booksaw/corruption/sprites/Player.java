@@ -6,7 +6,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 import com.booksaw.corruption.Config;
-import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.Utils;
 import com.booksaw.corruption.listeners.KeyListener;
 
@@ -110,7 +109,7 @@ public class Player extends Sprite {
 
 		calculateY(time);
 
-		KeyListener listen = (KeyListener) Corruption.main.controller.getListeners().get(0);
+		KeyListener listen = KeyListener.listen;
 
 		// setting crouching if possible
 		if (listen.down) {
@@ -156,7 +155,7 @@ public class Player extends Sprite {
 
 //		double tempY = y;
 		// movement (left and right)
-		KeyListener listen = (KeyListener) Corruption.main.controller.getListeners().get(0);
+		KeyListener listen = KeyListener.listen;
 
 		if (listen.left) {
 			x = changeX(x - (SPEED * time), x);
@@ -175,7 +174,7 @@ public class Player extends Sprite {
 	 */
 	private void calculateY(int time) {
 		// if the player is on the ground
-		KeyListener listen = (KeyListener) Corruption.main.controller.getListeners().get(0);
+		KeyListener listen = KeyListener.listen;
 
 		if (canJump() && jumpHeight < 0) {
 			priorJump += time;

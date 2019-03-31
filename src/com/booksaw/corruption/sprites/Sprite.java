@@ -605,7 +605,7 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 			return currentInteractable.interact(this);
 		}
 
-		if (((KeyListener) Corruption.main.controller.getListeners().get(0)).interact) {
+		if ((KeyListener.listen).interact) {
 			return currentInteractable.interact(this);
 
 		}

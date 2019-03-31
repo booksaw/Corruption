@@ -115,6 +115,14 @@ public class Corruption implements ActionListener, ComponentListener {
 		previousTick = System.currentTimeMillis();
 		t.start();
 	}
+	
+	public void stopClock() {
+		if(t == null) {
+			return;
+		}
+		
+		t.stop();
+	}
 
 	/**
 	 * Used to set the active render controller

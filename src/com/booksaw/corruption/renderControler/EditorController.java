@@ -10,6 +10,7 @@ import com.booksaw.corruption.listeners.EditorKeyListener;
 import com.booksaw.corruption.listeners.EditorMouseListener;
 import com.booksaw.corruption.listeners.KeyListener;
 import com.booksaw.corruption.listeners.Listener;
+import com.booksaw.corruption.listeners.ListenerManager;
 import com.booksaw.corruption.render.GameCamera;
 import com.booksaw.corruption.render.RenderInterface;
 import com.booksaw.corruption.render.overlays.EditorOverlay;
@@ -35,10 +36,11 @@ public class EditorController extends RenderController {
 
 	@Override
 	public void update(int time) {
-		camera.update(time);
-
-//		LevelManager.activeLevel.update(time);
-
+		if (!testing)
+			camera.update(time);
+		else {
+			LevelManager.activeLevel.update(time);
+		}
 	}
 
 	@Override
@@ -129,6 +131,23 @@ public class EditorController extends RenderController {
 	@Override
 	public void back() {
 
+	}
+
+	boolean testing = false;
+	KeyListener listen;
+
+	public void toogleTestMode() {
+		if (testing) {
+
+			if (listen != null)
+				ListenerManager.removeListener(listen);
+			testing = false;
+			
+		} else {
+			listen = new KeyListener();
+			ListenerManager.addListener(listen);
+			testing = true;
+		}
 	}
 
 }
