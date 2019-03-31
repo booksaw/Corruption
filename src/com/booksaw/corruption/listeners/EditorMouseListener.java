@@ -418,6 +418,8 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 		if (SwingUtilities.isLeftMouseButton(e)) {
 
 			selection = ActiveSelection.MAIN;
+			SpriteCursorOverlay.cursorOverlay.s
+					.setX(SpriteCursorOverlay.cursorOverlay.s.getX() + GameCamera.activeCamera.x);
 			Overlay.removeOverlay(SpriteCursorOverlay.cursorOverlay);
 			SpriteCursorOverlay.cursorOverlay.s.setStartingLocation();
 			LevelManager.activeLevel.addSprite(SpriteCursorOverlay.cursorOverlay.s);
@@ -448,6 +450,8 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 		if (SwingUtilities.isLeftMouseButton(e)) {
 
 			selection = ActiveSelection.MAIN;
+			InteractableCursorOverlay.interactableOverlay.i
+					.setX(InteractableCursorOverlay.interactableOverlay.i.getX() + GameCamera.activeCamera.x);
 			Overlay.removeOverlay(InteractableCursorOverlay.interactableOverlay);
 			LevelManager.activeLevel.addInteractable(InteractableCursorOverlay.interactableOverlay.i);
 
@@ -476,7 +480,9 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 	private void ObjectCursorClick(MouseEvent e, Point p) {
 		if (SwingUtilities.isLeftMouseButton(e)) {
 
-			selection = ActiveSelection.MAIN;
+//			selection = ActiveSelection.MAIN;
+			ObjectCursorOverlay.objectOverlay.o
+					.setX(ObjectCursorOverlay.objectOverlay.o.getX() + GameCamera.activeCamera.x);
 			Overlay.removeOverlay(ObjectCursorOverlay.objectOverlay);
 			LevelManager.activeLevel.addObject(ObjectCursorOverlay.objectOverlay.o);
 			Overlay.addOverlay(new ObjectCursorOverlay(
