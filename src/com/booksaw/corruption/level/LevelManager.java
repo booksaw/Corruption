@@ -511,6 +511,8 @@ public class LevelManager {
 
 			}
 		}
+
+		fails++;
 	}
 
 	public void clearActivePlayer() {
