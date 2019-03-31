@@ -124,7 +124,7 @@ public class Interactable extends Selectable {
 
 		stopMove = config.getBoolean("options.stopMove");
 		mode = InteractionMode.getInteactionMode(config.getString("options.mode"));
-		scale = config.getInteger("options.sacle");
+		scale = config.getInteger("options.scale");
 
 		if (scale == 0) {
 			scale = Sprite.PIXELMULT;

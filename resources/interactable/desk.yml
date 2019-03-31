@@ -1,6 +1,5 @@
 images:
-- desk2:25:1
-- desk1:5:1
+- desk:25:1
 
 interact:
 - relativetp:centre:0.21:0.65
@@ -11,7 +10,7 @@ interact:
 options: 
   stopMove: true
   mode: collide
-  scale: 10
+  scale: 1
   
 delay:
 - finish

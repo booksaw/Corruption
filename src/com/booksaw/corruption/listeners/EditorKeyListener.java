@@ -86,6 +86,9 @@ public class EditorKeyListener implements Listener, KeyListener {
 				}
 			}
 			break;
+		case 83:
+			LevelManager.activeLevel.save();
+			break;
 		}
 
 	}
