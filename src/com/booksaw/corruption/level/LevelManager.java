@@ -28,6 +28,7 @@ import com.booksaw.corruption.level.meta.Meta;
 import com.booksaw.corruption.level.objects.Block;
 import com.booksaw.corruption.level.objects.Door;
 import com.booksaw.corruption.level.objects.GameObject;
+import com.booksaw.corruption.level.objects.Slime;
 import com.booksaw.corruption.level.objects.Spike;
 import com.booksaw.corruption.renderControler.EditorController;
 import com.booksaw.corruption.renderControler.GameController;
@@ -290,6 +291,11 @@ public class LevelManager {
 			s.setSelected(select);
 			addObject(s);
 			break;
+		case "slime":
+			Slime sl = new Slime(info);
+			sl.setSelected(select);
+			addObject(sl);
+			break;
 		}
 
 	}
@@ -537,11 +543,9 @@ public class LevelManager {
 	public void sortRenderable() {
 		Renderable[] renders = toRender.toArray(new Renderable[toRender.size()]);
 
-		boolean changed = false;
 		Renderable temp;
 
-		for (int i = 0; i < renders.length && !changed; i++) {
-			changed = false;
+		for (int i = 0; i < renders.length; i++) {
 			for (int j = 1; j < renders.length - i; j++) {
 				if (renders[j - 1].getPriority() < renders[j].getPriority()) {
 					temp = renders[j - 1];

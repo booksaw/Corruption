@@ -6,7 +6,7 @@ import com.booksaw.corruption.level.objects.Spike.Direction;
 
 public enum ObjectList {
 
-	DOOR, SPIKE;
+	DOOR, SPIKE, SLIME;
 
 	public static GameObject getObject(ObjectList o) {
 		switch (o) {
@@ -14,6 +14,8 @@ public enum ObjectList {
 			return new Door(new Point(-1, -1), false);
 		case SPIKE:
 			return new Spike(new Point(-1, -1), Direction.UP);
+		case SLIME:
+			return new Slime(new Point(-1, -1));
 		}
 
 		return null;
@@ -24,6 +26,8 @@ public enum ObjectList {
 			return DOOR;
 		} else if (o instanceof Spike) {
 			return SPIKE;
+		} else if (o instanceof Slime) {
+			return SLIME;
 		}
 
 		return null;

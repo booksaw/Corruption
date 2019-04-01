@@ -22,7 +22,7 @@ level:
 - object:block:-1;-2;7;248;230;214;214
 - object:block:406;258;6;197;230;214;214
 - object:block:406;400;6;197;230;214;214
-- object:spike:1216;1;780;25;u
+- object:slime:1216;-1;595;31
 - background:colored:1;-26;406;274;162;34;34
 - background:colored:1695;461;145;115;162;34;34
 - background:colored:0;360;412;222;0;165;0

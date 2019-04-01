@@ -57,6 +57,7 @@ public class ObjectOverlay extends Overlay {
 		Rectangle r = new Rectangle(p, new Dimension(1, 1));
 
 		for (Entry<GameObject, Rectangle> temp : objects.entrySet()) {
+			System.out.println(temp.getKey());
 			if (r.intersects(temp.getValue())) {
 				select(temp.getKey());
 				return true;
@@ -68,6 +69,7 @@ public class ObjectOverlay extends Overlay {
 	}
 
 	public void select(GameObject o) {
+		System.out.println("selecting");
 		show = true;
 		Overlay.addOverlay(new ObjectCursorOverlay(o));
 

@@ -170,7 +170,7 @@ public class Spike extends GameObject {
 			}
 
 		} else {
-			int tempW = spikes.getHeight() * Sprite.PIXELMULT;
+			int tempW = spikes.getWidth() * Sprite.PIXELMULT;
 
 			if (width % tempW < tempW / 2) {
 				count = (int) Math.floor(width / tempW);
