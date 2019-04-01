@@ -128,4 +128,9 @@ public class GameCamera extends RenderInterface {
 	@Override
 	public void resize() {
 	}
+
+	public Rectangle getRectangle() {
+		return new Rectangle(x, y, cameraWidth, cameraHeight);
+	}
+
 }

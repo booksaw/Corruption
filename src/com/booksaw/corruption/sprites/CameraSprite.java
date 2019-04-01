@@ -56,7 +56,7 @@ public class CameraSprite extends Sprite {
 	}
 
 	@Override
-	protected void bindToCamera(int x) {
+	public void bindToCamera(int x) {
 //		int temp = GameCamera.activeCamera.x;
 
 		// BINDING CAMERA TO PLAYER

@@ -5,6 +5,8 @@ images:
 interact:
 - checkpoint
 
+options: 
+  scale: 1
 #options:
 #  stopMove: t/f
 #  mode: (interact, collide)

@@ -18,7 +18,9 @@ import com.booksaw.corruption.render.overlays.InteractableOverlay;
 import com.booksaw.corruption.render.overlays.ObjectOverlay;
 import com.booksaw.corruption.render.overlays.Overlay;
 import com.booksaw.corruption.render.overlays.SpriteOverlay;
+import com.booksaw.corruption.selection.Selectable;
 import com.booksaw.corruption.sprites.CameraSprite;
+import com.booksaw.corruption.sprites.Sprite;
 
 public class EditorController extends RenderController {
 
@@ -86,7 +88,7 @@ public class EditorController extends RenderController {
 //		c.setSize(Corruption.origionalDimensions);
 //		c.setPreferredSize(Corruption.origionalDimensions);
 //		Corruption.main.getFrame().pack();
-
+		Selectable.clearSelection();
 		LevelManager lm;
 
 		File f = new File(GameController.level);
@@ -98,8 +100,6 @@ public class EditorController extends RenderController {
 		}
 
 		lm = new LevelManager(f);
-
-		lm.finalise();
 
 		lm.resetAll();
 
@@ -142,11 +142,13 @@ public class EditorController extends RenderController {
 			if (listen != null)
 				ListenerManager.removeListener(listen);
 			testing = false;
-			
+
 		} else {
 			listen = new KeyListener();
 			ListenerManager.addListener(listen);
 			testing = true;
+			Sprite s = LevelManager.activeLevel.getActivePlayer();
+			s.bindToCamera(s.getX());
 		}
 	}
 

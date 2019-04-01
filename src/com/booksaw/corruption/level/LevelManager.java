@@ -191,6 +191,7 @@ public class LevelManager {
 	 */
 	public void finalise() {
 		activeLevel = this;
+		sortRenderable();
 		// activating all meta
 		for (Meta m : metaData) {
 			m.execute();

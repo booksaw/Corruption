@@ -366,8 +366,13 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 	 * 
 	 * @param tempX
 	 */
-	protected void bindToCamera(int x) {
-		// BINDING CAMERA TO PLAYER
+	public void bindToCamera(int x) {
+
+		if (!GameCamera.activeCamera.getRectangle().intersects(getRectangle())) {
+			GameCamera.activeCamera.closestX(x - (GameCamera.cameraWidth / 2));
+		}
+
+		// BINDING CAMERA TO SPRITE
 		if (right) {
 			// travelled right
 			double cam60 = GameCamera.cameraWidth * 0.6 + GameCamera.activeCamera.x;

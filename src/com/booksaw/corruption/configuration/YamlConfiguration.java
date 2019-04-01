@@ -159,6 +159,16 @@ public class YamlConfiguration {
 		}
 	}
 
+	public double getDouble(String ref) {
+		Object o = getSetting(ref);
+
+		try {
+			return Double.parseDouble(o.toString());
+		} catch (Exception e) {
+			return 0;
+		}
+	}
+
 	public boolean isNull() {
 		return obj == null || obj.size() == 0;
 	}
