@@ -1,0 +1,10 @@
+level:
+- meta:leveldimensions:2000;576
+- meta:cameralocation:0;0
+- meta:backgroundcolor:100;100;100
+- object:block:-2;354;486;31;0;0;0
+- object:door:484;385;false;true;10;60
+- object:block:471;445;14;130;0;0;0
+- background:colored:-27;357;503;217;233;169;169
+- sprite:player:72;439;true;true
+nextLevel: 

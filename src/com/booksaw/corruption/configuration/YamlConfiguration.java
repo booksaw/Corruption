@@ -29,6 +29,7 @@ public class YamlConfiguration {
 		} catch (FileNotFoundException e) {
 			return;
 		}
+		
 		obj = yaml.load(inputStream);
 	}
 
