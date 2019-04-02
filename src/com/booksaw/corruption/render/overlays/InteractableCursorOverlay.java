@@ -8,6 +8,7 @@ import java.awt.Rectangle;
 
 import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.CursorManager;
+import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.level.interactable.Interactable;
 import com.booksaw.corruption.listeners.EditorMouseListener;
 import com.booksaw.corruption.render.GameCamera;
@@ -22,6 +23,7 @@ public class InteractableCursorOverlay extends Overlay {
 		this.i = i;
 		interactableOverlay = this;
 		EditorMouseListener.selection = ActiveSelection.INTERACTABLECURSOR;
+
 	}
 
 	@Override
@@ -41,6 +43,7 @@ public class InteractableCursorOverlay extends Overlay {
 	public void hide() {
 		CursorManager.resetCursor();
 		EditorMouseListener.selection = ActiveSelection.MAIN;
+		LevelManager.activeLevel.removeInteractable(i);
 	}
 
 	@Override

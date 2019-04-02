@@ -1,0 +1,9 @@
+images:
+- checkpoint:2:1
+
+options:
+  mode: collide
+  
+  
+interact:
+- checkpoint

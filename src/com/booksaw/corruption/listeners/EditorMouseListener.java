@@ -452,14 +452,14 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 	private void InteractableCursorClick(MouseEvent e, Point p) {
 		if (SwingUtilities.isLeftMouseButton(e)) {
 
-			selection = ActiveSelection.MAIN;
 			InteractableCursorOverlay.interactableOverlay.i
 					.setX(InteractableCursorOverlay.interactableOverlay.i.getX() + GameCamera.activeCamera.x);
+
 			Overlay.removeOverlay(InteractableCursorOverlay.interactableOverlay);
+
 			LevelManager.activeLevel.addInteractable(InteractableCursorOverlay.interactableOverlay.i);
 
 		} else if (SwingUtilities.isRightMouseButton(e)) {
-			selection = ActiveSelection.MAIN;
 			Overlay.removeOverlay(InteractableCursorOverlay.interactableOverlay);
 		}
 	}

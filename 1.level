@@ -22,7 +22,7 @@ level:
 - object:block:-1;-2;7;248;230;214;214
 - object:block:406;258;6;197;230;214;214
 - object:block:406;400;6;197;230;214;214
-- object:slime:1216;-1;595;31
+- object:slime:1216;-1;595;26
 - background:colored:1;-26;406;274;162;34;34
 - background:colored:1695;461;145;115;162;34;34
 - background:colored:0;360;412;222;0;165;0
@@ -31,4 +31,5 @@ level:
 - interactable:192;0;96;34;table
 - interactable:1704;462;126;80;desk
 - interactable:17;263;371;83;logo
+- interactable:1082;17;70;15;checkpoint
 nextLevel: 2.level
