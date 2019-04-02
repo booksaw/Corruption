@@ -71,29 +71,26 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 			s.drag(e.getPoint());
 			return;
 		}
+		if (SwingUtilities.isLeftMouseButton(e)) {
+			if (CursorSettings.selection == SELECTION.BLOCK) {
 
-		if (CursorSettings.selection == SELECTION.BLOCK) {
-
-			if (DraggedBlock.block == null) {
-				return;
-			}
-			if (SwingUtilities.isLeftMouseButton(e))
+				if (DraggedBlock.block == null) {
+					return;
+				}
 				DraggedBlock.block.setPoint(e.getPoint());
-		} else if (CursorSettings.selection == SELECTION.BACKGROUND) {
+			} else if (CursorSettings.selection == SELECTION.BACKGROUND) {
 
-			if (DraggedBackground.background == null) {
-				return;
-			}
-			if (SwingUtilities.isLeftMouseButton(e))
+				if (DraggedBackground.background == null) {
+					return;
+				}
 				DraggedBackground.background.setPoint(e.getPoint());
-
-		} else if (CursorSettings.selection == SELECTION.SELECTOR) {
+			}
+		} else {
 
 			if (DraggedSelection.selection == null) {
 				return;
 			}
-			if (SwingUtilities.isLeftMouseButton(e))
-				DraggedSelection.selection.setPoint(e.getPoint());
+			DraggedSelection.selection.setPoint(e.getPoint());
 
 		}
 	}
@@ -145,14 +142,14 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 				s.click(e.getPoint());
 				return;
 			}
-
 			if (CursorSettings.selection == SELECTION.BLOCK) {
 				new DraggedBlock(e.getPoint());
 			} else if (CursorSettings.selection == SELECTION.BACKGROUND) {
 				new DraggedBackground(e.getPoint());
-			} else if (CursorSettings.selection == SELECTION.SELECTOR) {
-				new DraggedSelection(e.getPoint());
 			}
+
+		} else {
+			new DraggedSelection(e.getPoint());
 		}
 	}
 
@@ -201,6 +198,8 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 
 			break;
 		}
+		if (DraggedSelection.selection != null)
+			DraggedSelection.selection.finalise();
 
 	}
 
