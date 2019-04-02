@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 
 import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.level.LevelManager;
+import com.booksaw.corruption.render.overlays.EditorOverlay;
 import com.booksaw.corruption.renderControler.EditorController;
 import com.booksaw.corruption.selection.Selectable;
 
@@ -87,7 +88,11 @@ public class EditorKeyListener implements Listener, KeyListener {
 			}
 			break;
 		case 83:
-			LevelManager.activeLevel.save();
+			if (ctrl)
+				LevelManager.activeLevel.save();
+			break;
+		case 72:
+			EditorOverlay.activeOverlay.toggle();
 			break;
 		}
 

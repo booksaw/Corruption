@@ -13,6 +13,7 @@ public class EditorOverlay extends Overlay {
 
 	public static BufferedImage saveIcon, greenIcon, add, menu, cursor, trash, sprite, table;
 	public static final int SQUARE = 40;
+	public static EditorOverlay activeOverlay;
 
 	static {
 		saveIcon = Utils.getImage(new File(Config.ASSETSPATH + File.separator + "save.png"));
@@ -25,8 +26,20 @@ public class EditorOverlay extends Overlay {
 		table = Utils.getImage(new File(Config.ASSETSPATH + File.separator + "table.png"));
 	}
 
+	public boolean isShowing = true;
+
+	@Override
+	public void show() {
+		super.show();
+		activeOverlay = this;
+	}
+
 	@Override
 	public void render(Graphics g) {
+
+		if (!isShowing) {
+			return;
+		}
 
 		if (LevelManager.activeLevel.hasChanged()) {
 			g.drawImage(saveIcon, GameCamera.cameraWidth - SQUARE, GameCamera.cameraHeight - SQUARE, SQUARE, SQUARE,
@@ -53,6 +66,10 @@ public class EditorOverlay extends Overlay {
 
 	@Override
 	public void resize() {
+	}
+
+	public void toggle() {
+		isShowing = (isShowing) ? false : true;
 	}
 
 }

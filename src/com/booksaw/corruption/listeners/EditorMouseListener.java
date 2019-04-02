@@ -245,70 +245,73 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 	}
 
 	private void mainClick(MouseEvent e, Point p) {
-
-		if (p.getX() > GameCamera.cameraWidth - EditorOverlay.SQUARE
-				&& p.getY() > GameCamera.cameraHeight - EditorOverlay.SQUARE && p.getX() < GameCamera.cameraWidth
-				&& p.getY() < GameCamera.cameraHeight) {
-			save();
-			return;
-		}
-
-		if (p.getX() > GameCamera.cameraWidth - (EditorOverlay.SQUARE * 2)
-				&& p.getY() > GameCamera.cameraHeight - EditorOverlay.SQUARE
-				&& p.getX() < GameCamera.cameraWidth - EditorOverlay.SQUARE && p.getY() < GameCamera.cameraHeight) {
-			insertSprite();
-			return;
-		}
-
-		if (p.getX() > GameCamera.cameraWidth - (EditorOverlay.SQUARE * 3)
-				&& p.getY() > GameCamera.cameraHeight - EditorOverlay.SQUARE
-				&& p.getX() < GameCamera.cameraWidth - (EditorOverlay.SQUARE * 2)
-				&& p.getY() < GameCamera.cameraHeight) {
-
-			LevelSettings settings = new LevelSettings();
-			settings.intialize();
-			settings.setVisible(true);
-			return;
-		}
-		if (p.getX() > GameCamera.cameraWidth - (EditorOverlay.SQUARE * 4)
-				&& p.getY() > GameCamera.cameraHeight - EditorOverlay.SQUARE
-				&& p.getX() < GameCamera.cameraWidth - (EditorOverlay.SQUARE * 3)
-				&& p.getY() < GameCamera.cameraHeight) {
-
-			CursorSettings settings = new CursorSettings();
-			settings.intialize();
-			settings.setVisible(true);
-			return;
-		}
-		if (p.getX() > GameCamera.cameraWidth - (EditorOverlay.SQUARE * 5)
-				&& p.getY() > GameCamera.cameraHeight - EditorOverlay.SQUARE
-				&& p.getX() < GameCamera.cameraWidth - (EditorOverlay.SQUARE * 4)
-				&& p.getY() < GameCamera.cameraHeight) {
-
-			int result = JOptionPane.showConfirmDialog(Corruption.main.getFrame(), Language.getMessage("editor.trash"),
-					Language.getMessage("title"), JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, Config.logo);
-
-			if (result == 0) {
-				LevelManager.activeLevel.erase();
+		if (EditorOverlay.activeOverlay.isShowing) {
+			if (p.getX() > GameCamera.cameraWidth - EditorOverlay.SQUARE
+					&& p.getY() > GameCamera.cameraHeight - EditorOverlay.SQUARE && p.getX() < GameCamera.cameraWidth
+					&& p.getY() < GameCamera.cameraHeight) {
+				save();
+				return;
 			}
 
-			return;
-		}
-		if (p.getX() > GameCamera.cameraWidth - (EditorOverlay.SQUARE * 6)
-				&& p.getY() > GameCamera.cameraHeight - EditorOverlay.SQUARE
-				&& p.getX() < GameCamera.cameraWidth - (EditorOverlay.SQUARE * 5)
-				&& p.getY() < GameCamera.cameraHeight) {
+			if (p.getX() > GameCamera.cameraWidth - (EditorOverlay.SQUARE * 2)
+					&& p.getY() > GameCamera.cameraHeight - EditorOverlay.SQUARE
+					&& p.getX() < GameCamera.cameraWidth - EditorOverlay.SQUARE && p.getY() < GameCamera.cameraHeight) {
+				insertSprite();
+				return;
+			}
 
-			insertObject();
-			return;
-		}
-		if (p.getX() > GameCamera.cameraWidth - (EditorOverlay.SQUARE * 7)
-				&& p.getY() > GameCamera.cameraHeight - EditorOverlay.SQUARE
-				&& p.getX() < GameCamera.cameraWidth - (EditorOverlay.SQUARE * 6)
-				&& p.getY() < GameCamera.cameraHeight) {
+			if (p.getX() > GameCamera.cameraWidth - (EditorOverlay.SQUARE * 3)
+					&& p.getY() > GameCamera.cameraHeight - EditorOverlay.SQUARE
+					&& p.getX() < GameCamera.cameraWidth - (EditorOverlay.SQUARE * 2)
+					&& p.getY() < GameCamera.cameraHeight) {
 
-			insertInteractable();
-			return;
+				LevelSettings settings = new LevelSettings();
+				settings.intialize();
+				settings.setVisible(true);
+				return;
+			}
+			if (p.getX() > GameCamera.cameraWidth - (EditorOverlay.SQUARE * 4)
+					&& p.getY() > GameCamera.cameraHeight - EditorOverlay.SQUARE
+					&& p.getX() < GameCamera.cameraWidth - (EditorOverlay.SQUARE * 3)
+					&& p.getY() < GameCamera.cameraHeight) {
+
+				CursorSettings settings = new CursorSettings();
+				settings.intialize();
+				settings.setVisible(true);
+				return;
+			}
+			if (p.getX() > GameCamera.cameraWidth - (EditorOverlay.SQUARE * 5)
+					&& p.getY() > GameCamera.cameraHeight - EditorOverlay.SQUARE
+					&& p.getX() < GameCamera.cameraWidth - (EditorOverlay.SQUARE * 4)
+					&& p.getY() < GameCamera.cameraHeight) {
+
+				int result = JOptionPane.showConfirmDialog(Corruption.main.getFrame(),
+						Language.getMessage("editor.trash"), Language.getMessage("title"), JOptionPane.YES_NO_OPTION,
+						JOptionPane.PLAIN_MESSAGE, Config.logo);
+
+				if (result == 0) {
+					LevelManager.activeLevel.erase();
+				}
+
+				return;
+			}
+			if (p.getX() > GameCamera.cameraWidth - (EditorOverlay.SQUARE * 6)
+					&& p.getY() > GameCamera.cameraHeight - EditorOverlay.SQUARE
+					&& p.getX() < GameCamera.cameraWidth - (EditorOverlay.SQUARE * 5)
+					&& p.getY() < GameCamera.cameraHeight) {
+
+				insertObject();
+				return;
+			}
+			if (p.getX() > GameCamera.cameraWidth - (EditorOverlay.SQUARE * 7)
+					&& p.getY() > GameCamera.cameraHeight - EditorOverlay.SQUARE
+					&& p.getX() < GameCamera.cameraWidth - (EditorOverlay.SQUARE * 6)
+					&& p.getY() < GameCamera.cameraHeight) {
+
+				insertInteractable();
+				return;
+			}
+
 		}
 
 		if (CursorSettings.selection == SELECTION.BLOCK) {
