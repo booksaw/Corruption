@@ -5,10 +5,13 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
 import java.util.List;
 
 import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.Updatable;
+import com.booksaw.corruption.audioEngine.AudioClip;
+import com.booksaw.corruption.audioEngine.AudioInstance;
 import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.level.Location;
 import com.booksaw.corruption.level.interactable.Interactable;
@@ -128,6 +131,8 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 	 * @return
 	 */
 	protected abstract Rectangle getRectangle(int x, int y);
+
+	HashMap<AudioInstance, AudioClip> audio = new HashMap<>();
 
 	public Sprite() {
 		priority = 5;

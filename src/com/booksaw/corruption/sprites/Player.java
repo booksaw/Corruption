@@ -7,6 +7,8 @@ import java.io.File;
 
 import com.booksaw.corruption.Config;
 import com.booksaw.corruption.Utils;
+import com.booksaw.corruption.audioEngine.AudioInstance;
+import com.booksaw.corruption.audioEngine.AudioPlayer;
 import com.booksaw.corruption.listeners.KeyListener;
 
 /**
@@ -185,6 +187,7 @@ public class Player extends Sprite {
 			// recently
 			if (!isCrouching && listen.up && minPrior <= priorJump) {
 				// basically getting the person to jump
+				AudioPlayer.playSound(AudioInstance.JUMP.getClip());
 				jumpHeight = maxJump;
 				y = changeY(y + (jumpHeight * time), y);
 				jumpHeight -= weight;
@@ -197,6 +200,7 @@ public class Player extends Sprite {
 		} else {
 			int result = canWallJump();
 			if (result != 0 && !isCrouching && listen.up) {
+				AudioPlayer.playSound(AudioInstance.JUMP.getClip());
 				doubleJump = true;
 				jumpDirection = result;
 				// basically getting the person to jump
