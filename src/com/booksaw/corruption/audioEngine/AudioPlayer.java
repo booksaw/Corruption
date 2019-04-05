@@ -27,4 +27,8 @@ public class AudioPlayer {
 
 	}
 
+	public static void playSound(AudioInstance i) {
+		playSound(i.getClip());
+	}
+
 }

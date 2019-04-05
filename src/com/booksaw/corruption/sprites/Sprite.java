@@ -12,6 +12,7 @@ import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.Updatable;
 import com.booksaw.corruption.audioEngine.AudioClip;
 import com.booksaw.corruption.audioEngine.AudioInstance;
+import com.booksaw.corruption.audioEngine.AudioPlayer;
 import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.level.Location;
 import com.booksaw.corruption.level.interactable.Interactable;
@@ -59,7 +60,7 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 
 	// starting location of the sprite
 	protected Point startingLocation;
-	protected Point checkpointLocaiton;
+	protected Point checkpointLocation;
 
 	// for hit boxes
 	protected Dimension dimensions, crouchDimensions;
@@ -168,7 +169,7 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 		controllable = Boolean.parseBoolean(split[3]);
 
 		startingLocation = new Point((int) x, (int) y);
-		checkpointLocaiton = new Point(startingLocation.x, startingLocation.y);
+		checkpointLocation = new Point(startingLocation.x, startingLocation.y);
 
 	}
 
@@ -522,7 +523,7 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 			y++;
 		}
 
-		checkpointLocaiton = new Point((int) x, (int) y);
+		checkpointLocation = new Point((int) x, (int) y);
 	}
 
 	/**
@@ -540,10 +541,11 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 
 	public void reset(boolean fail) {
 
-		x = checkpointLocaiton.x;
-		y = checkpointLocaiton.y;
+		x = checkpointLocation.x;
+		y = checkpointLocation.y;
 
 		if (fail && (System.currentTimeMillis() - prevReset) > 20) {
+			AudioPlayer.playSound(AudioInstance.DEATH);
 			LevelManager.activeLevel.fails++;
 		}
 
@@ -565,7 +567,7 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 	 */
 	public void setStartingLocation(int x, int y) {
 		startingLocation = new Point(x, y);
-		checkpointLocaiton = new Point(x, y);
+		checkpointLocation = new Point(x, y);
 	}
 
 	@Override
@@ -573,7 +575,7 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 		x += p.x;
 		y += p.y;
 		startingLocation = new Point((int) x, (int) y);
-		checkpointLocaiton = new Point((int) x, (int) y);
+		checkpointLocation = new Point((int) x, (int) y);
 
 	}
 

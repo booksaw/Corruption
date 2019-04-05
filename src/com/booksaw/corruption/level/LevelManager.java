@@ -16,6 +16,8 @@ import com.booksaw.corruption.Config;
 import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.Renderable;
 import com.booksaw.corruption.Updatable;
+import com.booksaw.corruption.audioEngine.AudioInstance;
+import com.booksaw.corruption.audioEngine.AudioPlayer;
 import com.booksaw.corruption.configuration.YamlConfiguration;
 import com.booksaw.corruption.level.background.Background;
 import com.booksaw.corruption.level.background.ColoredBackground;
@@ -520,7 +522,7 @@ public class LevelManager {
 
 			}
 		}
-
+		AudioPlayer.playSound(AudioInstance.DEATH);
 		fails++;
 	}
 
