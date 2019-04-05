@@ -208,6 +208,7 @@ public class Player extends Sprite {
 				y = changeY(y + (jumpHeight * time), y);
 				jumpHeight -= weight;
 				priorJump = 0;
+				released = false;
 
 			} else if (!listen.up) {
 				released = true;
@@ -216,6 +217,11 @@ public class Player extends Sprite {
 			// if they can't jump accelerating them towards the ground
 			y = changeY(y + (jumpHeight * time), y);
 			jumpHeight -= (weight * time);
+
+			if (jumpHeight > 0 && !canGo(x, y + 1)) {
+				jumpHeight = 0;
+			}
+
 			// if they are going faster than terminal velocity
 			if (Math.abs(jumpHeight) > maxJump) {
 				jumpHeight = (jumpHeight < 0) ? -maxJump : maxJump;
