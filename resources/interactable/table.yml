@@ -2,9 +2,6 @@ images:
 - table:10:1
 # format: file (DO NOT INCLUDE .png):priority:scale
 
-interact:
-- checkpoint
-
 options: 
   scale: 1
 #options:
@@ -22,4 +19,3 @@ options:
 # - delay:(amount millis):ref
 # - finish (ends the level)
 # - checkpoint (when the player dies they go back to there)
-

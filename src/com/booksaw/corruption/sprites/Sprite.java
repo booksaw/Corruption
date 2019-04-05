@@ -515,6 +515,13 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 	}
 
 	public void setCheckpoint() {
+		double x = this.x;
+		double y = this.y;
+
+		while (!canGo(x, y)) {
+			y++;
+		}
+
 		checkpointLocaiton = new Point((int) x, (int) y);
 	}
 
