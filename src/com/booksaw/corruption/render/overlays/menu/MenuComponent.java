@@ -9,16 +9,17 @@ import com.booksaw.corruption.render.GameMenu;
 
 public class MenuComponent {
 
-	String text;
+	String text, reference;
 	Rectangle box;
 
 	boolean selected = false;
 	MenuOverlay main;
 
-	public MenuComponent(MenuOverlay main, String text) {
+	public MenuComponent(MenuOverlay main, String text, String reference) {
 
 		this.text = text;
 		this.main = main;
+		this.reference = reference;
 
 	}
 
@@ -45,11 +46,11 @@ public class MenuComponent {
 	public void render(Graphics g) {
 		// for the new button
 		int width = g.getFontMetrics().stringWidth(text);
-		g.drawString(text, (main.getWidth() / 2) - (width / 2), box.y);
+		g.drawString(text, (main.getWidth() / 2) - (width / 2), box.y + box.height);
 		// if its selected drawing the triangles
 		if (selected) {
 			int x = (main.getWidth() / 2) - (width / 2) - 30;
-			int y = box.y - Config.f.getSize() + 5;
+			int y = box.y + box.height - Config.f.getSize() + 5;
 			g.drawImage(GameMenu.triangle, x, y, 15, Config.f.getSize() - 5, null);
 
 			x = (main.getWidth() / 2) + (width / 2) + 15;
@@ -57,6 +58,10 @@ public class MenuComponent {
 					GameMenu.triangle.getHeight(), null);
 
 		}
+	}
+
+	public String getReference() {
+		return reference;
 	}
 
 	public void hover(Point p) {

@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 
 import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.render.overlays.Overlay;
-import com.booksaw.corruption.render.overlays.PauseOverlay;
+import com.booksaw.corruption.render.overlays.menu.PauseOverlay;
 
 /**
  * Listener to track what the user enters during the game

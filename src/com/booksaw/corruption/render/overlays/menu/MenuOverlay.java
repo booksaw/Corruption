@@ -1,5 +1,6 @@
 package com.booksaw.corruption.render.overlays.menu;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -7,7 +8,10 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.booksaw.corruption.Config;
 import com.booksaw.corruption.Corruption;
+import com.booksaw.corruption.listeners.ListenerManager;
+import com.booksaw.corruption.listeners.MenuOverlayListener;
 import com.booksaw.corruption.render.GameMenu;
 import com.booksaw.corruption.render.overlays.Overlay;
 
@@ -15,7 +19,7 @@ public abstract class MenuOverlay extends Overlay {
 
 	List<MenuComponent> components = new ArrayList<>();
 
-	boolean setupRects = false;
+	public boolean setupRects = false;
 	int selected = 0;
 
 	public MenuOverlay() {
@@ -31,6 +35,12 @@ public abstract class MenuOverlay extends Overlay {
 		if (!setupRects) {
 			setupRects(g);
 		}
+
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, getWidth(), getHeight());
+
+		g.setColor(Config.fontColor);
+		g.setFont(Config.f);
 
 		// showing "corruption"
 		g.drawImage(GameMenu.logo, (getWidth() / 2) - (int) (getWidth() * 0.3),
@@ -49,8 +59,10 @@ public abstract class MenuOverlay extends Overlay {
 
 	public void setupRects(Graphics g) {
 
-		int y = (getHeight() / 2) - (int) (getHeight() * 0.4);
-		int spacing = (((int) (getHeight() * 0.6)) - y) / components.size();
+		
+		
+		int y = (getHeight() / 2) - (int) (getHeight() * 0);
+		int spacing = (((int) (getHeight() * 0.9)) - y) / components.size();
 
 		for (MenuComponent c : components) {
 			c.generateRectangle(y, g, getWidth());
@@ -70,7 +82,6 @@ public abstract class MenuOverlay extends Overlay {
 	public abstract void addItems();
 
 	public void increase() {
-
 		components.get(selected).setSelected(false);
 		selected = (selected + 1) % components.size();
 		components.get(selected).setSelected(true);
@@ -80,6 +91,10 @@ public abstract class MenuOverlay extends Overlay {
 
 		components.get(selected).setSelected(false);
 		selected = (selected - 1) % components.size();
+		while (selected < 0) {
+			selected += components.size();
+		}
+
 		components.get(selected).setSelected(true);
 
 	}
@@ -99,6 +114,27 @@ public abstract class MenuOverlay extends Overlay {
 				return;
 			}
 		}
+	}
+
+	public abstract void activate();
+
+	public MenuComponent getSelected() {
+		return components.get(selected);
+	}
+
+	MenuOverlayListener listener;
+
+	@Override
+	public void show() {
+		super.show();
+		listener = new MenuOverlayListener(this);
+		ListenerManager.addListener(listener);
+	}
+
+	@Override
+	public void hide() {
+		super.hide();
+		ListenerManager.removeListener(listener);
 	}
 
 }

@@ -1,6 +1,5 @@
 package com.booksaw.corruption.listeners;
 
-import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -10,10 +9,16 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.JFrame;
 
 import com.booksaw.corruption.Corruption;
-import com.booksaw.corruption.render.overlays.PauseOverlay;
-import com.booksaw.corruption.render.overlays.PauseOverlay.OPTIONS;
+import com.booksaw.corruption.render.overlays.menu.MenuOverlay;
 
-public class PauseListener implements Listener, KeyListener, MouseListener, MouseMotionListener {
+public class MenuOverlayListener implements Listener, KeyListener, MouseListener, MouseMotionListener {
+
+	MenuOverlay overlay;
+
+	public MenuOverlayListener(MenuOverlay overlay) {
+		this.overlay = overlay;
+	}
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 
@@ -39,7 +44,7 @@ public class PauseListener implements Listener, KeyListener, MouseListener, Mous
 	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		PauseOverlay.pause.activate();
+		overlay.activate();
 		Corruption.main.getFrame().repaint();
 	}
 
@@ -54,13 +59,13 @@ public class PauseListener implements Listener, KeyListener, MouseListener, Mous
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if (e.getKeyCode() == 87) {
-			PauseOverlay.pause.increase();
+			overlay.increase();
 			Corruption.main.getFrame().repaint();
 		} else if (e.getKeyCode() == 83) {
-			PauseOverlay.pause.decrease();
+			overlay.decrease();
 			Corruption.main.getFrame().repaint();
 		} else if (e.getKeyCode() == 10) {
-			PauseOverlay.pause.activate();
+			overlay.activate();
 			Corruption.main.getFrame().repaint();
 		}
 	}
@@ -99,26 +104,13 @@ public class PauseListener implements Listener, KeyListener, MouseListener, Mous
 	 */
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		if (PauseOverlay.genRects) {
-			PauseOverlay.pause.setupRects();
+		if (!overlay.setupRects) {
+			return;
 		}
-
-		Rectangle r = new Rectangle(e.getPoint().x, e.getPoint().y, 1, 1);
 
 		// used as sometimes the rectangles are not fully genned yet (multiple tasks at
 		// the same time)
-		try {
-			if (r.intersects(PauseOverlay.resumeRec)) {
-				PauseOverlay.pause.setOption(OPTIONS.RESUME);
-				Corruption.main.getFrame().repaint();
-			} else if (r.intersects(PauseOverlay.quitRec)) {
-				PauseOverlay.pause.setOption(OPTIONS.QUIT);
-				Corruption.main.getFrame().repaint();
-			}
-
-		} catch (Exception ex) {
-
-		}
+		overlay.checkSelected(e.getPoint());
 	}
 
 }
