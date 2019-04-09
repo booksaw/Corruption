@@ -32,6 +32,8 @@ import com.booksaw.corruption.level.objects.Door;
 import com.booksaw.corruption.level.objects.GameObject;
 import com.booksaw.corruption.level.objects.Slime;
 import com.booksaw.corruption.level.objects.Spike;
+import com.booksaw.corruption.render.overlays.Overlay;
+import com.booksaw.corruption.render.overlays.menu.LevelCompleteOverlay;
 import com.booksaw.corruption.renderControler.EditorController;
 import com.booksaw.corruption.renderControler.GameController;
 import com.booksaw.corruption.sprites.Player;
@@ -464,7 +466,14 @@ public class LevelManager {
 
 	private List<Updatable> toRemove = new ArrayList<>();
 
+	boolean active = true;
+
 	public void update(int time) {
+
+		if (!active) {
+			return;
+		}
+
 		for (Sprite s : sprites) {
 			if (s.controllable) {
 				s.update(time);
@@ -567,9 +576,15 @@ public class LevelManager {
 			((EditorController) Corruption.main.controller).toogleTestMode();
 			return;
 		}
+		// setting the next level as the active level
+		new GameController(nextLevel);
 
-		GameController gc = new GameController(nextLevel);
-		gc.show();
+		// stopping all updates
+		active = false;
+
+		// Setting the level complete overlay
+		Overlay.addOverlay(new LevelCompleteOverlay());
+
 	}
 
 	public void stopTime() {

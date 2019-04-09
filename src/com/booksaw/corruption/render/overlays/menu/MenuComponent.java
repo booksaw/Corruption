@@ -64,7 +64,7 @@ public class MenuComponent {
 		int width = g.getFontMetrics().stringWidth(text);
 		g.drawString(text, (main.getWidth() / 2) - (width / 2), box.y + box.height);
 		// if its selected drawing the triangles
-		if (selected) {
+		if (selected && selectable) {
 			int x = (main.getWidth() / 2) - (width / 2) - 30;
 			int y = box.y + box.height - Config.f.getSize() + 5;
 			g.drawImage(GameMenu.triangle, x, y, 15, Config.f.getSize() - 5, null);
