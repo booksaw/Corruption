@@ -12,14 +12,15 @@ public class MenuComponent {
 	String text, reference;
 	Rectangle box;
 
-	boolean selected = false;
+	boolean selected = false, selectable;
 	MenuOverlay main;
 
-	public MenuComponent(MenuOverlay main, String text, String reference) {
+	public MenuComponent(MenuOverlay main, String text, String reference, boolean selectable) {
 
 		this.text = text;
 		this.main = main;
 		this.reference = reference;
+		this.selectable = selectable;
 
 	}
 
@@ -39,7 +40,22 @@ public class MenuComponent {
 		return selected;
 	}
 
-	public void setSelected(boolean selected) {
+	/**
+	 * Sets the object as selected
+	 * 
+	 * @param selected  - if it should be setting it as selected or deselected
+	 * @param direction - if another increase or decrease is required to occur as it
+	 *                  is not selectable
+	 */
+	public void setSelected(boolean selected, int direction) {
+		if (!selectable && selected) {
+			if (direction == 1) {
+				main.increase();
+			} else if (direction == -1) {
+				main.decrease();
+			}
+		}
+
 		this.selected = selected;
 	}
 

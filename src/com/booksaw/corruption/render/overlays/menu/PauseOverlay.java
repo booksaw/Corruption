@@ -13,11 +13,11 @@ import com.booksaw.corruption.renderControler.MenuController;
 public class PauseOverlay extends MenuOverlay {
 
 	public static boolean paused = false;
-	
+
 	@Override
 	public void addItems() {
 
-		components.add(new MenuComponent(this, Language.getMessage("pause.resume"), "resume"));
+		components.add(new MenuComponent(this, Language.getMessage("pause.resume"), "resume", true));
 
 		String text;
 		if (Corruption.main.controller instanceof EditorController) {
@@ -26,7 +26,7 @@ public class PauseOverlay extends MenuOverlay {
 			text = Language.getMessage("pause.quit");
 		}
 
-		components.add(new MenuComponent(this, text, "quit"));
+		components.add(new MenuComponent(this, text, "quit", true));
 
 	}
 
@@ -62,11 +62,11 @@ public class PauseOverlay extends MenuOverlay {
 		super.show();
 		paused = true;
 	}
-	
+
 	@Override
 	public void hide() {
 		super.hide();
-		paused = false; 
+		paused = false;
 	}
-	
+
 }

@@ -26,7 +26,7 @@ public abstract class MenuOverlay extends Overlay {
 
 		addItems();
 
-		components.get(0).setSelected(true);
+		components.get(0).setSelected(true, 1);
 	}
 
 	@Override
@@ -59,8 +59,6 @@ public abstract class MenuOverlay extends Overlay {
 
 	public void setupRects(Graphics g) {
 
-		
-		
 		int y = (getHeight() / 2) - (int) (getHeight() * 0);
 		int spacing = (((int) (getHeight() * 0.9)) - y) / components.size();
 
@@ -82,20 +80,20 @@ public abstract class MenuOverlay extends Overlay {
 	public abstract void addItems();
 
 	public void increase() {
-		components.get(selected).setSelected(false);
+		components.get(selected).setSelected(false, 1);
 		selected = (selected + 1) % components.size();
-		components.get(selected).setSelected(true);
+		components.get(selected).setSelected(true, 1);
 	}
 
 	public void decrease() {
 
-		components.get(selected).setSelected(false);
+		components.get(selected).setSelected(false, -1);
 		selected = (selected - 1) % components.size();
 		while (selected < 0) {
 			selected += components.size();
 		}
 
-		components.get(selected).setSelected(true);
+		components.get(selected).setSelected(true, -1);
 
 	}
 
@@ -107,9 +105,14 @@ public abstract class MenuOverlay extends Overlay {
 			if (rect.intersects(c.getRectangle())) {
 				c.hover(p);
 
-				components.get(selected).setSelected(false);
-				selected = components.indexOf(c);
-				components.get(selected).setSelected(true);
+				MenuComponent comp = components.get(selected);
+
+				if (components.get(components.indexOf(c)).selectable) {
+					selected = components.indexOf(c);
+					comp.setSelected(false, 0);
+					components.get(selected).setSelected(true, 0);
+
+				}
 
 				return;
 			}
