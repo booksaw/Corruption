@@ -74,6 +74,11 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 	public boolean activePlayer = false;
 	public boolean controllable = false;
 
+	// used for jumping
+	double jumpHeight, weight = 0.002;
+	boolean released = false, doubleJump = false;
+	int jumpDirection = 0;
+
 	/**
 	 * Runs at beginning of constructor if any setup is required override preferred
 	 * to constructor as simpler to write for used for things like setting up an
@@ -639,6 +644,83 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 
 		currentInteractable = null;
 		return false;
+	}
+
+	/**
+	 * Used to change the value of x to the closest value of x possible This pushes
+	 * the player out of blocks etc.
+	 * 
+	 * @param change where to move the player to
+	 * @param x      the starting x coord
+	 * @return the best x coord
+	 */
+	double changeX(double change, double x) {
+		// makes sure the x coord is on the screen
+		change = closestX(change);
+
+		// if the player can go there return just change
+		if (canGo(change, y)) {
+
+			return change;
+		}
+
+		// if the player has travelled right
+		if (x > change)
+			// increase from the change to the starting x value to find the first location
+			// before the colission occurred.
+			for (int i = (int) change + 1; i > (int) x; i++) {
+				if (canGo(i, y)) {
+					return i;
+				}
+			}
+		else {
+			// travelled left
+			// same concept as right just opposite direction
+			for (int i = (int) change - 1; i < (int) x; i--) {
+				if (canGo(i, y)) {
+					return i;
+				}
+			}
+
+		}
+
+		// returns the start location if no better location can be found
+		return x;
+	}
+
+	/**
+	 * Used to change the value of y to the closest value of y possible This pushes
+	 * the player out of blocks etc.
+	 * 
+	 * @param change where to move the player to
+	 * @param y      the starting y coord
+	 * @return the best y coord
+	 */
+	protected double changeY(double change, double y) {
+		// for explanation see changeX
+		change = closestY(change);
+
+		if (canGo(x, change)) {
+			return change;
+		}
+		if (y > change)
+
+			for (int i = (int) change; i < (int) y; i++) {
+				if (canGo(x, i)) {
+					return i;
+				}
+			}
+		else {
+			for (int i = (int) change; i > (int) y; i--) {
+				if (canGo(x, i)) {
+					jumpHeight = 0;
+
+					return i;
+				}
+			}
+
+		}
+		return y;
 	}
 
 }

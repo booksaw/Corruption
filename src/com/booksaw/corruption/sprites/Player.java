@@ -20,11 +20,6 @@ public class Player extends Sprite {
 	// where graphics and stuff are
 	File assetFolder;
 
-	// used for jumping
-	double jumpHeight, weight = 0.002;
-	boolean released = false, doubleJump = false;
-	int jumpDirection = 0;
-
 	// used to add a delay to jumps
 	int minPrior = 100, priorJump = 0;
 	// more jumping stuff (self explaniatory)
@@ -296,83 +291,6 @@ public class Player extends Sprite {
 		// returning the rectnagle
 		return new Rectangle((int) x, (int) y, (int) dimensions.getWidth() * (int) PIXELMULT,
 				(int) dimensions.getHeight() * PIXELMULT);
-	}
-
-	/**
-	 * Used to change the value of x to the closest value of x possible This pushes
-	 * the player out of blocks etc.
-	 * 
-	 * @param change where to move the player to
-	 * @param x      the starting x coord
-	 * @return the best x coord
-	 */
-	private double changeX(double change, double x) {
-		// makes sure the x coord is on the screen
-		change = closestX(change);
-
-		// if the player can go there return just change
-		if (canGo(change, y)) {
-
-			return change;
-		}
-
-		// if the player has travelled right
-		if (x > change)
-			// increase from the change to the starting x value to find the first location
-			// before the colission occurred.
-			for (int i = (int) change + 1; i > (int) x; i++) {
-				if (canGo(i, y)) {
-					return i;
-				}
-			}
-		else {
-			// travelled left
-			// same concept as right just opposite direction
-			for (int i = (int) change - 1; i < (int) x; i--) {
-				if (canGo(i, y)) {
-					return i;
-				}
-			}
-
-		}
-
-		// returns the start location if no better location can be found
-		return x;
-	}
-
-	/**
-	 * Used to change the value of y to the closest value of y possible This pushes
-	 * the player out of blocks etc.
-	 * 
-	 * @param change where to move the player to
-	 * @param y      the starting y coord
-	 * @return the best y coord
-	 */
-	private double changeY(double change, double y) {
-		// for explanation see changeX
-		change = closestY(change);
-
-		if (canGo(x, change)) {
-			return change;
-		}
-		if (y > change)
-
-			for (int i = (int) change; i < (int) y; i++) {
-				if (canGo(x, i)) {
-					return i;
-				}
-			}
-		else {
-			for (int i = (int) change; i > (int) y; i--) {
-				if (canGo(x, i)) {
-					jumpHeight = 0;
-
-					return i;
-				}
-			}
-
-		}
-		return y;
 	}
 
 	@Override

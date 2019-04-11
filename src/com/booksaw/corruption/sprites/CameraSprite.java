@@ -94,48 +94,6 @@ public class CameraSprite extends Sprite {
 
 	}
 
-	/**
-	 * Used to change the value of x to the closest value of x possible This pushes
-	 * the player out of blocks etc.
-	 * 
-	 * @param change where to move the player to
-	 * @param x      the starting x coord
-	 * @return the best x coord
-	 */
-	private double changeX(double change, double x) {
-		// makes sure the x coord is on the screen
-		change = closestX(change);
-
-		// if the player can go there return just change
-		if (canGo(change, y)) {
-			return change;
-		}
-
-		// if the player has travelled right
-		if (x > change)
-			// increase from the change to the starting x value to find the first location
-			// before the colission occurred.
-			for (int i = (int) change + 1; i > (int) x; i++) {
-				if (canGo(i, y)) {
-					return i;
-				}
-			}
-		else {
-			// travelled left
-			// same concept as right just opposite direction
-			for (int i = (int) change - 1; i < (int) x; i--) {
-				if (canGo(i, y)) {
-					return i;
-				}
-			}
-
-		}
-
-		// returns the start location if no better location can be found
-		return x;
-
-	}
-
 	@Override
 	protected Rectangle getRectangle(int x, int y) {
 		return getRectangle();
