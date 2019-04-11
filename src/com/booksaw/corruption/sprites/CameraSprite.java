@@ -5,10 +5,8 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.listeners.KeyListener;
-import com.booksaw.corruption.listeners.Listener;
 import com.booksaw.corruption.render.GameCamera;
 
 /**
@@ -71,24 +69,14 @@ public class CameraSprite extends Sprite {
 
 	private void calculateX(int time) {
 
-//		double tempY = y;
-		// movement (left and right)
-		KeyListener listen = null;
-
-		for (Listener l : Corruption.main.controller.getListeners()) {
-			if (l instanceof KeyListener) {
-				listen = (KeyListener) l;
-				break;
-			}
-		}
-		if (listen.left) {
+		if (KeyListener.listen.left) {
 			x = changeX(x - (SPEED * time), x);
 			if (x + GameCamera.cameraWidth > LevelManager.activeLevel.levelDimensions.width) {
 				x = LevelManager.activeLevel.levelDimensions.width - GameCamera.cameraWidth;
 			}
 		}
 
-		if (listen.right) {
+		if (KeyListener.listen.right) {
 			x = changeX(x + (SPEED * time), x);
 		}
 
