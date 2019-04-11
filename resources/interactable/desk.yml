@@ -2,7 +2,7 @@ images:
 - desk:1:1
 
 interact:
-- relativetp:centre:0.21:0.65
+- relativetp:centre:0.21:0.62
 - direction:right
 - time:stop
 - delay:1000:delay
