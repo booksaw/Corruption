@@ -10,13 +10,15 @@ import com.booksaw.corruption.level.background.Background;
 import com.booksaw.corruption.level.interactable.Interactable;
 import com.booksaw.corruption.level.meta.Meta;
 import com.booksaw.corruption.level.objects.GameObject;
+import com.booksaw.corruption.level.save.Change.ChangeType;
 import com.booksaw.corruption.sprites.Sprite;
 
 public class SaveManager {
 
 	LevelManager level;
-	// stack is best option as last change is the first undone5
+	// stack is best option as last change is the first undone
 	Stack<Change> history = new Stack<>();
+
 	List<String> levelInfo = new ArrayList<>();
 	YamlConfiguration config;
 
@@ -52,6 +54,12 @@ public class SaveManager {
 	public void undo() {
 
 		history.pop().revert(levelInfo);
+		System.out.println(history.size() + "history size");
+		level.resetLists();
+
+		for (String str : levelInfo) {
+			level.runLine(str);
+		}
 
 	}
 
@@ -61,18 +69,18 @@ public class SaveManager {
 
 		Change c = detectChanges(levelInfo, newLevelInfo);
 
-		if (c == null || c.hasChanged()) {
-			history.push(c);
-			changes = true;
+		if (c == null || !c.hasChanged()) {
+			return;
 		}
+		history.push(c);
+		changes = true;
+		levelInfo = newLevelInfo;
 
 	}
 
 	public void save() {
 
 		level.setChanged(false);
-		config.set("level", getLevelInfo());
-		config.set("nextLevel", nextLevel);
 
 		config.saveConfiguration();
 		changes = false;
@@ -119,8 +127,22 @@ public class SaveManager {
 	}
 
 	private Change detectChanges(List<String> prior, List<String> levelInfo) {
-		return null;
-		// TODO
+
+		Change c = new Change();
+
+		for (String str : levelInfo) {
+			if (!prior.contains(str)) {
+				c.addChange(ChangeType.ADD, str);
+			}
+		}
+
+		for (String str : prior) {
+			if (!levelInfo.contains(str)) {
+				c.addChange(ChangeType.REMOVE, str);
+			}
+		}
+
+		return c;
 	}
 
 	public String getNextLevel() {

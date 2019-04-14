@@ -42,6 +42,7 @@ public class EditorKeyListener implements Listener, KeyListener {
 		case 127:
 		case 8:
 			Selectable.deleteSelected();
+			LevelManager.activeLevel.getSaveManager().changes();
 			break;
 		case 17:
 			ctrl = true;
@@ -64,6 +65,7 @@ public class EditorKeyListener implements Listener, KeyListener {
 
 				s = new StringSelection(temp);
 				clipboard.setContents(s, s);
+				LevelManager.activeLevel.getSaveManager().changes();
 
 			}
 			break;
@@ -85,7 +87,9 @@ public class EditorKeyListener implements Listener, KeyListener {
 				} catch (Exception ex) {
 
 				}
+				LevelManager.activeLevel.getSaveManager().changes();
 			}
+
 			break;
 		case 83:
 			if (ctrl)
@@ -94,6 +98,10 @@ public class EditorKeyListener implements Listener, KeyListener {
 		case 72:
 			EditorOverlay.activeOverlay.toggle();
 			break;
+		case 90:
+			if (ctrl) {
+				LevelManager.activeLevel.getSaveManager().undo();
+			}
 		}
 
 	}

@@ -104,15 +104,8 @@ public class LevelManager {
 	}
 
 	public void load() {
-		// resets all stored items
-		metaData = new ArrayList<>();
-		sprites = new ArrayList<>();
-		levelObjects = new ArrayList<>();
-		backgrounds = new ArrayList<>();
-		interactables = new ArrayList<>();
-		toRender = new ArrayList<>();
-		components = new ArrayList<>();
-		updatable = new ArrayList<>();
+
+		resetLists();
 
 		saveManager = new SaveManager(this);
 
@@ -122,6 +115,11 @@ public class LevelManager {
 		resetLevel(true);
 	}
 
+	/**
+	 * Used to set the level to become the default level
+	 * 
+	 * @param save
+	 */
 	private void resetLevel(boolean save) {
 		BufferedReader br = null;
 		PrintWriter pw = null;
@@ -417,6 +415,12 @@ public class LevelManager {
 	 */
 	public void erase() {
 
+		resetLists();
+		// resets the file to the default file
+		resetLevel(false);
+	}
+
+	public void resetLists() {
 		// resets all stored items
 		metaData = new ArrayList<>();
 		sprites = new ArrayList<>();
@@ -426,12 +430,9 @@ public class LevelManager {
 		toRender = new ArrayList<>();
 		components = new ArrayList<>();
 		updatable = new ArrayList<>();
-
-		// resets the file to the default file
-		resetLevel(false);
 	}
 
-	public void resetAll() {
+	public void resetAllSprites() {
 		for (Sprite s : sprites) {
 			s.reset();
 		}

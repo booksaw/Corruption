@@ -101,7 +101,7 @@ public class EditorController extends RenderController {
 
 		lm = new LevelManager(f);
 
-		lm.resetAll();
+		lm.resetAllSprites();
 
 		lm.finalise();
 		lm.addSprite(camera);

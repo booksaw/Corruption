@@ -68,10 +68,13 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 
 		Selectable s = Selectable.getSelectable(e.getPoint());
 		if (s != null) {
+
 			s.drag(e.getPoint());
 			return;
 		}
+
 		if (SwingUtilities.isLeftMouseButton(e)) {
+
 			if (CursorSettings.selection == SELECTION.BLOCK) {
 
 				if (DraggedBlock.block == null) {
@@ -159,6 +162,7 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 		Selectable s = Selectable.getSelectable(e.getPoint());
 		if (s != null && SwingUtilities.isLeftMouseButton(e)) {
 			s.release(e.getPoint());
+			LevelManager.activeLevel.getSaveManager().changes();
 			return;
 		}
 
@@ -200,6 +204,8 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 		}
 		if (DraggedSelection.selection != null)
 			DraggedSelection.selection.finalise();
+
+		LevelManager.activeLevel.getSaveManager().changes();
 
 	}
 
