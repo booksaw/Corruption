@@ -69,6 +69,7 @@ public class SaveManager {
 
 		c.invert();
 		redo.push(c);
+		changes = true;
 
 	}
 
@@ -88,6 +89,7 @@ public class SaveManager {
 
 		c.invert();
 		history.push(c);
+		changes = true;
 
 	}
 
