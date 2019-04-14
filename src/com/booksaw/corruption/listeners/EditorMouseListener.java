@@ -22,8 +22,9 @@ import com.booksaw.corruption.editor.options.cursor.CursorSettings;
 import com.booksaw.corruption.editor.options.cursor.CursorSettings.SELECTION;
 import com.booksaw.corruption.editor.options.door.DoorSettings;
 import com.booksaw.corruption.editor.options.gameobjects.BlockSettings;
+import com.booksaw.corruption.editor.options.npc.NPCSettings;
+import com.booksaw.corruption.editor.options.player.PlayerSettings;
 import com.booksaw.corruption.editor.options.spike.SpikeSettings;
-import com.booksaw.corruption.editor.options.sprites.SpriteSettings;
 import com.booksaw.corruption.language.Language;
 import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.level.background.Background;
@@ -50,6 +51,8 @@ import com.booksaw.corruption.renderControler.EditorController;
 import com.booksaw.corruption.renderControler.RenderController;
 import com.booksaw.corruption.selection.DraggedSelection;
 import com.booksaw.corruption.selection.Selectable;
+import com.booksaw.corruption.sprites.BlueNPC;
+import com.booksaw.corruption.sprites.Player;
 import com.booksaw.corruption.sprites.Sprite;
 
 public class EditorMouseListener implements Listener, MouseListener, MouseMotionListener {
@@ -395,7 +398,11 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 
 		Sprite s = Sprite.getSprite(temp, LevelManager.activeLevel.getSprites());
 		if (s != null) {
-			new SpriteSettings(s).setVisible(true);
+			if (s instanceof Player) {
+				new PlayerSettings(s).setVisible(true);
+			} else if(s instanceof BlueNPC) {
+				new NPCSettings(s).setVisible(true);
+			}
 			return;
 		}
 

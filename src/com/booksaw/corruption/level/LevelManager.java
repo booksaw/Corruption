@@ -36,6 +36,7 @@ import com.booksaw.corruption.render.overlays.Overlay;
 import com.booksaw.corruption.render.overlays.menu.LevelCompleteOverlay;
 import com.booksaw.corruption.renderControler.EditorController;
 import com.booksaw.corruption.renderControler.GameController;
+import com.booksaw.corruption.sprites.BlueNPC;
 import com.booksaw.corruption.sprites.Player;
 import com.booksaw.corruption.sprites.Sprite;
 
@@ -282,6 +283,12 @@ public class LevelManager {
 			p.setSelected(select);
 			addSprite(p);
 			break;
+		case "bluenpc":
+			BlueNPC b = new BlueNPC(info);
+			b.setSelected(select);
+			addSprite(b);
+			break;
+
 		}
 
 	}

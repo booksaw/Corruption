@@ -1,4 +1,4 @@
-package com.booksaw.corruption.editor.options.sprites;
+package com.booksaw.corruption.editor.options.player;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
@@ -6,12 +6,12 @@ import javax.swing.JComponent;
 import com.booksaw.corruption.editor.options.MessageOption;
 import com.booksaw.corruption.sprites.Sprite;
 
-public class ControlSprite extends MessageOption {
+public class ActiveSprite extends MessageOption {
 
 	Sprite s;
 	JCheckBox box;
 
-	public ControlSprite(Sprite s) {
+	public ActiveSprite(Sprite s) {
 		this.s = s;
 		box = new JCheckBox();
 		box.setSelected(s.activePlayer);
@@ -19,12 +19,12 @@ public class ControlSprite extends MessageOption {
 
 	@Override
 	public void saveData() {
-		s.controllable = box.isSelected();
+		s.activePlayer = box.isSelected();
 	}
 
 	@Override
 	public String getTip() {
-		return "Set controllable";
+		return "Set active player";
 	}
 
 	@Override

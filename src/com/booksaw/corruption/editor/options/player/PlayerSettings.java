@@ -1,15 +1,15 @@
-package com.booksaw.corruption.editor.options.sprites;
+package com.booksaw.corruption.editor.options.player;
 
 import com.booksaw.corruption.editor.options.OptionPane;
 import com.booksaw.corruption.editor.options.location.XOption;
 import com.booksaw.corruption.editor.options.location.YOption;
 import com.booksaw.corruption.sprites.Sprite;
 
-public class SpriteSettings extends OptionPane {
+public class PlayerSettings extends OptionPane {
 
 	Sprite s;
 
-	public SpriteSettings(Sprite s) {
+	public PlayerSettings(Sprite s) {
 		super();
 		this.s = s;
 
@@ -18,7 +18,7 @@ public class SpriteSettings extends OptionPane {
 
 	@Override
 	public String getName() {
-		return "Sprite settings";
+		return "Player settings";
 	}
 
 	@Override

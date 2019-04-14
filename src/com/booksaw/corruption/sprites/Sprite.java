@@ -49,7 +49,7 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 	Interactable currentInteractable = null;
 
 	// stores which animation is being run
-	private AnimationState state;
+	protected AnimationState state;
 	// keeps track of which image of the animation being used
 	protected int animationStage = 0, countOnStage = 0;
 	// max number of counts on each image
@@ -170,8 +170,14 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 
 		x = Integer.parseInt(split[0]);
 		y = Integer.parseInt(split[1]);
-		activePlayer = Boolean.parseBoolean(split[2]);
-		controllable = Boolean.parseBoolean(split[3]);
+
+		// new details so will initially not exsist
+		try {
+			activePlayer = Boolean.parseBoolean(split[2]);
+			controllable = Boolean.parseBoolean(split[3]);
+			right = Boolean.parseBoolean(split[4]);
+		} catch (Exception e) {
+		}
 
 		startingLocation = new Point((int) x, (int) y);
 		checkpointLocation = new Point(startingLocation.x, startingLocation.y);
@@ -502,7 +508,7 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 			return "";
 		}
 		return "sprite:" + getName() + ":" + ((int) startingLocation.x) + ";" + ((int) startingLocation.y) + ";"
-				+ activePlayer + ";" + controllable;
+				+ activePlayer + ";" + controllable + ";" + right;
 	}
 
 	public BufferedImage generateCursorImage() {

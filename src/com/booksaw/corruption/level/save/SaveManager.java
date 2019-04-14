@@ -112,7 +112,7 @@ public class SaveManager {
 	public void save() {
 
 		level.setChanged(false);
-
+		config.set("level", levelInfo);
 		config.saveConfiguration();
 		changes = false;
 	}

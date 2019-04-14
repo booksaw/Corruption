@@ -32,7 +32,7 @@ public class SpriteOverlay extends Overlay {
 			sprites.put(s,
 					new Rectangle(x, y, (int) d.getWidth() * Sprite.PIXELMULT, (int) d.getHeight() * Sprite.PIXELMULT));
 
-			x += d.getWidth() + 20;
+			x += (d.getWidth() * Sprite.PIXELMULT) + 20;
 		}
 
 		EditorMouseListener.selection = ActiveSelection.SPRITE;
@@ -76,13 +76,13 @@ public class SpriteOverlay extends Overlay {
 	public void hide() {
 
 		if (!show) {
-			EditorMouseListener.selection = ActiveSelection.MAIN; 
+			EditorMouseListener.selection = ActiveSelection.MAIN;
 		}
 	}
 
 	@Override
 	public void resize() {
-		
+
 	}
 
 }
