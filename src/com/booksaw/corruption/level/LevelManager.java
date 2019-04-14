@@ -18,7 +18,6 @@ import com.booksaw.corruption.Renderable;
 import com.booksaw.corruption.Updatable;
 import com.booksaw.corruption.audioEngine.AudioInstance;
 import com.booksaw.corruption.audioEngine.AudioPlayer;
-import com.booksaw.corruption.configuration.YamlConfiguration;
 import com.booksaw.corruption.level.background.Background;
 import com.booksaw.corruption.level.background.ColoredBackground;
 import com.booksaw.corruption.level.interactable.Interactable;
@@ -32,6 +31,7 @@ import com.booksaw.corruption.level.objects.Door;
 import com.booksaw.corruption.level.objects.GameObject;
 import com.booksaw.corruption.level.objects.Slime;
 import com.booksaw.corruption.level.objects.Spike;
+import com.booksaw.corruption.level.save.SaveManager;
 import com.booksaw.corruption.render.overlays.Overlay;
 import com.booksaw.corruption.render.overlays.menu.LevelCompleteOverlay;
 import com.booksaw.corruption.renderControler.EditorController;
@@ -66,8 +66,7 @@ public class LevelManager {
 	private boolean trackTime = true;
 	private long startTime;
 
-	private YamlConfiguration config;
-	private String nextLevel;
+	private SaveManager saveManager;
 
 	// the file the level has been loaded from
 	private File f;
@@ -115,48 +114,11 @@ public class LevelManager {
 		components = new ArrayList<>();
 		updatable = new ArrayList<>();
 
-		config = new YamlConfiguration(f);
-
-		nextLevel = config.getString("nextLevel");
-
-		// setting up the file reader
-//		BufferedReader br = null;
-//		try {
-//			br = new BufferedReader(new FileReader(f));
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		}
-//		boolean read = false;
-//		// line to store read liens to
-//		String line = "";
-//		try {
-//			while ((line = br.readLine()) != null) {
-//				read = true;
-//				runLine(line);
-//			}
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-
-		List<String> levelInfo = config.getStringList("level");
-
-		if (levelInfo == null || levelInfo.size() == 0) {
-			resetLevel();
-			return;
-		}
-
-		for (String str : levelInfo) {
-			runLine(str);
-		}
-
-//		try {
-//			br.close();
-//		} catch (Exception e) {
-//		}
+		saveManager = new SaveManager(this);
 
 	}
 
-	private void resetLevel() {
+	public void resetLevel() {
 		resetLevel(true);
 	}
 
@@ -326,6 +288,12 @@ public class LevelManager {
 
 	}
 
+	
+	
+	public List<Meta> getMetaData() {
+		return metaData;
+	}
+
 	public List<GameObject> getLevelObjects() {
 		return levelObjects;
 	}
@@ -409,55 +377,16 @@ public class LevelManager {
 
 	public void save() {
 
-		List<String> level = new ArrayList<>();
-
-		for (Meta m : metaData) {
-			String s = m.toString();
-			if (!s.equals(""))
-				level.add(s);
-		}
-
-		for (GameObject o : levelObjects) {
-			if (o.needsSaving()) {
-				String s = o.toString();
-				if (!s.equals(""))
-					level.add(s);
-			}
-		}
-
-		for (Background b : backgrounds) {
-			String s = b.toString();
-			if (!s.equals("") && b.needsSaving())
-				level.add(s);
-		}
-
-		for (Sprite s : sprites) {
-			String st = s.toString();
-			if (!st.equals(""))
-				level.add(st);
-		}
-
-		for (Interactable i : interactables) {
-			String s = i.toString();
-			if (!s.equals("")) {
-				level.add(s);
-			}
-		}
-
-		changed = false;
-		config.set("level", level);
-		config.set("nextLevel", nextLevel);
-
-		config.saveConfiguration();
+		
 
 	}
 
 	public boolean hasChanged() {
-		return changed;
+		return isChanged();
 	}
 
 	public void changes() {
-		changed = true;
+		setChanged(true);
 	}
 
 	public void setActive() {
@@ -562,7 +491,7 @@ public class LevelManager {
 					temp = renders[j - 1];
 					renders[j - 1] = renders[j];
 					renders[j] = temp;
-					changed = true;
+					setChanged(true);
 				}
 			}
 		}
@@ -577,7 +506,7 @@ public class LevelManager {
 			return;
 		}
 		// setting the next level as the active level
-		new GameController(nextLevel);
+		new GameController(saveManager.getNextLevel());
 
 		// stopping all updates
 		active = false;
@@ -601,12 +530,18 @@ public class LevelManager {
 		return updatable;
 	}
 
-	public String getNextLevel() {
-		return nextLevel;
+	public boolean isChanged() {
+		return changed;
 	}
 
-	public void setNextLevel(String nextLevel) {
-		this.nextLevel = nextLevel;
+	public void setChanged(boolean changed) {
+		this.changed = changed;
 	}
+
+	public SaveManager getSaveManager() {
+		return saveManager;
+	}
+	
+	
 
 }

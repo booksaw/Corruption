@@ -12,7 +12,7 @@ public class NextLevel extends MessageOption {
 
 	@Override
 	public void saveData() {
-		LevelManager.activeLevel.setNextLevel(input.getText());
+		LevelManager.activeLevel.getSaveManager().setNextLevel(input.getText());
 	}
 
 	@Override
@@ -24,7 +24,7 @@ public class NextLevel extends MessageOption {
 	public JComponent getInput() {
 
 		input = new JTextField();
-		input.setText(LevelManager.activeLevel.getNextLevel());
+		input.setText(LevelManager.activeLevel.getSaveManager().getNextLevel());
 
 		return input;
 	}
