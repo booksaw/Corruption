@@ -38,12 +38,12 @@ public class PauseOverlay extends MenuOverlay {
 			Overlay.removeOverlay(this);
 			break;
 		case "quit":
-			if (LevelManager.activeLevel.hasChanged() && Corruption.main.controller instanceof EditorController) {
+			if (LevelManager.activeLevel.getSaveManager().hasChanged() && Corruption.main.controller instanceof EditorController) {
 				int result = JOptionPane.showConfirmDialog(Corruption.main.getFrame(),
 						Language.getMessage("pause.save"), Language.getMessage("title"),
 						JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, Config.logo);
 				if (result == 0) {
-					LevelManager.activeLevel.save();
+					LevelManager.activeLevel.getSaveManager().save();
 				} else if (result == -1 || result == 2) {
 					return;
 				}

@@ -204,7 +204,7 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 	}
 
 	public void save() {
-		LevelManager.activeLevel.save();
+		LevelManager.activeLevel.getSaveManager().save();
 	}
 
 	public void insertSprite() {

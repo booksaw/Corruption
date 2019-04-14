@@ -41,7 +41,7 @@ public class EditorOverlay extends Overlay {
 			return;
 		}
 
-		if (LevelManager.activeLevel.hasChanged()) {
+		if (LevelManager.activeLevel.getSaveManager().hasChanged()) {
 			g.drawImage(saveIcon, GameCamera.cameraWidth - SQUARE, GameCamera.cameraHeight - SQUARE, SQUARE, SQUARE,
 					null);
 		} else {

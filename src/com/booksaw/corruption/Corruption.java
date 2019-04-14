@@ -69,12 +69,12 @@ public class Corruption implements ActionListener, ComponentListener {
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				if (!(controller instanceof EditorController)) {
-				} else if (LevelManager.activeLevel != null && LevelManager.activeLevel.hasChanged()) {
+				} else if (LevelManager.activeLevel != null && LevelManager.activeLevel.getSaveManager().hasChanged()) {
 					int result = JOptionPane.showConfirmDialog(Corruption.main.getFrame(),
 							Language.getMessage("pause.save"), Language.getMessage("title"),
 							JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, Config.logo);
 					if (result == 0) {
-						LevelManager.activeLevel.save();
+						LevelManager.activeLevel.getSaveManager().save();
 					} else if (result == -1 || result == 2) {
 						return;
 					}

@@ -15,12 +15,14 @@ import com.booksaw.corruption.sprites.Sprite;
 public class SaveManager {
 
 	LevelManager level;
+	// stack is best option as last change is the first undone5
 	Stack<Change> history = new Stack<>();
 	List<String> levelInfo = new ArrayList<>();
 	YamlConfiguration config;
 
 	// details read from the level file
 	String nextLevel;
+	boolean changes = false;
 
 	public SaveManager(LevelManager level) {
 		this.level = level;
@@ -53,17 +55,30 @@ public class SaveManager {
 
 	}
 
-	/*
-	 * public void redo() { // TODO }
-	 */
-
 	public void changes() {
 
-		detectChanges(levelInfo);
+		List<String> newLevelInfo = getLevelInfo();
+
+		Change c = detectChanges(levelInfo, newLevelInfo);
+
+		if (c == null || c.hasChanged()) {
+			history.push(c);
+			changes = true;
+		}
 
 	}
 
 	public void save() {
+
+		level.setChanged(false);
+		config.set("level", getLevelInfo());
+		config.set("nextLevel", nextLevel);
+
+		config.saveConfiguration();
+		changes = false;
+	}
+
+	private List<String> getLevelInfo() {
 		List<String> levelInfo = new ArrayList<>();
 
 		for (Meta m : level.getMetaData()) {
@@ -99,18 +114,11 @@ public class SaveManager {
 			}
 		}
 
-		level.setChanged(false);
-		config.set("level", level);
-		config.set("nextLevel", nextLevel);
+		return levelInfo;
 
-		config.saveConfiguration();
 	}
 
-	private void saveToLevelInfo() {
-		// TODO
-	}
-
-	private Change detectChanges(List<String> levelInfo) {
+	private Change detectChanges(List<String> prior, List<String> levelInfo) {
 		return null;
 		// TODO
 	}
@@ -121,6 +129,10 @@ public class SaveManager {
 
 	public void setNextLevel(String nextLevel) {
 		this.nextLevel = nextLevel;
+	}
+
+	public boolean hasChanged() {
+		return changes;
 	}
 
 }

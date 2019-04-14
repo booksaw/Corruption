@@ -31,6 +31,13 @@ public class Change {
 			}
 		}
 	}
+	
+	public boolean hasChanged() {
+		if(change.size() != 0) {
+			return true;
+		}
+		return false;
+	}
 
 	public enum ChangeType {
 		ADD, REMOVE;

@@ -66,7 +66,7 @@ public abstract class OptionPane implements ActionListener, KeyListener {
 		for (Option op : included) {
 			op.saveData();
 		}
-		LevelManager.activeLevel.changes();
+		LevelManager.activeLevel.getSaveManager().changes();
 		setVisible(false);
 	}
 

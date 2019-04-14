@@ -89,7 +89,7 @@ public class EditorKeyListener implements Listener, KeyListener {
 			break;
 		case 83:
 			if (ctrl)
-				LevelManager.activeLevel.save();
+				LevelManager.activeLevel.getSaveManager().save();
 			break;
 		case 72:
 			EditorOverlay.activeOverlay.toggle();

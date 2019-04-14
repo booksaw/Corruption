@@ -17,7 +17,7 @@ public class DraggedBackground extends ColoredBackground {
 		background = this;
 		LevelManager.activeLevel.addBackground(this);
 
-		LevelManager.activeLevel.changes();
+		LevelManager.activeLevel.getSaveManager().changes();
 		startingLocation.y = GameCamera.cameraHeight - (startingLocation.y + GameCamera.activeCamera.y);
 		startingLocation.x = startingLocation.x + GameCamera.activeCamera.x;
 		starting = startingLocation;

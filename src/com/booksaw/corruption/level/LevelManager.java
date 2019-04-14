@@ -288,8 +288,6 @@ public class LevelManager {
 
 	}
 
-	
-	
 	public List<Meta> getMetaData() {
 		return metaData;
 	}
@@ -373,20 +371,6 @@ public class LevelManager {
 	public void removeInteractableComponent(InteractableComponent i) {
 		components.remove(i);
 		toRender.remove(i);
-	}
-
-	public void save() {
-
-		
-
-	}
-
-	public boolean hasChanged() {
-		return isChanged();
-	}
-
-	public void changes() {
-		setChanged(true);
 	}
 
 	public void setActive() {
@@ -541,7 +525,5 @@ public class LevelManager {
 	public SaveManager getSaveManager() {
 		return saveManager;
 	}
-	
-	
 
 }
