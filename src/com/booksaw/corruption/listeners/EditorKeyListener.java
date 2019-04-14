@@ -102,6 +102,11 @@ public class EditorKeyListener implements Listener, KeyListener {
 			if (ctrl) {
 				LevelManager.activeLevel.getSaveManager().undo();
 			}
+			break;
+		case 89:
+			if (ctrl) {
+				LevelManager.activeLevel.getSaveManager().redo();
+			}
 		}
 
 	}

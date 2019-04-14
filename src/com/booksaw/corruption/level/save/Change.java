@@ -47,4 +47,12 @@ public class Change {
 		}
 	}
 
+	public void invert() {
+
+		for (SingleChange temp : change) {
+			temp.type = (temp.type == ChangeType.ADD) ? ChangeType.REMOVE : ChangeType.ADD;
+		}
+
+	}
+
 }

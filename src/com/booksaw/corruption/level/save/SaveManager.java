@@ -18,6 +18,7 @@ public class SaveManager {
 	LevelManager level;
 	// stack is best option as last change is the first undone
 	Stack<Change> history = new Stack<>();
+	Stack<Change> redo = new Stack<>();
 
 	List<String> levelInfo = new ArrayList<>();
 	YamlConfiguration config;
@@ -53,18 +54,44 @@ public class SaveManager {
 
 	public void undo() {
 
-		history.pop().revert(levelInfo);
-		System.out.println(history.size() + "history size");
+		if (history.isEmpty()) {
+			return;
+		}
+
+		Change c = history.pop();
+		c.revert(levelInfo);
+
 		level.resetLists();
 
 		for (String str : levelInfo) {
 			level.runLine(str);
 		}
 
+		c.invert();
+		redo.push(c);
+
+	}
+
+	public void redo() {
+		if (redo.isEmpty()) {
+			return;
+		}
+
+		Change c = redo.pop();
+		c.revert(levelInfo);
+
+		level.resetLists();
+
+		for (String str : levelInfo) {
+			level.runLine(str);
+		}
+
+		c.invert();
+		history.push(c);
+
 	}
 
 	public void changes() {
-
 		List<String> newLevelInfo = getLevelInfo();
 
 		Change c = detectChanges(levelInfo, newLevelInfo);
@@ -72,6 +99,8 @@ public class SaveManager {
 		if (c == null || !c.hasChanged()) {
 			return;
 		}
+
+//		redo = new Stack<>();
 		history.push(c);
 		changes = true;
 		levelInfo = newLevelInfo;
