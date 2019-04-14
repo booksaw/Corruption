@@ -25,7 +25,6 @@ public class Change {
 	}
 
 	public boolean hasChanged() {
-		System.out.println(change.size());
 		if (change.size() != 0) {
 			return true;
 		}
