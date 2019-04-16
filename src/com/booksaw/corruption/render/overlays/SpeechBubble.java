@@ -7,19 +7,23 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 
 import com.booksaw.corruption.Config;
+import com.booksaw.corruption.Updatable;
+import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.render.GameCamera;
 import com.booksaw.corruption.sprites.Sprite;
 
-public class SpeechBubble extends Overlay {
+public class SpeechBubble extends Overlay implements Updatable {
 
 	String[] text;
 	Point p;
 	int width = -1, height = 100;
-	private final int PADDING = 5, CORNERRAD = 10;
+	private final int PADDING = 5, CORNERRAD = 10, MAXTIME = 100;
 	Sprite focus;
+	int count = 0, time = 0, length;
 
 	public SpeechBubble(Sprite focus, String text) {
 		this.text = new String[] { text };
+		length = text.length();
 		this.focus = focus;
 
 		height = Config.f.getSize() + (2 * PADDING) + 5;
@@ -58,9 +62,22 @@ public class SpeechBubble extends Overlay {
 
 		g2d.setFont(Config.f);
 		int y = GameCamera.cameraHeight - p.y + PADDING + Config.f.getSize();
+		int displayedCount = 0;
 		for (String str : text) {
-			g2d.drawString(str, p.x + (PADDING / 2) + (width / 2 - g.getFontMetrics().stringWidth(str) / 2), y);
+			// if all displayed characters have already been displayed
+			if (displayedCount >= count) {
+				break;
+			}
+			if (count - displayedCount < str.length()) {
+				g2d.drawString(str.substring(0, count - displayedCount),
+						p.x + (PADDING / 2) + (width / 2 - g.getFontMetrics().stringWidth(str) / 2), y);
+			} else {
+				g2d.drawString(str, p.x + (PADDING / 2) + (width / 2 - g.getFontMetrics().stringWidth(str) / 2), y);
+
+			}
+
 			y += Config.f.getSize() + 5;
+			displayedCount += str.length();
 		}
 	}
 
@@ -123,6 +140,29 @@ public class SpeechBubble extends Overlay {
 
 	@Override
 	public void resize() {
+
+	}
+
+	@Override
+	public void show() {
+		LevelManager.activeLevel.getUpdatable().add(this);
+	}
+
+	@Override
+	public void hide() {
+		LevelManager.activeLevel.getUpdatable().remove(this);
+	}
+
+	@Override
+	public void update(int time) {
+		this.time += time;
+
+		if (this.time < MAXTIME || count >= length) {
+			return;
+		}
+		// if another character needs to be added
+		count++;
+		this.time = 0;
 
 	}
 

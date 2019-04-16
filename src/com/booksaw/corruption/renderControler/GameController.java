@@ -12,6 +12,7 @@ import com.booksaw.corruption.render.GameCamera;
 import com.booksaw.corruption.render.RenderInterface;
 import com.booksaw.corruption.render.overlays.GameOverlay;
 import com.booksaw.corruption.render.overlays.Overlay;
+import com.booksaw.corruption.render.overlays.SpeechBubble;
 import com.booksaw.corruption.selection.Selectable;
 
 public class GameController extends RenderController {
@@ -67,6 +68,9 @@ public class GameController extends RenderController {
 		Overlay.addOverlay((gameOverlay = new GameOverlay()));
 
 		Corruption.main.startClock();
+
+		Overlay.addOverlay(
+				new SpeechBubble(LevelManager.activeLevel.getSprites().get(0), "This is a test of true text"));
 
 	}
 

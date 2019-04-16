@@ -21,8 +21,6 @@ import com.booksaw.corruption.level.objects.GameObject;
 import com.booksaw.corruption.level.objects.Mode;
 import com.booksaw.corruption.listeners.KeyListener;
 import com.booksaw.corruption.render.GameCamera;
-import com.booksaw.corruption.render.overlays.Overlay;
-import com.booksaw.corruption.render.overlays.SpeechBubble;
 import com.booksaw.corruption.selection.Selectable;
 
 /**
@@ -183,8 +181,6 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 
 		startingLocation = new Point((int) x, (int) y);
 		checkpointLocation = new Point(startingLocation.x, startingLocation.y);
-
-		Overlay.addOverlay(new SpeechBubble(this, "This is a test of true text"));
 
 	}
 
