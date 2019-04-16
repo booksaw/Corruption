@@ -17,7 +17,7 @@ public class SpeechBubble extends Overlay implements Updatable {
 	String[] text;
 	Point p;
 	int width = -1, height = 100;
-	private final int PADDING = 5, CORNERRAD = 10, MAXTIME = 100;
+	private final int PADDING = 5, CORNERRAD = 10, MAXTIME = 50;
 	Sprite focus;
 	int count = 0, time = 0, length;
 
@@ -164,6 +164,17 @@ public class SpeechBubble extends Overlay implements Updatable {
 		count++;
 		this.time = 0;
 
+	}
+
+	public void activate() {
+		if (count < length) {
+			// scipping the scrolling effect
+			count = length; 
+		} else {
+			// what to do while hiding text, probably something to do with converstaion
+			// class
+			// TODO
+		}
 	}
 
 }
