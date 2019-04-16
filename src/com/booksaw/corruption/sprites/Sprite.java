@@ -184,7 +184,7 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 		startingLocation = new Point((int) x, (int) y);
 		checkpointLocation = new Point(startingLocation.x, startingLocation.y);
 
-		Overlay.addOverlay(new SpeechBubble(this, "hiyaaaa"));
+		Overlay.addOverlay(new SpeechBubble(this, "This is a test of true text"));
 
 	}
 
