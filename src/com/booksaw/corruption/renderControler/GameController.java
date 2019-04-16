@@ -67,6 +67,7 @@ public class GameController extends RenderController {
 		Overlay.addOverlay((gameOverlay = new GameOverlay()));
 
 		Corruption.main.startClock();
+
 	}
 
 	@Override

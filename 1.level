@@ -29,7 +29,7 @@ level:
 - background:colored:0;360;412;222;0;165;0
 - background:colored:1638;278;59;312;162;34;34
 - sprite:player:61;39;true;true;true
-- sprite:bluenpc:521;304;false;false;false
+- sprite:bluenpc:334;3;false;false;false
 - interactable:192;0;96;34;table
 - interactable:1704;462;126;80;desk
 - interactable:17;263;371;83;logo
