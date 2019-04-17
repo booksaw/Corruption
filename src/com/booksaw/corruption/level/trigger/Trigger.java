@@ -8,6 +8,7 @@ import java.awt.Rectangle;
 import java.util.List;
 import java.util.UUID;
 
+import com.booksaw.corruption.execution.ExecutionChain;
 import com.booksaw.corruption.level.Dimensions;
 import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.level.Location;
@@ -17,6 +18,16 @@ import com.booksaw.corruption.selection.Selectable;
 public class Trigger extends Selectable implements Dimensions, Location {
 
 	public static boolean showTriggers = false;
+
+	public static void manageTriggers(Rectangle r) {
+		Trigger t = getTrigger(r, LevelManager.activeLevel.getTriggers());
+		if (t == null || t.active) {
+			return;
+		}
+
+		t.trigger();
+
+	}
 
 	public static Trigger getTrigger(Point p, List<Trigger> triggers) {
 		return getTrigger(new Rectangle(p, new Dimension(1, 1)), triggers);
@@ -32,6 +43,8 @@ public class Trigger extends Selectable implements Dimensions, Location {
 
 		return null;
 	}
+
+	public boolean active = false;
 
 	public Trigger(String ref) {
 		super();
@@ -115,6 +128,11 @@ public class Trigger extends Selectable implements Dimensions, Location {
 		if (width < 5 || height < 5)
 			return false;
 		return true;
+	}
+
+	public void trigger() {
+		active = true;
+		new ExecutionChain("commands." + uuid, LevelManager.activeLevel.getSaveManager().config);
 	}
 
 	@Override

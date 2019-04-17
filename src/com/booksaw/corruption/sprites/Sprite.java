@@ -20,6 +20,7 @@ import com.booksaw.corruption.level.interactable.Interactable;
 import com.booksaw.corruption.level.interactable.Interactable.InteractionMode;
 import com.booksaw.corruption.level.objects.GameObject;
 import com.booksaw.corruption.level.objects.Mode;
+import com.booksaw.corruption.level.trigger.Trigger;
 import com.booksaw.corruption.listeners.KeyListener;
 import com.booksaw.corruption.render.GameCamera;
 import com.booksaw.corruption.selection.Selectable;
@@ -445,6 +446,7 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 	public void update(int time) {
 		if (activePlayer) {
 			bindToCamera((int) x);
+			Trigger.manageTriggers(getRectangle());
 		}
 	}
 

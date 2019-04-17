@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.CursorManager;
-import com.booksaw.corruption.execution.ExecutionChain;
 import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.level.trigger.Trigger;
 import com.booksaw.corruption.listeners.GameMouseListener;
@@ -71,14 +70,12 @@ public class GameController extends RenderController {
 
 		Overlay.addOverlay((gameOverlay = new GameOverlay()));
 		CursorManager.hideCursor();
-		
+
 		Trigger.showTriggers = false;
 		Corruption.main.startClock();
 
 //		Overlay.addOverlay(
 //				new SpeechBubble(LevelManager.activeLevel.getSprites().get(0), "This is a test of true text"));
-
-		new ExecutionChain("commands.testCommand", LevelManager.activeLevel.getSaveManager().config);
 
 	}
 

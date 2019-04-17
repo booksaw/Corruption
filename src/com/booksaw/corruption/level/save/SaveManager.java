@@ -155,8 +155,10 @@ public class SaveManager {
 		}
 
 		for (Trigger t : level.getTriggers()) {
-			String s = t.toString();
-			levelInfo.add(s);
+			if (t.needsSaving()) {
+				String s = t.toString();
+				levelInfo.add(s);
+			}
 		}
 
 		return levelInfo;

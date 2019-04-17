@@ -576,10 +576,6 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 		}
 
 		Background b = Background.getBackground(temp, LevelManager.activeLevel.getBackgrounds());
-		/*
-		 * if (b != null && (b instanceof ColoredBackground)) { new
-		 * BackgroundSettings((ColoredBackground) b).setVisible(true); return; }
-		 */
 
 		if (b != null) {
 			b.setSelected(true);

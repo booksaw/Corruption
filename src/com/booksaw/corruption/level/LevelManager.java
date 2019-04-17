@@ -488,6 +488,10 @@ public class LevelManager {
 
 			}
 		}
+
+		for (Trigger t : triggers) {
+			t.active = false;
+		}
 		AudioPlayer.playSound(AudioInstance.DEATH);
 		fails++;
 	}
