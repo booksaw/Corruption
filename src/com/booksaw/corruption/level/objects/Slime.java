@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.UUID;
 
 import com.booksaw.corruption.Config;
 import com.booksaw.corruption.Utils;
@@ -31,7 +32,11 @@ public class Slime extends GameObject {
 		y = Integer.parseInt(split[1]);
 		width = Integer.parseInt(split[2]);
 		height = Integer.parseInt(split[3]);
-
+		try {
+			uuid = UUID.fromString(split[4]);
+		} catch (Exception e) {
+			uuid = generateUUID();
+		}
 		calculateNumbers();
 
 	}
@@ -42,6 +47,7 @@ public class Slime extends GameObject {
 		y = p.y;
 		width = slimeTop.getWidth() * Sprite.PIXELMULT;
 		height = slimeTop.getHeight() * Sprite.PIXELMULT;
+		uuid = generateUUID();
 		calculateNumbers();
 	}
 
@@ -80,7 +86,7 @@ public class Slime extends GameObject {
 
 	@Override
 	public String toString() {
-		return "object:slime:" + (int) x + ";" + (int) y + ";" + width + ";" + height;
+		return "object:slime:" + (int) x + ";" + (int) y + ";" + width + ";" + height + ";" + uuid;
 	}
 
 	public void calculateNumbers() {

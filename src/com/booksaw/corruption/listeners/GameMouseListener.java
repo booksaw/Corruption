@@ -13,13 +13,11 @@ public class GameMouseListener implements Listener, MouseListener {
 
 	@Override
 	public void activate(JFrame f) {
-		System.out.println("adding");
 		f.getContentPane().addMouseListener(this);
 	}
 
 	@Override
 	public void disable(JFrame f) {
-		System.out.println("removing");
 		f.getContentPane().removeMouseListener(this);
 	}
 

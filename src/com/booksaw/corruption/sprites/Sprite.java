@@ -59,8 +59,6 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 
 	Interactable currentInteractable = null;
 
-	private UUID uuid;
-
 	// stores which animation is being run
 	protected AnimationState state;
 	// keeps track of which image of the animation being used
@@ -170,7 +168,7 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 		walking = getWalking();
 		crouching = getCrouching();
 		resizable = false;
-		uuid = UUID.randomUUID();
+		uuid = generateUUID();
 
 	}
 
@@ -193,7 +191,7 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 			uuid = UUID.fromString(split[5]);
 		} catch (Exception e) {
 			if (uuid == null) {
-				uuid = UUID.randomUUID();
+				uuid = generateUUID();
 			}
 		}
 

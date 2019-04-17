@@ -3,6 +3,7 @@ package com.booksaw.corruption.level.objects;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.UUID;
 
 import com.booksaw.corruption.render.GameCamera;
 
@@ -29,7 +30,11 @@ public class Block extends GameObject {
 		height = Integer.parseInt(split[3]);
 
 		c = new Color(Integer.parseInt(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]));
-
+		try {
+			uuid = UUID.fromString(split[7]);
+		} catch (Exception e) {
+			uuid = generateUUID();
+		}
 	}
 
 	public Block(Rectangle position, Color c) {
@@ -37,7 +42,7 @@ public class Block extends GameObject {
 		y = position.y;
 		width = position.width;
 		height = position.height;
-
+		uuid = generateUUID();
 		this.c = c;
 	}
 
@@ -64,7 +69,7 @@ public class Block extends GameObject {
 	@Override
 	public String toString() {
 		return "object:block:" + (int) x + ";" + (int) y + ";" + width + ";" + height + ";" + c.getRed() + ";"
-				+ c.getGreen() + ";" + c.getBlue();
+				+ c.getGreen() + ";" + c.getBlue() + ";" + uuid;
 	}
 
 }

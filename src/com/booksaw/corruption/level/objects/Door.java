@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.UUID;
 
 import com.booksaw.corruption.Config;
 import com.booksaw.corruption.Utils;
@@ -36,7 +37,11 @@ public class Door extends GameObject {
 		height = doorClosed.getHeight() * Sprite.PIXELMULT;
 
 		height = Integer.parseInt(split[5]);
-
+		try {
+			uuid = UUID.fromString(split[6]);
+		} catch (Exception e) {
+			uuid = generateUUID();
+		}
 		calculatePosition();
 	}
 
@@ -93,7 +98,7 @@ public class Door extends GameObject {
 	public String toString() {
 		calculatePosition();
 		return "object:door:" + (int) centrex + ";" + (int) centrey + ";" + open + ";" + left + ";" + width + ";"
-				+ height;
+				+ height + ";" + uuid;
 	}
 
 	public void setLocation(Point p) {

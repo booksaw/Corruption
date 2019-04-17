@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.booksaw.corruption.Config;
 import com.booksaw.corruption.Utils;
@@ -64,6 +65,11 @@ public class Interactable extends Selectable {
 		height = Integer.parseInt(split[3]);
 
 		name = split[4];
+		try {
+			uuid = UUID.fromString(split[5]);
+		} catch (Exception e) {
+			uuid = generateUUID();
+		}
 		loadConfig(lm);
 //		image = Utils.getImage(new File(PATH + name + ".png"));
 
@@ -87,6 +93,7 @@ public class Interactable extends Selectable {
 
 		width = (int) (images.get(0).img.getWidth() * scale);
 		height = (int) (images.get(0).img.getHeight() * scale);
+		uuid = generateUUID();
 
 	}
 
@@ -195,7 +202,7 @@ public class Interactable extends Selectable {
 
 	@Override
 	public String toString() {
-		return "interactable:" + (int) x + ";" + (int) y + ";" + width + ";" + height + ";" + name;
+		return "interactable:" + (int) x + ";" + (int) y + ";" + width + ";" + height + ";" + name + ";" + uuid;
 	}
 
 	@Override

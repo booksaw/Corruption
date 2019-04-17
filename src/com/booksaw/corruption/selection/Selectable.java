@@ -9,6 +9,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.CursorManager;
@@ -27,6 +28,26 @@ import com.booksaw.corruption.render.GameCamera;
  *
  */
 public abstract class Selectable extends Renderable implements Location, Dimensions {
+
+	protected static UUID generateUUID() {
+		while (true) {
+			UUID temp = UUID.randomUUID();
+			if (getSelectable(temp) == null) {
+				return temp;
+			}
+		}
+	}
+
+	protected static Selectable getSelectable(UUID uuid) {
+		for (Selectable temp : selectable) {
+			if (temp.uuid.equals(uuid)) {
+				return temp;
+			}
+		}
+		return null;
+	}
+
+	public UUID uuid;
 	// location
 	protected double x, y;
 	// the circle for the selecting overlay

@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.UUID;
 
 import com.booksaw.corruption.Config;
 import com.booksaw.corruption.Utils;
@@ -67,7 +68,11 @@ public class Spike extends GameObject {
 			d = Direction.DOWN;
 			break;
 		}
-
+		try {
+			uuid = UUID.fromString(split[5]);
+		} catch (Exception e) {
+			uuid = generateUUID();
+		}
 		generateCount();
 
 	}
@@ -79,7 +84,7 @@ public class Spike extends GameObject {
 		width = spikes.getWidth() * Sprite.PIXELMULT;
 		height = spikes.getHeight() * Sprite.PIXELMULT;
 		this.d = d;
-
+		uuid = generateUUID();
 		generateCount();
 	}
 
@@ -197,7 +202,7 @@ public class Spike extends GameObject {
 
 	@Override
 	public String toString() {
-		return "object:spike:" + (int) x + ";" + (int) y + ";" + width + ";" + height + ";" + d.getFileOutput();
+		return "object:spike:" + (int) x + ";" + (int) y + ";" + width + ";" + height + ";" + d.getFileOutput() + ";" + uuid;
 
 	}
 
