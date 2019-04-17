@@ -195,7 +195,8 @@ public abstract class Selectable extends Renderable implements Location, Dimensi
 			}
 
 			if (selected) {
-				selectable.add(this);
+				if (!selectable.contains(this))
+					selectable.add(this);
 			} else if (remove) {
 				selectable.remove(this);
 			}
@@ -358,7 +359,7 @@ public abstract class Selectable extends Renderable implements Location, Dimensi
 	 * @return
 	 */
 	public abstract Rectangle getRectangle();
-	
+
 	public abstract String getCopy();
 
 	/**
