@@ -28,10 +28,16 @@ level:
 - background:colored:1695;461;145;115;162;34;34
 - background:colored:0;360;412;222;0;165;0
 - background:colored:1638;278;59;312;162;34;34
-- sprite:player:61;39;true;true;true
-- sprite:bluenpc:334;3;false;false;false
+- sprite:player:61;39;true;true;true;6bbbba96-274f-4fdd-af01-0b05b3408fbf
+- sprite:bluenpc:334;3;false;false;false;72d36902-83ea-4b38-8544-732912b7c269
 - interactable:192;0;96;34;table
 - interactable:1704;462;126;80;desk
 - interactable:17;263;371;83;logo
 - interactable:1082;17;70;15;checkpoint
 nextLevel: 2.level
+commands:
+  testCommand:
+    a01:
+    - speech:6bbbba96-274f-4fdd-af01-0b05b3408fbf:This is an example of working text
+    a02:
+    - speech:6bbbba96-274f-4fdd-af01-0b05b3408fbf:Fully functional

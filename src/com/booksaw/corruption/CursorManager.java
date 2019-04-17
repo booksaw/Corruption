@@ -17,6 +17,7 @@ public class CursorManager {
 	 * Boolean for if the cursor is the standard pointer at the moment
 	 */
 	public static boolean normal = true;
+	public static boolean hidden = false;
 
 	/**
 	 * Sets the cursor to the image given
@@ -30,6 +31,7 @@ public class CursorManager {
 
 		Corruption.main.getFrame().setCursor(imgCursor);
 		normal = true;
+		hidden = false;
 	}
 
 	/**
@@ -38,6 +40,7 @@ public class CursorManager {
 	public static void resetCursor() {
 		Corruption.main.getFrame().setCursor(Cursor.getDefaultCursor());
 		normal = true;
+		hidden = false;
 	}
 
 	/**
@@ -51,6 +54,7 @@ public class CursorManager {
 		Cursor imgCursor = Toolkit.getDefaultToolkit().createCustomCursor(img, new Point(0, 0), "blank cursor");
 		Corruption.main.getFrame().setCursor(imgCursor);
 		normal = true;
+		hidden = true;
 	}
 
 	/**
@@ -60,6 +64,7 @@ public class CursorManager {
 	 */
 	public static void setCursor(int cursortype) {
 		normal = false;
+		hidden = false;
 		Corruption.main.getFrame().setCursor(new Cursor(cursortype));
 	}
 }

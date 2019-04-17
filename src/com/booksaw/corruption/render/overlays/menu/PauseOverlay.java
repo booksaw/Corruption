@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 
 import com.booksaw.corruption.Config;
 import com.booksaw.corruption.Corruption;
+import com.booksaw.corruption.CursorManager;
 import com.booksaw.corruption.language.Language;
 import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.render.overlays.Overlay;
@@ -38,7 +39,8 @@ public class PauseOverlay extends MenuOverlay {
 			Overlay.removeOverlay(this);
 			break;
 		case "quit":
-			if (LevelManager.activeLevel.getSaveManager().hasChanged() && Corruption.main.controller instanceof EditorController) {
+			if (LevelManager.activeLevel.getSaveManager().hasChanged()
+					&& Corruption.main.controller instanceof EditorController) {
 				int result = JOptionPane.showConfirmDialog(Corruption.main.getFrame(),
 						Language.getMessage("pause.save"), Language.getMessage("title"),
 						JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, Config.logo);
@@ -57,16 +59,23 @@ public class PauseOverlay extends MenuOverlay {
 
 	}
 
+	boolean hidden = false;
+
 	@Override
 	public void show() {
 		super.show();
 		paused = true;
+		hidden = CursorManager.hidden;
+		CursorManager.resetCursor();
 	}
 
 	@Override
 	public void hide() {
 		super.hide();
 		paused = false;
+		if (hidden) {
+			CursorManager.hideCursor();
+		}
 	}
 
 }

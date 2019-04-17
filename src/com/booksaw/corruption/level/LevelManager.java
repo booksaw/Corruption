@@ -34,6 +34,7 @@ import com.booksaw.corruption.level.objects.Spike;
 import com.booksaw.corruption.level.save.SaveManager;
 import com.booksaw.corruption.render.overlays.Overlay;
 import com.booksaw.corruption.render.overlays.menu.LevelCompleteOverlay;
+import com.booksaw.corruption.render.overlays.menu.PauseOverlay;
 import com.booksaw.corruption.renderControler.EditorController;
 import com.booksaw.corruption.renderControler.GameController;
 import com.booksaw.corruption.sprites.BlueNPC;
@@ -383,12 +384,13 @@ public class LevelManager {
 	}
 
 	private List<Updatable> toRemove = new ArrayList<>();
+	private List<Updatable> toAdd = new ArrayList<>();
 
 	boolean active = true;
 
 	public void update(int time) {
 
-		if (!active) {
+		if (!active || PauseOverlay.paused) {
 			return;
 		}
 
@@ -398,8 +400,6 @@ public class LevelManager {
 			}
 		}
 
-		toRemove = new ArrayList<>();
-
 		for (Updatable u : updatable) {
 			u.update(time);
 		}
@@ -408,6 +408,13 @@ public class LevelManager {
 			updatable.remove(u);
 		}
 
+		toRemove = new ArrayList<>();
+
+		for (Updatable u : toAdd) {
+			updatable.add(u);
+		}
+		toAdd = new ArrayList<>();
+
 		if (trackTime)
 			this.time = (int) ((System.currentTimeMillis() - startTime) / 1000);
 
@@ -415,6 +422,10 @@ public class LevelManager {
 
 	public List<Updatable> getToRemove() {
 		return toRemove;
+	}
+
+	public List<Updatable> getToAdd() {
+		return toAdd;
 	}
 
 	/**

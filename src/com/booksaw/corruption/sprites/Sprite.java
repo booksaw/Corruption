@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.Updatable;
@@ -46,7 +47,19 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 		return null;
 	}
 
+	public static Sprite getSprite(UUID uuid, List<Sprite> sprites) {
+		for (Sprite temp : sprites) {
+			if (temp.getUuid().equals(uuid)) {
+				return temp;
+			}
+		}
+
+		return null;
+	}
+
 	Interactable currentInteractable = null;
+
+	private UUID uuid;
 
 	// stores which animation is being run
 	protected AnimationState state;
@@ -157,6 +170,7 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 		walking = getWalking();
 		crouching = getCrouching();
 		resizable = false;
+		uuid = UUID.randomUUID();
 
 	}
 
@@ -176,7 +190,11 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 			activePlayer = Boolean.parseBoolean(split[2]);
 			controllable = Boolean.parseBoolean(split[3]);
 			right = Boolean.parseBoolean(split[4]);
+			uuid = UUID.fromString(split[5]);
 		} catch (Exception e) {
+			if (uuid == null) {
+				uuid = UUID.randomUUID();
+			}
 		}
 
 		startingLocation = new Point((int) x, (int) y);
@@ -508,7 +526,7 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 			return "";
 		}
 		return "sprite:" + getName() + ":" + ((int) startingLocation.x) + ";" + ((int) startingLocation.y) + ";"
-				+ activePlayer + ";" + controllable + ";" + right;
+				+ activePlayer + ";" + controllable + ";" + right + ";" + uuid;
 	}
 
 	public BufferedImage generateCursorImage() {
@@ -727,6 +745,10 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 
 		}
 		return y;
+	}
+
+	public UUID getUuid() {
+		return uuid;
 	}
 
 }

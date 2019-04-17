@@ -5,33 +5,48 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.booksaw.corruption.Config;
 import com.booksaw.corruption.Updatable;
+import com.booksaw.corruption.execution.Command;
 import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.render.GameCamera;
 import com.booksaw.corruption.sprites.Sprite;
 
 public class SpeechBubble extends Overlay implements Updatable {
 
+	public static void showBubble(Sprite focus, String text, Command set) {
+		Overlay.addOverlay(new SpeechBubble(focus, text, set));
+	}
+
+	public static void showBubble(Point focus, String text, Command set) {
+		Overlay.addOverlay(new SpeechBubble(focus, text, set));
+	}
+
+	public static List<SpeechBubble> bubbles = new ArrayList<>();
+
 	String[] text;
 	Point p;
 	int width = -1, height = 100;
-	private final int PADDING = 5, CORNERRAD = 10, MAXTIME = 50;
+	private final int PADDING = 5, CORNERRAD = 10, MAXTIME = 50, DISPLAYTIME = 3000;
 	Sprite focus;
 	int count = 0, time = 0, length;
+	Command set;
 
-	public SpeechBubble(Sprite focus, String text) {
+	public SpeechBubble(Sprite focus, String text, Command set) {
 		this.text = new String[] { text };
 		length = text.length();
 		this.focus = focus;
 
 		height = Config.f.getSize() + (2 * PADDING) + 5;
 		p = new Point(0, 0);
+		this.set = set;
 	}
 
-	public SpeechBubble(Point p, String text) {
-		this((Sprite) null, text);
+	public SpeechBubble(Point p, String text, Command set) {
+		this((Sprite) null, text, set);
 
 		this.p = p;
 
@@ -89,8 +104,6 @@ public class SpeechBubble extends Overlay implements Updatable {
 			lines++;
 			boolean found = false;
 			// finding the centre space
-			System.out.println((text[0].charAt(text[0].length() / 2)) + " = character"
-					+ ((text[0].charAt(text[0].length() / 2)) == ' '));
 
 			if (text[0].length() % 2 == 0 && text[0].charAt(text[0].length() / 2) == ' ') {
 				found = true;
@@ -145,17 +158,25 @@ public class SpeechBubble extends Overlay implements Updatable {
 
 	@Override
 	public void show() {
-		LevelManager.activeLevel.getUpdatable().add(this);
+		LevelManager.activeLevel.getToAdd().add(this);
+		bubbles.add(this);
 	}
 
 	@Override
 	public void hide() {
-		LevelManager.activeLevel.getUpdatable().remove(this);
+		// tries to remove from updatable, if not possible
+		// (concurrentModificationException, will add to list to be removed later
+		LevelManager.activeLevel.getToRemove().add(this);
+		bubbles.remove(this);
 	}
 
 	@Override
 	public void update(int time) {
 		this.time += time;
+
+		if (this.time >= DISPLAYTIME && count >= length) {
+			advance();
+		}
 
 		if (this.time < MAXTIME || count >= length) {
 			return;
@@ -169,12 +190,19 @@ public class SpeechBubble extends Overlay implements Updatable {
 	public void activate() {
 		if (count < length) {
 			// scipping the scrolling effect
-			count = length; 
+			count = length;
 		} else {
-			// what to do while hiding text, probably something to do with converstaion
-			// class
-			// TODO
+			advance();
 		}
+	}
+
+	/**
+	 * Used to move on to the next message
+	 */
+	private void advance() {
+		removeOverlay(this);
+		if (set != null)
+			set.setComplete();
 	}
 
 }

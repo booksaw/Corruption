@@ -21,7 +21,7 @@ public class SaveManager {
 	Stack<Change> redo = new Stack<>();
 
 	List<String> levelInfo = new ArrayList<>();
-	YamlConfiguration config;
+	public YamlConfiguration config;
 
 	// details read from the level file
 	String nextLevel;

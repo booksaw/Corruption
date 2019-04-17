@@ -131,7 +131,7 @@ public class YamlConfiguration {
 		if (o instanceof ArrayList<?>) {
 			return (ArrayList<String>) o;
 		}
-		return null;
+		return new ArrayList<>();
 	}
 
 	public boolean getBoolean(String ref) {

@@ -95,6 +95,7 @@ public class KeyListener implements java.awt.event.KeyListener, Listener {
 
 	@Override
 	public void activate(JFrame f) {
+		System.out.println("keyli");
 		f.addKeyListener(this);
 		listen = this;
 

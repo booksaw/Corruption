@@ -1,6 +1,8 @@
 package com.booksaw.corruption;
 
+import java.awt.AWTException;
 import java.awt.Dimension;
+import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
@@ -115,12 +117,12 @@ public class Corruption implements ActionListener, ComponentListener {
 		previousTick = System.currentTimeMillis();
 		t.start();
 	}
-	
+
 	public void stopClock() {
-		if(t == null) {
+		if (t == null) {
 			return;
 		}
-		
+
 		t.stop();
 	}
 
@@ -182,6 +184,16 @@ public class Corruption implements ActionListener, ComponentListener {
 		controller.update(time);
 
 		f.repaint();
+
+		if (CursorManager.hidden && f.isActive()) {
+			Robot robot;
+			try {
+				robot = new Robot();
+				robot.mouseMove(f.getX() + f.getWidth() / 2, f.getY() + f.getHeight() / 2);
+			} catch (AWTException e1) {
+			}
+
+		}
 	}
 
 	/**
