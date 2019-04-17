@@ -1,7 +1,9 @@
 package com.booksaw.corruption.listeners;
 
 import java.awt.AWTException;
+import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -37,6 +39,8 @@ import com.booksaw.corruption.level.objects.DraggedBlock;
 import com.booksaw.corruption.level.objects.GameObject;
 import com.booksaw.corruption.level.objects.ObjectList;
 import com.booksaw.corruption.level.objects.Spike;
+import com.booksaw.corruption.level.trigger.DraggedTrigger;
+import com.booksaw.corruption.level.trigger.Trigger;
 import com.booksaw.corruption.render.GameCamera;
 import com.booksaw.corruption.render.overlays.ActiveSelection;
 import com.booksaw.corruption.render.overlays.EditorOverlay;
@@ -90,6 +94,12 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 					return;
 				}
 				DraggedBackground.background.setPoint(e.getPoint());
+			} else if (CursorSettings.selection == SELECTION.TRIGGER) {
+
+				if (DraggedTrigger.trigger == null) {
+					return;
+				}
+				DraggedTrigger.trigger.setPoint(e.getPoint());
 			}
 		} else {
 
@@ -152,6 +162,8 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 				new DraggedBlock(e.getPoint());
 			} else if (CursorSettings.selection == SELECTION.BACKGROUND) {
 				new DraggedBackground(e.getPoint());
+			} else if (CursorSettings.selection == SELECTION.TRIGGER) {
+				new DraggedTrigger(e.getPoint());
 			}
 
 		} else {
@@ -328,8 +340,10 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 					mainClickFinalize(e, e.getPoint());
 					return;
 				}
-				if (DraggedBlock.block.getWidth() == 0 || DraggedBlock.block.getHeight() == 0) {
+				if (DraggedBlock.block.getWidth() < 10 || DraggedBlock.block.getHeight() < 10) {
 					mainClickFinalize(e, e.getPoint());
+
+					LevelManager.activeLevel.removeObject(DraggedBlock.block);
 					DraggedBlock.block = null;
 					return;
 				}
@@ -343,12 +357,30 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 					mainClickFinalize(e, e.getPoint());
 					return;
 				}
-				if (DraggedBackground.background.getWidth() == 0 || DraggedBackground.background.getHeight() == 0) {
+				if (DraggedBackground.background.getWidth() < 10 || DraggedBackground.background.getHeight() < 10) {
 					mainClickFinalize(e, e.getPoint());
+
+					LevelManager.activeLevel.removeBackground(DraggedBackground.background);
 					DraggedBackground.background = null;
 					return;
 				}
 				DraggedBackground.background.finalise();
+				return;
+			}
+		} else if (CursorSettings.selection == SELECTION.TRIGGER) {
+			if (SwingUtilities.isLeftMouseButton(e)) {
+				if (DraggedTrigger.trigger == null) {
+					mainClickFinalize(e, e.getPoint());
+					return;
+				}
+				if (DraggedTrigger.trigger.getWidth() < 10 || DraggedTrigger.trigger.getHeight() < 10) {
+					mainClickFinalize(e, e.getPoint());
+
+					LevelManager.activeLevel.removeTrigger(DraggedTrigger.trigger);
+					DraggedTrigger.trigger = null;
+					return;
+				}
+				DraggedTrigger.trigger.finalise();
 				return;
 			}
 		} else if (CursorSettings.selection == SELECTION.SELECTOR) {
@@ -400,7 +432,7 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 		if (s != null) {
 			if (s instanceof Player) {
 				new PlayerSettings(s).setVisible(true);
-			} else if(s instanceof BlueNPC) {
+			} else if (s instanceof BlueNPC) {
 				new NPCSettings(s).setVisible(true);
 			}
 			return;
@@ -411,6 +443,7 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 			new BackgroundSettings((ColoredBackground) b).setVisible(true);
 			return;
 		}
+
 	}
 
 	private void spriteClick(Point p) {
@@ -512,6 +545,16 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 	private void leftClickFinalize(Point p) {
 		Point temp = new Point(p.x + GameCamera.activeCamera.x,
 				GameCamera.cameraHeight - (p.y + GameCamera.activeCamera.y));
+
+		Rectangle r = new Rectangle(temp, new Dimension(1, 1));
+		if (LevelManager.activeLevel != null && Trigger.showTriggers) {
+			for (Trigger t : LevelManager.activeLevel.getTriggers()) {
+				if (t.getRectangle().intersects(r)) {
+					t.setSelected(true);
+					return;
+				}
+			}
+		}
 
 		Sprite s = Sprite.getSprite(temp, LevelManager.activeLevel.getSprites());
 		if (s != null) {

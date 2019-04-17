@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 
 import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.level.LevelManager;
+import com.booksaw.corruption.level.trigger.Trigger;
 import com.booksaw.corruption.render.overlays.EditorOverlay;
 import com.booksaw.corruption.renderControler.EditorController;
 import com.booksaw.corruption.selection.Selectable;
@@ -107,6 +108,10 @@ public class EditorKeyListener implements Listener, KeyListener {
 			if (ctrl) {
 				LevelManager.activeLevel.getSaveManager().redo();
 			}
+			break;
+		case 70:
+			Trigger.showTriggers = (Trigger.showTriggers) ? false : true;
+			break;
 		}
 
 	}

@@ -8,6 +8,7 @@ import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.CursorManager;
 import com.booksaw.corruption.execution.ExecutionChain;
 import com.booksaw.corruption.level.LevelManager;
+import com.booksaw.corruption.level.trigger.Trigger;
 import com.booksaw.corruption.listeners.GameMouseListener;
 import com.booksaw.corruption.listeners.KeyListener;
 import com.booksaw.corruption.listeners.Listener;
@@ -70,7 +71,8 @@ public class GameController extends RenderController {
 
 		Overlay.addOverlay((gameOverlay = new GameOverlay()));
 		CursorManager.hideCursor();
-
+		
+		Trigger.showTriggers = false;
 		Corruption.main.startClock();
 
 //		Overlay.addOverlay(

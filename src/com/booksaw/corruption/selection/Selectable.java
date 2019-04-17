@@ -16,7 +16,9 @@ import com.booksaw.corruption.CursorManager;
 import com.booksaw.corruption.Renderable;
 import com.booksaw.corruption.Utils;
 import com.booksaw.corruption.level.Dimensions;
+import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.level.Location;
+import com.booksaw.corruption.level.trigger.Trigger;
 import com.booksaw.corruption.listeners.EditorKeyListener;
 import com.booksaw.corruption.listeners.Listener;
 import com.booksaw.corruption.render.GameCamera;
@@ -105,11 +107,13 @@ public abstract class Selectable extends Renderable implements Location, Dimensi
 		}
 
 		Rectangle r = new Rectangle(p.x, GameCamera.cameraHeight - p.y, 1, 1);
+
 		for (Selectable s : selectable) {
 			if (s.getRectangle().intersects(r)) {
 				return s;
 			}
 		}
+
 		return null;
 	}
 

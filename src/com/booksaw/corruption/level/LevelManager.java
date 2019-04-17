@@ -32,6 +32,7 @@ import com.booksaw.corruption.level.objects.GameObject;
 import com.booksaw.corruption.level.objects.Slime;
 import com.booksaw.corruption.level.objects.Spike;
 import com.booksaw.corruption.level.save.SaveManager;
+import com.booksaw.corruption.level.trigger.Trigger;
 import com.booksaw.corruption.render.overlays.Overlay;
 import com.booksaw.corruption.render.overlays.menu.LevelCompleteOverlay;
 import com.booksaw.corruption.render.overlays.menu.PauseOverlay;
@@ -62,6 +63,7 @@ public class LevelManager {
 
 	List<Renderable> toRender = new ArrayList<>();
 	List<Updatable> updatable = new ArrayList<>();
+	List<Trigger> triggers = new ArrayList<>();
 
 	public int fails = 0;
 	public int time = 0;
@@ -204,6 +206,8 @@ public class LevelManager {
 		case "interactable":
 			makeInteractable(split[1], select);
 			break;
+		case "trigger":
+			makeTrigger(split[1]);
 		}
 
 	}
@@ -294,6 +298,12 @@ public class LevelManager {
 
 	}
 
+	private void makeTrigger(String info) {
+		Trigger t = new Trigger(info);
+		addTrigger(t);
+
+	}
+
 	public List<Meta> getMetaData() {
 		return metaData;
 	}
@@ -312,6 +322,10 @@ public class LevelManager {
 
 	public List<Interactable> getInteractables() {
 		return interactables;
+	}
+
+	public List<Trigger> getTriggers() {
+		return triggers;
 	}
 
 	public Sprite getActivePlayer() {
@@ -354,6 +368,11 @@ public class LevelManager {
 		sortRenderable();
 	}
 
+	public void addTrigger(Trigger t) {
+		triggers.add(t);
+		toRender.add(t);
+	}
+
 	public void removeObject(GameObject o) {
 		levelObjects.remove(o);
 		toRender.remove(o);
@@ -377,6 +396,11 @@ public class LevelManager {
 	public void removeInteractableComponent(InteractableComponent i) {
 		components.remove(i);
 		toRender.remove(i);
+	}
+
+	public void removeTrigger(Trigger t) {
+		triggers.remove(t);
+		toRender.remove(t);
 	}
 
 	public void setActive() {
@@ -448,6 +472,7 @@ public class LevelManager {
 		toRender = new ArrayList<>();
 		components = new ArrayList<>();
 		updatable = new ArrayList<>();
+		triggers = new ArrayList<>();
 	}
 
 	public void resetAllSprites() {

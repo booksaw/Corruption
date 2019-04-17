@@ -42,6 +42,7 @@ public class Language {
 		messages.put("cursor.block", "Block");
 		messages.put("cursor.background", "Background");
 		messages.put("cursor.selection", "Select");
+		messages.put("cursor.trigger", "Trigger");
 
 	}
 

@@ -14,7 +14,7 @@ import com.booksaw.corruption.language.Language;
 public class CursorSelector extends MessageOption {
 
 	ButtonGroup b;
-	JRadioButton block, background;
+	JRadioButton block, background, trigger;
 
 	@Override
 	public void saveData() {
@@ -23,6 +23,8 @@ public class CursorSelector extends MessageOption {
 			CursorSettings.selection = SELECTION.BLOCK;
 		} else if (background.isSelected()) {
 			CursorSettings.selection = SELECTION.BACKGROUND;
+		} else if (trigger.isSelected()) {
+			CursorSettings.selection = SELECTION.TRIGGER;
 		}
 	}
 
@@ -48,6 +50,12 @@ public class CursorSelector extends MessageOption {
 		if (CursorSettings.selection == SELECTION.BACKGROUND)
 			background.setSelected(true);
 		panel.add(background);
+
+		trigger = new JRadioButton(Language.getMessage("cursor.trigger"));
+		b.add(trigger);
+		if (CursorSettings.selection == SELECTION.TRIGGER)
+			trigger.setSelected(true);
+		panel.add(trigger);
 
 		return panel;
 	}

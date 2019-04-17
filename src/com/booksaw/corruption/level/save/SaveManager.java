@@ -11,6 +11,7 @@ import com.booksaw.corruption.level.interactable.Interactable;
 import com.booksaw.corruption.level.meta.Meta;
 import com.booksaw.corruption.level.objects.GameObject;
 import com.booksaw.corruption.level.save.Change.ChangeType;
+import com.booksaw.corruption.level.trigger.Trigger;
 import com.booksaw.corruption.sprites.Sprite;
 
 public class SaveManager {
@@ -151,6 +152,11 @@ public class SaveManager {
 			if (!s.equals("")) {
 				levelInfo.add(s);
 			}
+		}
+
+		for (Trigger t : level.getTriggers()) {
+			String s = t.toString();
+			levelInfo.add(s);
 		}
 
 		return levelInfo;
