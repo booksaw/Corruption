@@ -266,4 +266,9 @@ public class Interactable extends Selectable {
 
 		}
 	}
+
+	@Override
+	public String getCopy() {
+		return "interactable:" + (int) x + ";" + (int) y + ";" + width + ";" + height + ";" + name + ";" + generateUUID();
+	}
 }

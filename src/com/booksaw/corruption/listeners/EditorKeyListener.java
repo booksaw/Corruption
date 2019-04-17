@@ -54,14 +54,13 @@ public class EditorKeyListener implements Listener, KeyListener {
 		case 67:
 			if (ctrl) {
 				// copy
-				// paste
 				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 
 				StringSelection s;
 
 				String temp = "";
 				for (Selectable tmp : Selectable.getSelectables()) {
-					temp = temp + tmp + "\n";
+					temp = temp + tmp.getCopy() + "\n";
 				}
 
 				s = new StringSelection(temp);

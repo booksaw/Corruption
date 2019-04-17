@@ -206,4 +206,10 @@ public class Spike extends GameObject {
 
 	}
 
+	@Override
+	public String getCopy() {
+		return "object:spike:" + (int) x + ";" + (int) y + ";" + width + ";" + height + ";" + d.getFileOutput() + ";" + generateUUID();
+
+	}
+
 }

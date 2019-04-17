@@ -358,6 +358,8 @@ public abstract class Selectable extends Renderable implements Location, Dimensi
 	 * @return
 	 */
 	public abstract Rectangle getRectangle();
+	
+	public abstract String getCopy();
 
 	/**
 	 * Used to paint something which extends a selectable

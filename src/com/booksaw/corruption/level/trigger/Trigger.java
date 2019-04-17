@@ -152,4 +152,9 @@ public class Trigger extends Selectable implements Dimensions, Location {
 		return "trigger:" + (int) x + ";" + (int) y + ";" + width + ";" + height + ";" + uuid;
 
 	}
+
+	@Override
+	public String getCopy() {
+		return toString();
+	}
 }

@@ -61,4 +61,11 @@ public class ColoredBackground extends Background {
 		this.c = c;
 	}
 
+	@Override
+	public String getCopy() {
+		return "background:colored:" + (int) x + ";" + (int) y + ";" + width + ";" + height + ";" + c.getRed() + ";"
+				+ c.getGreen() + ";" + c.getBlue() + ";" + generateUUID();
+
+	}
+
 }

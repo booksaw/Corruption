@@ -126,4 +126,9 @@ public class Slime extends GameObject {
 
 	}
 
+	@Override
+	public String getCopy() {
+		return "object:slime:" + (int) x + ";" + (int) y + ";" + width + ";" + height + ";" + generateUUID();
+	}
+
 }

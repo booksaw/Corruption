@@ -149,4 +149,11 @@ public class Door extends GameObject {
 
 	}
 
+	@Override
+	public String getCopy() {
+		calculatePosition();
+		return "object:door:" + (int) centrex + ";" + (int) centrey + ";" + open + ";" + left + ";" + width + ";"
+				+ height + ";" + generateUUID();
+	}
+
 }

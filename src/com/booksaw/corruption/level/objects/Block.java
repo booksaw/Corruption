@@ -72,4 +72,10 @@ public class Block extends GameObject {
 				+ c.getGreen() + ";" + c.getBlue() + ";" + uuid;
 	}
 
+	@Override
+	public String getCopy() {
+		return "object:block:" + (int) x + ";" + (int) y + ";" + width + ";" + height + ";" + c.getRed() + ";"
+				+ c.getGreen() + ";" + c.getBlue() + ";" + generateUUID();
+	}
+
 }

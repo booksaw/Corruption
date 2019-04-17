@@ -528,6 +528,14 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 		return "sprite:" + getName() + ":" + ((int) startingLocation.x) + ";" + ((int) startingLocation.y) + ";"
 				+ activePlayer + ";" + controllable + ";" + right + ";" + uuid;
 	}
+	@Override
+	public String getCopy() {
+		if (this instanceof CameraSprite) {
+			return "";
+		}
+		return "sprite:" + getName() + ":" + ((int) startingLocation.x) + ";" + ((int) startingLocation.y) + ";"
+				+ activePlayer + ";" + controllable + ";" + right + ";" + generateUUID();
+	}
 
 	public BufferedImage generateCursorImage() {
 
