@@ -2,9 +2,12 @@ package com.booksaw.corruption.editor.options.execution;
 
 import java.awt.Component;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,7 +20,7 @@ import com.booksaw.corruption.execution.CommandList;
 import com.booksaw.corruption.execution.ExecutionSet;
 import com.booksaw.corruption.level.LevelManager;
 
-public class SetOptions extends Option {
+public class SetOptions extends Option implements ActionListener {
 
 	ExecutionSet set;
 	String ref;
@@ -33,7 +36,6 @@ public class SetOptions extends Option {
 
 	JPanel p;
 
-	// dont forget set preffered size
 	@Override
 	public JPanel getPanel() {
 		p = new JPanel(new GridLayout(0, 1));
@@ -45,6 +47,10 @@ public class SetOptions extends Option {
 			options.add(option);
 			p.add(option.getPanel());
 		}
+
+		JButton add = new JButton(ExecutionSettings.add);
+		add.addActionListener(this);
+		p.add(add);
 
 		return p;
 	}
@@ -82,6 +88,23 @@ public class SetOptions extends Option {
 		}
 		p.remove(before.getPanel());
 		p.add(after.getPanel(), option);
+		p.revalidate();
+		f.pack();
+
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+
+		ExecutionOption option = CommandList.getExecutionOption(CommandList.KILL, new String[0], f, this);
+
+		int location = p.getComponents().length - 1;
+		if (location < 0) {
+			location = 0;
+		}
+
+		options.add(option);
+		p.add(option.getPanel(), location);
 		p.revalidate();
 		f.pack();
 
