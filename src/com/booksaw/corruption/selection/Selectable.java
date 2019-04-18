@@ -16,10 +16,13 @@ import com.booksaw.corruption.CursorManager;
 import com.booksaw.corruption.Renderable;
 import com.booksaw.corruption.Utils;
 import com.booksaw.corruption.level.Dimensions;
+import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.level.Location;
+import com.booksaw.corruption.level.objects.GameObject;
 import com.booksaw.corruption.listeners.EditorKeyListener;
 import com.booksaw.corruption.listeners.Listener;
 import com.booksaw.corruption.render.GameCamera;
+import com.booksaw.corruption.sprites.Sprite;
 
 /**
  * Any object which can be selected will extend this class
@@ -52,6 +55,18 @@ public abstract class Selectable extends Renderable implements Location, Dimensi
 	}
 
 	public static Selectable findSelectable(Rectangle r) {
+
+		for (Sprite s : LevelManager.activeLevel.getSprites()) {
+			if (s.getRectangle().intersects(r)) {
+				return s;
+			}
+		}
+
+		for (GameObject s : LevelManager.activeLevel.getLevelObjects()) {
+			if (s.getRectangle().intersects(r)) {
+				return s;
+			}
+		}
 
 		for (Selectable s : allSelectables) {
 			if (r.intersects(s.getRectangle())) {

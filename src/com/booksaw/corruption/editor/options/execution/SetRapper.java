@@ -50,5 +50,7 @@ public class SetRapper extends Option {
 		LevelManager.activeLevel.getSaveManager().config.saveConfiguration();
 
 	}
+	
+	
 
 }

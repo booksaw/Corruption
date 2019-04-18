@@ -10,7 +10,6 @@ import com.booksaw.corruption.listeners.EditorKeyListener;
 import com.booksaw.corruption.listeners.EditorMouseListener;
 import com.booksaw.corruption.listeners.KeyListener;
 import com.booksaw.corruption.listeners.Listener;
-import com.booksaw.corruption.listeners.ListenerManager;
 import com.booksaw.corruption.render.GameCamera;
 import com.booksaw.corruption.render.RenderInterface;
 import com.booksaw.corruption.render.overlays.EditorOverlay;
@@ -139,13 +138,13 @@ public class EditorController extends RenderController {
 	public void toogleTestMode() {
 		if (testing) {
 
-			if (listen != null)
-				ListenerManager.removeListener(listen);
+//			if (listen != null)
+//				ListenerManager.removeListener(listen);
 			testing = false;
 
 		} else {
-			listen = new KeyListener();
-			ListenerManager.addListener(listen);
+//			listen = new KeyListener();
+//			ListenerManager.addListener(listen);
 			testing = true;
 			Sprite s = LevelManager.activeLevel.getActivePlayer();
 			s.bindToCamera(s.getX());

@@ -30,7 +30,7 @@ public class CameraSprite extends Sprite {
 	}
 
 	@Override
-	protected BufferedImage getStanding() {
+	public BufferedImage getStanding() {
 		return null;
 	}
 
@@ -68,6 +68,8 @@ public class CameraSprite extends Sprite {
 	}
 
 	private void calculateX(int time) {
+
+		
 
 		if (KeyListener.listen.left) {
 			x = changeX(x - (SPEED * time), x);

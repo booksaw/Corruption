@@ -81,7 +81,6 @@ public abstract class OptionPane implements ActionListener, KeyListener {
 		f.addKeyListener(this);
 		f.setContentPane(wrapper);
 		f.pack();
-		System.out.println(c.getHeight());
 		f.setLocationRelativeTo(Corruption.main.getFrame());
 
 	}

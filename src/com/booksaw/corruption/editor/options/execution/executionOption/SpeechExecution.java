@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 import com.booksaw.corruption.editor.options.execution.ExecutionOption;
 import com.booksaw.corruption.editor.options.execution.SetOptions;
@@ -14,35 +15,34 @@ import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.selection.Selectable;
 import com.booksaw.corruption.sprites.Sprite;
 
-public class KillExecution extends ExecutionOption {
+public class SpeechExecution extends ExecutionOption {
 
-	Sprite selection;
-
-	public KillExecution(JFrame f, String[] information, SetOptions set) {
+	public SpeechExecution(JFrame f, String[] information, SetOptions set) {
 		super(f, information, set);
 	}
+
+	JTextArea area;
+	Sprite selection = null;
 
 	@Override
 	protected JPanel generatePanel() {
 		JPanel p = new JPanel(new GridLayout(1, 0));
-		p.add(getCommandSelector(CommandList.KILL));
 
-		if (information.length > 0) {
+		p.add(getCommandSelector(CommandList.SPEECH));
+
+		area = new JTextArea();
+
+		if (information.length > 1) {
 			selection = (Sprite) Selectable.getSelectable(UUID.fromString(information[0]));
 			setSelected(selection);
+			area.setText(information[1]);
+
 		}
+
 		p.add(getSelectableSelector());
 
+		p.add(area);
 		return p;
-	}
-
-	@Override
-	public String toSave() {
-		if(selection == null) {
-			return ""; 
-		}
-		
-		return "kill:" + selection.uuid;
 	}
 
 	@Override
@@ -52,6 +52,15 @@ public class KillExecution extends ExecutionOption {
 			selection = s;
 			setSelected(s);
 		}
-
 	}
+
+	@Override
+	public String toSave() {
+		if (selection == null) {
+			return "";
+		}
+
+		return "speech:" + selection.uuid + ":" + area.getText();
+	}
+
 }

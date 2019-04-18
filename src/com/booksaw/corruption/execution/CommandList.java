@@ -3,7 +3,9 @@ package com.booksaw.corruption.execution;
 import javax.swing.JFrame;
 
 import com.booksaw.corruption.editor.options.execution.ExecutionOption;
+import com.booksaw.corruption.editor.options.execution.SetOptions;
 import com.booksaw.corruption.editor.options.execution.executionOption.KillExecution;
+import com.booksaw.corruption.editor.options.execution.executionOption.SpeechExecution;
 import com.booksaw.corruption.execution.commands.CommandKill;
 import com.booksaw.corruption.execution.commands.CommandSpeach;
 import com.booksaw.corruption.execution.commands.CommandTrigger;
@@ -28,10 +30,10 @@ public enum CommandList {
 		return null;
 	}
 
-	public static ExecutionOption getExecutionOption(String command, String[] args, JFrame f) {
+	public static ExecutionOption getExecutionOption(String command, String[] args, JFrame f, SetOptions set) {
 		for (CommandList value : CommandList.values()) {
 			if (value.command.equals(command)) {
-				return getExecutionOption(value, args, f);
+				return getExecutionOption(value, args, f, set);
 			}
 		}
 
@@ -51,12 +53,12 @@ public enum CommandList {
 		return null;
 	}
 
-	private static ExecutionOption getExecutionOption(CommandList command, String[] args, JFrame f) {
+	public static ExecutionOption getExecutionOption(CommandList command, String[] args, JFrame f, SetOptions set) {
 		switch (command) {
 		case KILL:
-			return new KillExecution(f, args);
+			return new KillExecution(f, args, set);
 		case SPEECH:
-			return null;
+			return new SpeechExecution(f, args, set);
 		case TRIGGER:
 			return null;
 		}

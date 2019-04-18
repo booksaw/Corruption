@@ -39,7 +39,7 @@ public class BlueNPC extends Sprite {
 	}
 
 	@Override
-	protected BufferedImage getStanding() {
+	public BufferedImage getStanding() {
 		return Utils.getImage(new File(assetFolder + "sprite.png"));
 	}
 

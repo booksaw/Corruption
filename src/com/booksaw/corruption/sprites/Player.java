@@ -59,7 +59,7 @@ public class Player extends Sprite {
 	}
 
 	@Override
-	protected BufferedImage getStanding() {
+	public BufferedImage getStanding() {
 		return Utils.getImage(new File(assetFolder.getAbsolutePath() + File.separator + "sprite.png"));
 	}
 

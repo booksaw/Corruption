@@ -118,7 +118,7 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 	 * 
 	 * @return
 	 */
-	protected abstract BufferedImage getStanding();
+	public abstract BufferedImage getStanding();
 
 	/**
 	 * Walking image

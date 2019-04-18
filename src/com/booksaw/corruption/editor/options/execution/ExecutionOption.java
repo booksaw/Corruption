@@ -2,71 +2,127 @@ package com.booksaw.corruption.editor.options.execution;
 
 import java.awt.Cursor;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.booksaw.corruption.Config;
 import com.booksaw.corruption.CursorManager;
-import com.booksaw.corruption.Utils;
+import com.booksaw.corruption.execution.CommandList;
 import com.booksaw.corruption.listeners.EditorMouseListener;
+import com.booksaw.corruption.render.GameCamera;
 import com.booksaw.corruption.render.overlays.ActiveSelection;
 import com.booksaw.corruption.selection.Selectable;
+import com.booksaw.corruption.sprites.Sprite;
 
 public abstract class ExecutionOption implements ActionListener {
 	public static ExecutionOption selector;
 
 	protected String[] information;
-	protected Selectable selection;
 	JFrame f;
 
-	public ExecutionOption(JFrame f, String[] information) {
+	Selectable selected = null;
+	SetOptions set;
+
+	public ExecutionOption(JFrame f, String[] information, SetOptions set) {
 		this.information = information;
 		this.f = f;
+		this.set = set;
+	}
+
+	JComboBox<CommandList> box;
+
+	public JComponent getCommandSelector(CommandList value) {
+		box = new JComboBox<CommandList>(CommandList.values());
+		box.setSelectedItem(value);
+		box.addActionListener(this);
+		return box;
+
 	}
 
 	private JButton eyeDropper;
 
-	public abstract JPanel getPanel();
+	protected abstract JPanel generatePanel();
+
+	JPanel p;
+
+	public JPanel getPanel() {
+
+		if (p == null) {
+			p = generatePanel();
+		}
+
+		return p;
+	}
 
 	public abstract String toSave();
 
 	public JComponent getSelectableSelector() {
-		BufferedImage eyeDropperImg = Utils.getImage(new File(Config.ASSETSPATH + File.separator + "eyedropper.png"));
 
-		Icon eyeDropperIcon = new ImageIcon(eyeDropperImg);
-
-		eyeDropper = new JButton(eyeDropperIcon);
+		eyeDropper = new JButton();
+		setupIcon();
 		eyeDropper.addActionListener(this);
+		eyeDropper.setActionCommand("eyedropper");
 		return eyeDropper;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		CursorManager.setCursor(Cursor.CROSSHAIR_CURSOR);
-		EditorMouseListener.selection = ActiveSelection.SPRITEDROPPER;
-		f.setVisible(false);
-		selector = this;
+		if (e.getActionCommand().equals("eyedropper")) {
+			CursorManager.setCursor(Cursor.CROSSHAIR_CURSOR);
+			EditorMouseListener.selection = ActiveSelection.SPRITEDROPPER;
+			f.setVisible(false);
+			selector = this;
+			return;
+		}
+
+		set.replace(this, CommandList.getExecutionOption((CommandList) box.getSelectedItem(), new String[0], f, set));
+		f.repaint();
 
 	}
 
 	public void click(Point p) {
+		p.y = GameCamera.cameraHeight - p.y;
 		CursorManager.resetCursor();
 		EditorMouseListener.selection = ActiveSelection.MAIN;
 		f.setVisible(true);
+		clickFind(p);
+	}
 
-		selection = Selectable.findSelectable(new Rectangle(p.x, p.y, 1, 1));
+	public void clickFind(Point p) {
+	}
 
+	public void setSelected(Selectable s) {
+		selected = s;
+
+		if (selected != null && eyeDropper != null) {
+			setupIcon();
+			f.repaint();
+		}
+
+	}
+
+	public void setupIcon() {
+		Icon eyeDropperIcon = null;
+		if (selected == null || !(selected instanceof Sprite)) {
+//			BufferedImage eyeDropperImg = Utils
+//					.getImage(new File(Config.ASSETSPATH + File.separator + "eyedropper.png"));
+//
+//			eyeDropperIcon = new ImageIcon(eyeDropperImg);
+		} else {
+			BufferedImage image = ((Sprite) selected).getStanding();
+			eyeDropperIcon = new ImageIcon(image);
+		}
+
+		eyeDropper.setIcon(eyeDropperIcon);
 	}
 
 }

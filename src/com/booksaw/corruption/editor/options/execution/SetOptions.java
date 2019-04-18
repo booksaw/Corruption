@@ -1,5 +1,6 @@
 package com.booksaw.corruption.editor.options.execution;
 
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,14 +31,17 @@ public class SetOptions extends Option {
 
 	List<ExecutionOption> options = new ArrayList<>();
 
+	JPanel p;
+
 	// dont forget set preffered size
 	@Override
 	public JPanel getPanel() {
-		JPanel p = new JPanel(new GridLayout(0, 1));
+		p = new JPanel(new GridLayout(0, 1));
 		p.setBorder(new EmptyBorder(10, 10, 10, 10));
 		for (String str : set.getExecutions()) {
 			String[] split = str.split(":");
-			ExecutionOption option = CommandList.getExecutionOption(split[0], Config.removeFirstElement(split), f);
+			ExecutionOption option = CommandList.getExecutionOption(split[0], Config.removeFirstElement(split), f,
+					this);
 			options.add(option);
 			p.add(option.getPanel());
 		}
@@ -61,6 +65,26 @@ public class SetOptions extends Option {
 
 	public JComponent getLayer(String command) {
 		return new JTextField(command);
+	}
+
+	public void replace(ExecutionOption before, ExecutionOption after) {
+
+		options.remove(before);
+		options.add(after);
+
+		int option = 0;
+		Component[] list = p.getComponents();
+		for (int i = 0; i < list.length; i++) {
+			if (before.getPanel() == list[i]) {
+				option = i;
+				break;
+			}
+		}
+		p.remove(before.getPanel());
+		p.add(after.getPanel(), option);
+		p.revalidate();
+		f.pack();
+
 	}
 
 }
