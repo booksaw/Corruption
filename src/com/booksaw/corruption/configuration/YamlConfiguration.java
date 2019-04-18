@@ -59,32 +59,71 @@ public class YamlConfiguration {
 
 	public void set(String ref, Object value) {
 		if (ref.contains(".")) {
-			String[] split = ref.split("\\.");
-			HashMap<String, Object> map = getHash(ref, value);
-			obj.put(split[0], map.get(split[0]));
+			dotSet(ref, value);
 		} else {
 			obj.put(ref, value);
 		}
 
 	}
 
-	private HashMap<String, Object> getHash(String parse, Object toSet) {
+	private HashMap<String, Object> getHash(String path, String[] args, int loc, Object toSet) {
 
 		HashMap<String, Object> map = new HashMap<>();
 
-		if (parse.contains(".")) {
-			String[] split = parse.split("\\.");
-			String out = "";
-			for (int i = 1; i < split.length; i++) {
-				out = out + split[i] + ((i == split.length - 1) ? "" : ".");
-			}
-			map.put(split[0], getHash(out, toSet));
+		if (args.length - 1 > loc) {
+
+			path = path + ((path.equals("") ? "" : ".") + args[loc]);
+
+			map.put(args[loc], getHash(path, args, loc + 1, toSet));
 		} else {
-			map.put(parse, toSet);
+			map.put(args[loc], toSet);
 		}
 
 		return map;
 
+	}
+
+	@SuppressWarnings("unchecked")
+	private void dotSet(String ref, Object toSet) {
+
+		String[] split = ref.split("\\.");
+
+		String path = "";
+
+		Map<String, Object> map = null, older = null;
+
+		for (int i = 0; i < split.length; i++) {
+
+			// adding to the path
+			path = path + ((path.equals("") ? "" : ".") + split[i]);
+			Object temp = getSetting(path);
+
+			if (temp != null && (temp instanceof Map<?, ?> && !path.equals(""))) {
+				older = map;
+				map = (HashMap<String, Object>) temp;
+				continue;
+			} else {
+				if (map != null) {
+					System.out.println("older = " + older);
+					System.out.println("Path = " + path);
+					older.remove(split[i - 1]);
+
+					HashMap<String, Object> test = getHash(path, split, i, toSet);
+					System.out.println(test);
+
+					for (Entry<String, Object> toMerege : map.entrySet()) {
+						test.put(toMerege.getKey(), toMerege.getValue());
+					}
+
+					older.put(split[i - 1], test);
+				} else {
+					obj.put(split[0], getHash(path, split, i, toSet));
+				}
+				return;
+			}
+		}
+
+		System.out.println("reached");
 	}
 
 	public void saveConfiguration() {

@@ -1,8 +1,10 @@
 nextLevel: 2.level
 commands:
   f787983d-1bbc-46ed-a8fc-808ed39a4b5a:
+    a02:
+    - speech:72d36902-83ea-4b38-8544-732912b7c269:test a02
     a01:
-    - speech:72d36902-83ea-4b38-8544-732912b7c269:Hii
+    - speech:72d36902-83ea-4b38-8544-732912b7c269:test a01
 level:
 - meta:leveldimensions:2000;576
 - meta:cameralocation:0;0

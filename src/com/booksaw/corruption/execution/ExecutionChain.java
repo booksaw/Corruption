@@ -63,4 +63,23 @@ public class ExecutionChain {
 
 	}
 
+	public String getNextReference() {
+		int count = 0;
+
+		while (true) {
+			count++;
+
+			String countStr = new DecimalFormat("00").format(count);
+
+			List<String> nextSet = config.getStringList(baseRef + ".a" + countStr);
+
+			if (nextSet.size() == 0) {
+				// end of the chain
+				return baseRef + ".a" + countStr;
+			}
+		}
+
+	}
+
+
 }
