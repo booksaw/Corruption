@@ -2,6 +2,8 @@ package com.booksaw.corruption.editor.options;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,8 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 
 import com.booksaw.corruption.Config;
@@ -45,6 +49,7 @@ public abstract class OptionPane implements ActionListener, KeyListener {
 		f.setResizable(false);
 
 		loadOptions();
+		JPanel wrapper = new JPanel(new GridBagLayout());
 
 		JPanel container = new JPanel(new GridLayout(0, 1));
 		for (Option op : included) {
@@ -52,12 +57,31 @@ public abstract class OptionPane implements ActionListener, KeyListener {
 			panel.setBorder(new LineBorder(Color.BLACK, 1));
 			container.add(panel);
 		}
-		container.add(getEnding());
+
+		JScrollPane pane = new JScrollPane(container);
+		pane.setMaximumSize(new Dimension(500, 500));
+
+		GridBagConstraints con = new GridBagConstraints();
+
+		con.gridx = 0;
+		con.gridy = 0;
+		con.gridheight = 3;
+		con.fill = GridBagConstraints.HORIZONTAL;
+
+		wrapper.add(pane, con);
+
+		JComponent c = getEnding();
+
+		con.gridx = 0;
+		con.gridy = 3;
+		con.gridheight = 2;
+		con.anchor = GridBagConstraints.PAGE_END;
+		wrapper.add(c, con);
 
 		f.addKeyListener(this);
-		f.setContentPane(container);
+		f.setContentPane(wrapper);
 		f.pack();
-		f.setSize(new Dimension(350, f.getHeight()));
+		System.out.println(c.getHeight());
 		f.setLocationRelativeTo(Corruption.main.getFrame());
 
 	}
@@ -107,6 +131,13 @@ public abstract class OptionPane implements ActionListener, KeyListener {
 		ok.setActionCommand("ok");
 		ok.setToolTipText(Language.getMessage("editor.tool.ok"));
 		toReturn.add(ok);
+
+//		toReturn.setPreferredSize(new Dimension(350, 50));
+//
+//		toReturn.setMaximumSize(new Dimension(350, 50));
+//		toReturn.setMinimumSize(new Dimension(350, 50));
+//
+//		toReturn.setSize(new Dimension(350, 10));
 
 		return toReturn;
 	}
