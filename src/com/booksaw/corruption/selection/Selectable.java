@@ -38,12 +38,16 @@ public abstract class Selectable extends Renderable implements Location, Dimensi
 		}
 	}
 
-	protected static Selectable getSelectable(UUID uuid) {
-		for (Selectable temp : selectable) {
-			if (temp.uuid.equals(uuid)) {
-				return temp;
+	private static List<Selectable> allSelectables = new ArrayList<>();
+
+	public static Selectable getSelectable(UUID uuid) {
+
+		for (Selectable s : allSelectables) {
+			if (s.uuid != null && s.uuid.equals(uuid)) {
+				return s;
 			}
 		}
+
 		return null;
 	}
 
@@ -122,6 +126,10 @@ public abstract class Selectable extends Renderable implements Location, Dimensi
 	 */
 	public static void setSelectable(List<Selectable> selectable) {
 		Selectable.selectable = selectable;
+	}
+
+	public Selectable() {
+		allSelectables.add(this);
 	}
 
 	/**
@@ -339,6 +347,10 @@ public abstract class Selectable extends Renderable implements Location, Dimensi
 			starting = p;
 			break;
 		}
+	}
+
+	public void trigger(String[] args) {
+
 	}
 
 	/**

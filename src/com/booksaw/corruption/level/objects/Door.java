@@ -23,17 +23,18 @@ public class Door extends GameObject {
 		doorOpen = Utils.getImage(new File(PATH + "dooropen.png"));
 	}
 
-	boolean open;
+	boolean startingOpen, open;
 	boolean left;
 
 	public Door(String info) {
+		super();
 		String[] split = info.split(";");
 		centrex = Integer.parseInt(split[0]);
 		centrey = Integer.parseInt(split[1]);
-		setOpen(Boolean.parseBoolean(split[2]));
+
 		left = Boolean.parseBoolean(split[3]);
 		width = Integer.parseInt(split[4]);
-
+		setOpen(Boolean.parseBoolean(split[2]));
 		height = doorClosed.getHeight() * Sprite.PIXELMULT;
 
 		height = Integer.parseInt(split[5]);
@@ -46,7 +47,7 @@ public class Door extends GameObject {
 	}
 
 	public Door(Point p, boolean open) {
-		this.open = open;
+		super();
 		centrex = p.x;
 		centrey = p.y;
 
@@ -55,6 +56,7 @@ public class Door extends GameObject {
 		height = doorClosed.getHeight() * Sprite.PIXELMULT;
 		width = ((open) ? doorOpen.getWidth() : doorClosed.getWidth()) * Sprite.PIXELMULT;
 		collisionMode = (open) ? Mode.SOLID : Mode.IGNORE;
+		setOpen(open);
 		calculatePosition();
 	}
 
@@ -109,6 +111,7 @@ public class Door extends GameObject {
 	}
 
 	public void setOpen(boolean open) {
+		startingOpen = open;
 		if (open) {
 			open();
 		} else {
@@ -118,6 +121,10 @@ public class Door extends GameObject {
 
 	public boolean isOpen() {
 		return open;
+	}
+
+	public boolean isStartingOpen() {
+		return startingOpen;
 	}
 
 	private void calculatePosition() {
@@ -152,8 +159,22 @@ public class Door extends GameObject {
 	@Override
 	public String getCopy() {
 		calculatePosition();
-		return "object:door:" + (int) centrex + ";" + (int) centrey + ";" + open + ";" + left + ";" + width + ";"
-				+ height + ";" + generateUUID();
+		return "object:door:" + (int) centrex + ";" + (int) centrey + ";" + startingOpen + ";" + left + ";" + width
+				+ ";" + height + ";" + generateUUID();
+	}
+
+	@Override
+	public void trigger(String[] args) {
+		super.trigger(args);
+
+		switch (args[0]) {
+		case "open":
+			if (Boolean.parseBoolean(args[1])) {
+				open();
+			} else
+				close();
+		}
+
 	}
 
 }

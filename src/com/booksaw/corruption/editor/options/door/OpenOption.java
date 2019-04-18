@@ -29,7 +29,7 @@ public class OpenOption extends MessageOption {
 	public JComponent getInput() {
 
 		box = new JCheckBox();
-		box.setSelected(d.isOpen());
+		box.setSelected(d.isStartingOpen());
 
 		return box;
 	}

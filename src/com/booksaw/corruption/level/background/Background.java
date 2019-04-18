@@ -28,6 +28,7 @@ public abstract class Background extends Selectable implements Dimensions, Locat
 	}
 
 	public Background() {
+		super();
 		priority = 50;
 	}
 

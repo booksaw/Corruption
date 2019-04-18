@@ -153,6 +153,7 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 	HashMap<AudioInstance, AudioClip> audio = new HashMap<>();
 
 	public Sprite() {
+		super();
 		priority = 5;
 		// any sprite specific setup
 		setup();

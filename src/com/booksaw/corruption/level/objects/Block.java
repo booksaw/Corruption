@@ -38,6 +38,7 @@ public class Block extends GameObject {
 	}
 
 	public Block(Rectangle position, Color c) {
+		super();
 		x = position.x;
 		y = position.y;
 		width = position.width;

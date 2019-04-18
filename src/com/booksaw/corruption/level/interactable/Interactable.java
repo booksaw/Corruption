@@ -82,6 +82,7 @@ public class Interactable extends Selectable {
 	 * @param lm
 	 */
 	public Interactable(String name, LevelManager lm) {
+		super();
 		this.name = name;
 		x = -1;
 		y = -1;

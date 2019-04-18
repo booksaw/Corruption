@@ -45,7 +45,7 @@ public class Spike extends GameObject {
 	}
 
 	public Spike(String info) {
-
+		super();
 		collisionMode = Mode.DEATH;
 		// getting object data from the split
 		String[] split = info.split(";");
@@ -78,6 +78,7 @@ public class Spike extends GameObject {
 	}
 
 	public Spike(Point p, Direction d) {
+		super();
 		collisionMode = Mode.DEATH;
 		x = p.x;
 		y = p.y;

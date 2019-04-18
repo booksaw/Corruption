@@ -24,7 +24,7 @@ public class Slime extends GameObject {
 	int mainHeight, topHeight, repeats, yIterations;
 
 	public Slime(String info) {
-
+		super();
 		collisionMode = Mode.DEATH;
 		// getting object data from the split
 		String[] split = info.split(";");
@@ -42,6 +42,7 @@ public class Slime extends GameObject {
 	}
 
 	public Slime(Point p) {
+		super();
 		collisionMode = Mode.DEATH;
 		x = p.x;
 		y = p.y;
