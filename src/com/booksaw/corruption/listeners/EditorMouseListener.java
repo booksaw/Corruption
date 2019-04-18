@@ -23,6 +23,8 @@ import com.booksaw.corruption.editor.options.background.BackgroundSettings;
 import com.booksaw.corruption.editor.options.cursor.CursorSettings;
 import com.booksaw.corruption.editor.options.cursor.CursorSettings.SELECTION;
 import com.booksaw.corruption.editor.options.door.DoorSettings;
+import com.booksaw.corruption.editor.options.execution.ExecutionOption;
+import com.booksaw.corruption.editor.options.execution.ExecutionSettings;
 import com.booksaw.corruption.editor.options.gameobjects.BlockSettings;
 import com.booksaw.corruption.editor.options.npc.NPCSettings;
 import com.booksaw.corruption.editor.options.player.PlayerSettings;
@@ -66,10 +68,7 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 	@Override
 	public void mouseDragged(MouseEvent e) {
 
-		if (selection == ActiveSelection.SPRITE || selection == ActiveSelection.SPRITECURSOR
-				|| selection == ActiveSelection.OBJECT || selection == ActiveSelection.OBJECTCURSOR
-				|| selection == ActiveSelection.INTERACTABLE || selection == ActiveSelection.INTERACTABLECURSOR
-				|| selection == ActiveSelection.EYEDROPPER) {
+		if (selection != ActiveSelection.MAIN) {
 			return;
 		}
 
@@ -114,7 +113,7 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 	@Override
 	public void mouseMoved(MouseEvent e) {
 
-		if (selection == ActiveSelection.EYEDROPPER) {
+		if (selection == ActiveSelection.EYEDROPPER || selection == ActiveSelection.SPRITEDROPPER) {
 			return;
 		}
 
@@ -144,10 +143,7 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if (selection == ActiveSelection.SPRITE || selection == ActiveSelection.SPRITECURSOR
-				|| selection == ActiveSelection.OBJECT || selection == ActiveSelection.OBJECTCURSOR
-				|| selection == ActiveSelection.INTERACTABLE || selection == ActiveSelection.INTERACTABLECURSOR
-				|| selection == ActiveSelection.EYEDROPPER) {
+		if (selection != ActiveSelection.MAIN) {
 			return;
 		}
 
@@ -214,6 +210,10 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 			} catch (AWTException e1) {
 				break;
 			}
+
+			break;
+		case SPRITEDROPPER:
+			ExecutionOption.selector.click(p);
 
 			break;
 		}
@@ -413,6 +413,14 @@ public class EditorMouseListener implements Listener, MouseListener, MouseMotion
 		}
 		Point temp = new Point(p.x + GameCamera.activeCamera.x,
 				GameCamera.cameraHeight - (p.y + GameCamera.activeCamera.y));
+
+		if (Trigger.showTriggers) {
+			Trigger t = Trigger.getTrigger(temp, LevelManager.activeLevel.getTriggers());
+			if (t != null) {
+				new ExecutionSettings(t).setVisible(true);
+				return;
+			}
+		}
 
 		GameObject o = GameObject.getObject(temp);
 		if (o != null) {

@@ -22,6 +22,7 @@ public class SaveManager {
 	Stack<Change> redo = new Stack<>();
 
 	List<String> levelInfo = new ArrayList<>();
+	List<String> commands = new ArrayList<>();
 	public YamlConfiguration config;
 
 	// details read from the level file
@@ -108,6 +109,17 @@ public class SaveManager {
 		changes = true;
 		levelInfo = newLevelInfo;
 
+	}
+
+	/**
+	 * Used to track if there are changes that are not undoable
+	 * 
+	 * @param authority
+	 */
+	public void changes(boolean authority) {
+		if (authority) {
+			changes = true;
+		}
 	}
 
 	public void save() {

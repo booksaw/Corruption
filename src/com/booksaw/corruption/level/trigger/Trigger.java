@@ -132,7 +132,7 @@ public class Trigger extends Selectable implements Dimensions, Location {
 
 	public void trigger() {
 		active = true;
-		new ExecutionChain("commands." + uuid, LevelManager.activeLevel.getSaveManager().config);
+		new ExecutionChain("commands." + uuid, LevelManager.activeLevel.getSaveManager().config, true);
 	}
 
 	@Override

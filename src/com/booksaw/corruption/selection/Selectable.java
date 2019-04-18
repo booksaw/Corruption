@@ -51,6 +51,17 @@ public abstract class Selectable extends Renderable implements Location, Dimensi
 		return null;
 	}
 
+	public static Selectable findSelectable(Rectangle r) {
+
+		for (Selectable s : allSelectables) {
+			if (r.intersects(s.getRectangle())) {
+				return s;
+			}
+		}
+
+		return null;
+	}
+
 	public UUID uuid;
 	// location
 	protected double x, y;

@@ -58,7 +58,32 @@ public class YamlConfiguration {
 	}
 
 	public void set(String ref, Object value) {
-		obj.put(ref, value);
+		if (ref.contains(".")) {
+			String[] split = ref.split("\\.");
+			HashMap<String, Object> map = getHash(ref, value);
+			obj.put(split[0], map.get(split[0]));
+		} else {
+			obj.put(ref, value);
+		}
+
+	}
+
+	private HashMap<String, Object> getHash(String parse, Object toSet) {
+
+		HashMap<String, Object> map = new HashMap<>();
+
+		if (parse.contains(".")) {
+			String[] split = parse.split("\\.");
+			String out = "";
+			for (int i = 1; i < split.length; i++) {
+				out = out + split[i] + ((i == split.length - 1) ? "" : ".");
+			}
+			map.put(split[0], getHash(out, toSet));
+		} else {
+			map.put(parse, toSet);
+		}
+
+		return map;
 
 	}
 

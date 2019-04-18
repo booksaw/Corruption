@@ -1,3 +1,8 @@
+nextLevel: 2.level
+commands:
+  f787983d-1bbc-46ed-a8fc-808ed39a4b5a:
+    a01:
+    - kill:8e702cdb-7943-444e-a0f8-3e252584f29b
 level:
 - meta:leveldimensions:2000;576
 - meta:cameralocation:0;0
@@ -5,7 +10,7 @@ level:
 - object:block:0;237;412;25;230;214;214;44f60cfc-13b9-484b-8c23-8431bbf112f0
 - object:block:406;64;6;197;230;214;214;4daa74d9-b6c4-41ba-814a-d3a5957cbb7c
 - object:block:50;-33;438;29;0;0;0;aa56f12d-33a9-46a8-a1f9-019c71bbfa6d
-- object:door:415;0;false;true;28;66;64b9198a-1b15-4624-8b94-b168a006682b
+- object:door:415;0;false;true;10;66;64b9198a-1b15-4624-8b94-b168a006682b
 - object:block:600;-2;119;29;146;87;87;854c36d2-b0e2-4a81-abb8-7dfb3b64ae74
 - object:block:775;84;31;112;146;87;87;aaf428dd-d81d-4c5a-a660-677ff33797d5
 - object:spike:718;-1;302;28;u;3a20df1e-d02a-4bc2-910d-ee940e402eeb
@@ -34,12 +39,4 @@ level:
 - interactable:1704;462;126;80;desk;0d329f09-d938-478d-9d82-5898b239ef02
 - interactable:17;263;371;83;logo;34dc8f82-5ac9-43ed-9ecb-d467d53f62f0
 - interactable:1082;17;70;15;checkpoint;9ccd771e-4c3e-45c7-b597-ac671856c65c
-- trigger:245;0;164;234;f787983d-1bbc-46ed-a8fc-808ed39a4b5a
-nextLevel: 2.level
-commands:
-  f787983d-1bbc-46ed-a8fc-808ed39a4b5a:
-    a01:
-    - speech:6bbbba96-274f-4fdd-af01-0b05b3408fbf:This is an example of working text
-    a02:
-    - speech:6bbbba96-274f-4fdd-af01-0b05b3408fbf:Fully functional
-    - trigger:64b9198a-1b15-4624-8b94-b168a006682b:open:true
+- trigger:247;0;164;239;f787983d-1bbc-46ed-a8fc-808ed39a4b5a

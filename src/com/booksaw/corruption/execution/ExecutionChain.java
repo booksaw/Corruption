@@ -1,6 +1,7 @@
 package com.booksaw.corruption.execution;
 
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.List;
 
 import com.booksaw.corruption.configuration.YamlConfiguration;
@@ -11,12 +12,13 @@ public class ExecutionChain {
 	int count = 0;
 	YamlConfiguration config;
 
-	public ExecutionChain(String baseRef, YamlConfiguration config) {
+	public ExecutionChain(String baseRef, YamlConfiguration config, boolean execute) {
 
 		this.baseRef = baseRef;
 		this.config = config;
 
-		advance();
+		if (execute)
+			advance();
 	}
 
 	public void advance() {
@@ -32,7 +34,32 @@ public class ExecutionChain {
 			return;
 		}
 
-		new ExecutionSet(this, nextSet);
+		ExecutionSet set = new ExecutionSet(this, nextSet);
+		set.run();
+	}
+
+	/**
+	 * Used to read the config for the editor
+	 * 
+	 * @return
+	 */
+	public HashMap<String, ExecutionSet> getSets() {
+		HashMap<String, ExecutionSet> sets = new HashMap<>();
+		int count = 0;
+
+		while (true) {
+			count++;
+
+			String countStr = new DecimalFormat("00").format(count);
+
+			List<String> nextSet = config.getStringList(baseRef + ".a" + countStr);
+
+			if (nextSet.size() == 0) {
+				// end of the chain
+				return sets;
+			}
+			sets.put(baseRef + ".a" + countStr, new ExecutionSet(this, nextSet));
+		}
 
 	}
 
