@@ -85,7 +85,6 @@ public class YamlConfiguration {
 
 	@SuppressWarnings("unchecked")
 	private void dotSet(String ref, Object toSet) {
-
 		String[] split = ref.split("\\.");
 
 		String path = "";
@@ -106,6 +105,8 @@ public class YamlConfiguration {
 				if (map != null) {
 					if (older != null)
 						older.remove(split[i - 1]);
+					else
+						obj.remove(split[0]);
 
 					HashMap<String, Object> test = getHash(path, split, i, toSet);
 					for (Entry<String, Object> toMerege : map.entrySet()) {
@@ -114,6 +115,8 @@ public class YamlConfiguration {
 					}
 					if (older != null)
 						older.put(split[i - 1], test);
+					else
+						obj.put(split[0], test);
 				} else {
 					obj.put(split[0], getHash(path, split, i, toSet));
 				}
