@@ -104,18 +104,16 @@ public class YamlConfiguration {
 				continue;
 			} else {
 				if (map != null) {
-					System.out.println("older = " + older);
-					System.out.println("Path = " + path);
-					older.remove(split[i - 1]);
+					if (older != null)
+						older.remove(split[i - 1]);
 
 					HashMap<String, Object> test = getHash(path, split, i, toSet);
-					System.out.println(test);
-
 					for (Entry<String, Object> toMerege : map.entrySet()) {
-						test.put(toMerege.getKey(), toMerege.getValue());
+						if (!test.containsKey(toMerege.getKey()))
+							test.put(toMerege.getKey(), toMerege.getValue());
 					}
-
-					older.put(split[i - 1], test);
+					if (older != null)
+						older.put(split[i - 1], test);
 				} else {
 					obj.put(split[0], getHash(path, split, i, toSet));
 				}
@@ -123,7 +121,6 @@ public class YamlConfiguration {
 			}
 		}
 
-		System.out.println("reached");
 	}
 
 	public void saveConfiguration() {

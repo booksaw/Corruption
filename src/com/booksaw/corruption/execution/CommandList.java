@@ -6,6 +6,7 @@ import com.booksaw.corruption.editor.options.execution.ExecutionOption;
 import com.booksaw.corruption.editor.options.execution.SetOptions;
 import com.booksaw.corruption.editor.options.execution.executionOption.KillExecution;
 import com.booksaw.corruption.editor.options.execution.executionOption.SpeechExecution;
+import com.booksaw.corruption.editor.options.execution.executionOption.TriggerExecution;
 import com.booksaw.corruption.execution.commands.CommandKill;
 import com.booksaw.corruption.execution.commands.CommandSpeach;
 import com.booksaw.corruption.execution.commands.CommandTrigger;
@@ -60,7 +61,7 @@ public enum CommandList {
 		case SPEECH:
 			return new SpeechExecution(f, args, set);
 		case TRIGGER:
-			return null;
+			return new TriggerExecution(f, args, set);
 		}
 
 		return null;

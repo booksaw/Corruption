@@ -2,9 +2,12 @@ nextLevel: 2.level
 commands:
   f787983d-1bbc-46ed-a8fc-808ed39a4b5a:
     a02:
-    - speech:72d36902-83ea-4b38-8544-732912b7c269:test a02
+    - speech:72d36902-83ea-4b38-8544-732912b7c269:Good! your getting the idea.
     a01:
-    - speech:72d36902-83ea-4b38-8544-732912b7c269:test a01
+    - speech:72d36902-83ea-4b38-8544-732912b7c269:Use W, S, A, D to move around.
+    a03:
+    - speech:72d36902-83ea-4b38-8544-732912b7c269:Let me get the door for you.
+    - trigger:64b9198a-1b15-4624-8b94-b168a006682b:open:true
 level:
 - meta:leveldimensions:2000;576
 - meta:cameralocation:0;0
@@ -35,7 +38,7 @@ level:
 - background:colored:1695;461;145;115;162;34;34;20401d6b-7980-44e7-beba-d8bda064138b
 - background:colored:0;360;412;222;0;165;0;8e702cdb-7943-444e-a0f8-3e252584f29b
 - background:colored:1638;278;59;312;162;34;34;72eb81af-6b4e-4d78-8dde-2d0498a5923a
-- sprite:player:61;39;true;true;true;6bbbba96-274f-4fdd-af01-0b05b3408fbf
+- sprite:player:61;39;true;true;false;6bbbba96-274f-4fdd-af01-0b05b3408fbf
 - sprite:bluenpc:334;3;false;false;false;72d36902-83ea-4b38-8544-732912b7c269
 - interactable:192;0;96;34;table;d40c8518-6a8d-46a6-a468-7f7de7eb9e46
 - interactable:1704;462;126;80;desk;0d329f09-d938-478d-9d82-5898b239ef02
