@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.booksaw.corruption.Config;
 import com.booksaw.corruption.Corruption;
+import com.booksaw.corruption.CursorManager;
 import com.booksaw.corruption.listeners.ListenerManager;
 import com.booksaw.corruption.listeners.MenuOverlayListener;
 import com.booksaw.corruption.render.GameMenu;
@@ -127,17 +128,24 @@ public abstract class MenuOverlay extends Overlay {
 
 	MenuOverlayListener listener;
 
+	boolean hidden = false;
+
 	@Override
 	public void show() {
 		super.show();
 		listener = new MenuOverlayListener(this);
 		ListenerManager.addListener(listener);
+		hidden = CursorManager.hidden;
+		CursorManager.resetCursor();
 	}
 
 	@Override
 	public void hide() {
 		super.hide();
 		ListenerManager.removeListener(listener);
+		if (hidden) {
+			CursorManager.hideCursor();
+		}
 	}
 
 }

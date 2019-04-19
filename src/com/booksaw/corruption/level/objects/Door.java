@@ -166,7 +166,6 @@ public class Door extends GameObject {
 	@Override
 	public void trigger(String[] args) {
 		super.trigger(args);
-
 		switch (args[0]) {
 		case "open":
 			if (Boolean.parseBoolean(args[1])) {

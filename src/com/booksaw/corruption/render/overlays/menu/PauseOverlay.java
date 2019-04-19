@@ -4,7 +4,6 @@ import javax.swing.JOptionPane;
 
 import com.booksaw.corruption.Config;
 import com.booksaw.corruption.Corruption;
-import com.booksaw.corruption.CursorManager;
 import com.booksaw.corruption.language.Language;
 import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.render.overlays.Overlay;
@@ -59,23 +58,18 @@ public class PauseOverlay extends MenuOverlay {
 
 	}
 
-	boolean hidden = false;
-
 	@Override
 	public void show() {
 		super.show();
 		paused = true;
-		hidden = CursorManager.hidden;
-		CursorManager.resetCursor();
+
 	}
 
 	@Override
 	public void hide() {
 		super.hide();
 		paused = false;
-		if (hidden) {
-			CursorManager.hideCursor();
-		}
+
 	}
 
 }
