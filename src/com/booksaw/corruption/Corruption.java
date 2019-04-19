@@ -185,7 +185,7 @@ public class Corruption implements ActionListener, ComponentListener {
 
 		f.repaint();
 
-		if (CursorManager.hidden && f.isActive()) {
+		if (CursorManager.hidden && f.isActive() && !(controller instanceof EditorController)) {
 			Robot robot;
 			try {
 				robot = new Robot();
