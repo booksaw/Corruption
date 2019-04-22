@@ -59,7 +59,6 @@ public class SpeechExecution extends ExecutionOption {
 		if (selection == null) {
 			return "";
 		}
-
 		return "speech:" + selection.uuid + ":" + area.getText();
 	}
 

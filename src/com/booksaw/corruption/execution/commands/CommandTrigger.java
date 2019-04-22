@@ -15,8 +15,8 @@ public class CommandTrigger extends Command {
 
 	@Override
 	public void execute(String command, String[] args) {
-		System.out.println(args[0]);
 		Selectable s = Selectable.getSelectable(UUID.fromString(args[0]));
+		System.out.println(s);
 		s.trigger(Config.removeFirstElement(args));
 	}
 

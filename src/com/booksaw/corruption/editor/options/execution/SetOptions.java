@@ -59,9 +59,13 @@ public class SetOptions extends Option implements ActionListener {
 	public void saveData() {
 
 		List<String> commands = new ArrayList<>();
-
 		for (ExecutionOption option : options) {
-			commands.add(option.toSave());
+			String str = option.toSave();
+			if (!str.equals(""))
+				commands.add(option.toSave());
+		}
+		if (commands.size() == 0) {
+			return;
 		}
 
 		set.setExecutions(commands);

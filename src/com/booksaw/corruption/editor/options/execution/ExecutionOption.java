@@ -91,6 +91,7 @@ public abstract class ExecutionOption implements ActionListener {
 
 	public void click(Point p) {
 		p.y = GameCamera.cameraHeight - p.y;
+		p.x = p.x + GameCamera.activeCamera.x;
 		CursorManager.resetCursor();
 		EditorMouseListener.selection = ActiveSelection.MAIN;
 		f.setVisible(true);
@@ -102,7 +103,6 @@ public abstract class ExecutionOption implements ActionListener {
 
 	public void setSelected(Selectable s) {
 		selected = s;
-
 		if (selected != null && eyeDropper != null) {
 			setupIcon();
 			f.repaint();

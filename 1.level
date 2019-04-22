@@ -25,24 +25,29 @@ level:
 - object:block:406;400;6;197;230;214;214;12750f40-b4f8-4137-ba77-a657bf0a0ee1
 - object:slime:1217;-5;747;30;3ed22c5b-f617-490b-9ac5-4dd79035227e
 - object:block:1943;2;64;19;0;0;0;55f40d57-2835-4483-a7df-47561b407c50
-- object:block:886;236;54;13;146;87;87;936d44b1-6403-4ebc-9e93-a4da8ebac99c
+- object:block:877;324;54;13;146;87;87;936d44b1-6403-4ebc-9e93-a4da8ebac99c
 - background:colored:0;-36;406;274;162;34;34;3d4a7c7b-f939-4c99-9ae6-917387414c6a
 - background:colored:1695;461;145;115;162;34;34;20401d6b-7980-44e7-beba-d8bda064138b
 - background:colored:0;360;412;222;0;165;0;8e702cdb-7943-444e-a0f8-3e252584f29b
 - background:colored:1638;278;59;312;162;34;34;72eb81af-6b4e-4d78-8dde-2d0498a5923a
 - sprite:player:61;39;true;true;false;6bbbba96-274f-4fdd-af01-0b05b3408fbf
 - sprite:bluenpc:334;-3;false;false;false;72d36902-83ea-4b38-8544-732912b7c269
-- sprite:bluenpc:890;249;false;false;false;10427465-96b6-4236-8483-1102f8f87a5d
+- sprite:bluenpc:881;337;false;false;false;10427465-96b6-4236-8483-1102f8f87a5d
 - interactable:192;0;96;34;table;d40c8518-6a8d-46a6-a468-7f7de7eb9e46
 - interactable:1704;462;126;80;desk;0d329f09-d938-478d-9d82-5898b239ef02
 - interactable:17;263;371;83;logo;34dc8f82-5ac9-43ed-9ecb-d467d53f62f0
 - interactable:1082;17;70;15;checkpoint;9ccd771e-4c3e-45c7-b597-ac671856c65c
 - trigger:3;0;412;242;f787983d-1bbc-46ed-a8fc-808ed39a4b5a
 - trigger:598;30;175;551;42e10d07-15e6-453a-95c3-0dd6ffe0a955
+- trigger:1175;251;205;220;097634be-94f3-4699-9796-a6e8bd484b31
 commands:
   42e10d07-15e6-453a-95c3-0dd6ffe0a955:
+    a03:
+    - speech:10427465-96b6-4236-8483-1102f8f87a5d:but make sure you are touching a wall when you do it.
     a01:
-    - speech:10427465-96b6-4236-8483-1102f8f87a5d:f
+    - speech:10427465-96b6-4236-8483-1102f8f87a5d:Looks a bit high?
+    a02:
+    - speech:10427465-96b6-4236-8483-1102f8f87a5d:Press jump to wall jump.
   f787983d-1bbc-46ed-a8fc-808ed39a4b5a:
     a02:
     - speech:72d36902-83ea-4b38-8544-732912b7c269:Good! your getting the idea.
