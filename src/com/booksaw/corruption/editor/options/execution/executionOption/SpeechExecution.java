@@ -1,6 +1,8 @@
 package com.booksaw.corruption.editor.options.execution.executionOption;
 
-import java.awt.GridLayout;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Point;
 import java.util.UUID;
 
@@ -26,9 +28,15 @@ public class SpeechExecution extends ExecutionOption {
 
 	@Override
 	protected JPanel generatePanel() {
-		JPanel p = new JPanel(new GridLayout(1, 0));
+		JPanel p = new JPanel(new GridBagLayout());
 
-		p.add(getCommandSelector(CommandList.SPEECH));
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		c.fill = GridBagConstraints.VERTICAL;
+		c.gridwidth = 1;
+
+		p.add(getCommandSelector(CommandList.SPEECH), c);
 
 		area = new JTextArea();
 
@@ -36,12 +44,16 @@ public class SpeechExecution extends ExecutionOption {
 			selection = (Sprite) Selectable.getSelectable(UUID.fromString(information[0]));
 			setSelected(selection);
 			area.setText(information[1]);
+			area.setMaximumSize(new Dimension(100, 100));
 
 		}
 
-		p.add(getSelectableSelector());
+		c.gridx = 1;
+		p.add(getSelectableSelector(), c);
 
-		p.add(area);
+		c.gridx = 2;
+		c.anchor = GridBagConstraints.PAGE_END;
+		p.add(area, c);
 		return p;
 	}
 
