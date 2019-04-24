@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 import java.awt.Point;
 import java.util.UUID;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -26,7 +27,10 @@ public class TriggerExecution extends ExecutionOption {
 	@Override
 	protected JPanel generatePanel() {
 		JPanel p = new JPanel(new GridLayout(1, 0));
-		p.add(getCommandSelector(CommandList.TRIGGER));
+		JComponent c = getCommandSelector(CommandList.TRIGGER);
+		p.add(getRemove());
+
+		p.add(c);
 
 		area = new JTextArea();
 

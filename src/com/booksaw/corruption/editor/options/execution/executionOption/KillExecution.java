@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 import java.awt.Point;
 import java.util.UUID;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -25,7 +26,9 @@ public class KillExecution extends ExecutionOption {
 	@Override
 	protected JPanel generatePanel() {
 		JPanel p = new JPanel(new GridLayout(1, 0));
-		p.add(getCommandSelector(CommandList.KILL));
+		JComponent c = getCommandSelector(CommandList.KILL);
+		p.add(getRemove());
+		p.add(c);
 
 		if (information.length > 0) {
 			selection = (Sprite) Selectable.getSelectable(UUID.fromString(information[0]));
@@ -38,10 +41,10 @@ public class KillExecution extends ExecutionOption {
 
 	@Override
 	public String toSave() {
-		if(selection == null) {
-			return ""; 
+		if (selection == null) {
+			return "";
 		}
-		
+
 		return "kill:" + selection.uuid;
 	}
 

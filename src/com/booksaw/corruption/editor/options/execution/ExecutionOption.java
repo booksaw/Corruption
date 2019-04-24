@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -14,7 +15,9 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.booksaw.corruption.Config;
 import com.booksaw.corruption.CursorManager;
+import com.booksaw.corruption.Utils;
 import com.booksaw.corruption.execution.CommandList;
 import com.booksaw.corruption.listeners.EditorMouseListener;
 import com.booksaw.corruption.render.GameCamera;
@@ -47,7 +50,7 @@ public abstract class ExecutionOption implements ActionListener {
 
 	}
 
-	private JButton eyeDropper;
+	private JButton eyeDropper, remove;
 
 	protected abstract JPanel generatePanel();
 
@@ -70,7 +73,24 @@ public abstract class ExecutionOption implements ActionListener {
 		setupIcon();
 		eyeDropper.addActionListener(this);
 		eyeDropper.setActionCommand("eyedropper");
+		if (box != null) {
+			eyeDropper.setPreferredSize(box.getPreferredSize());
+		}
 		return eyeDropper;
+	}
+
+	public JComponent getRemove() {
+		remove = new JButton();
+		remove.addActionListener(this);
+		BufferedImage img = Utils.getImage(new File(Config.ASSETSPATH + File.separator + "remove.png"));
+		remove.setIcon(new ImageIcon(img));
+		remove.setActionCommand("remove");
+
+		if (box != null) {
+			remove.setPreferredSize(box.getPreferredSize());
+		}
+
+		return remove;
 	}
 
 	@Override
@@ -82,6 +102,8 @@ public abstract class ExecutionOption implements ActionListener {
 			f.setVisible(false);
 			selector = this;
 			return;
+		} else if (e.getActionCommand().equals("remove")) {
+			set.remove(this);
 		}
 
 		set.replace(this, CommandList.getExecutionOption((CommandList) box.getSelectedItem(), new String[0], f, set));
@@ -112,17 +134,11 @@ public abstract class ExecutionOption implements ActionListener {
 
 	public void setupIcon() {
 		Icon eyeDropperIcon = null;
-		if (selected == null || !(selected instanceof Sprite)) {
-//			BufferedImage eyeDropperImg = Utils
-//					.getImage(new File(Config.ASSETSPATH + File.separator + "eyedropper.png"));
-//
-//			eyeDropperIcon = new ImageIcon(eyeDropperImg);
-		} else {
+		if (selected != null && (selected instanceof Sprite)) {
 			BufferedImage image = ((Sprite) selected).getStanding();
 			eyeDropperIcon = new ImageIcon(image);
 		}
-
 		eyeDropper.setIcon(eyeDropperIcon);
-	}
 
+	}
 }

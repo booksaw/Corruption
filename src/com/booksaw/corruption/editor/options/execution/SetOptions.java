@@ -78,9 +78,14 @@ public class SetOptions extends Option implements ActionListener {
 	}
 
 	public void replace(ExecutionOption before, ExecutionOption after) {
+		options.add(after);
+		replace(before, after.getPanel());
+
+	}
+
+	public void replace(ExecutionOption before, JPanel after) {
 
 		options.remove(before);
-		options.add(after);
 
 		int option = 0;
 		Component[] list = p.getComponents();
@@ -91,15 +96,37 @@ public class SetOptions extends Option implements ActionListener {
 			}
 		}
 		p.remove(before.getPanel());
-		p.add(after.getPanel(), option);
+		p.add(after, option);
 		p.revalidate();
+		f.pack();
+
+	}
+
+	public void remove(ExecutionOption toRemove) {
+
+		options.remove(toRemove);
+		JPanel panel = toRemove.getPanel();
+		p.remove(panel);
+
+		p = new JPanel(new GridLayout(0, 1));
+		p.setBorder(new EmptyBorder(10, 10, 10, 10));
+		for (ExecutionOption option : options) {
+			options.add(option);
+			p.add(option.getPanel());
+		}
+
+		JButton add = new JButton(ExecutionSettings.add);
+		add.addActionListener(this);
+		p.add(add);
+
+		p.revalidate();
+
 		f.pack();
 
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
 		ExecutionOption option = CommandList.getExecutionOption(CommandList.KILL, new String[0], f, this);
 
 		int location = p.getComponents().length - 1;

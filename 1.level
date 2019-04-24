@@ -39,7 +39,6 @@ level:
 - interactable:1082;17;70;15;checkpoint;9ccd771e-4c3e-45c7-b597-ac671856c65c
 - trigger:3;0;412;242;f787983d-1bbc-46ed-a8fc-808ed39a4b5a
 - trigger:598;30;175;551;42e10d07-15e6-453a-95c3-0dd6ffe0a955
-- trigger:1175;251;205;220;097634be-94f3-4699-9796-a6e8bd484b31
 commands:
   42e10d07-15e6-453a-95c3-0dd6ffe0a955:
     a03:
