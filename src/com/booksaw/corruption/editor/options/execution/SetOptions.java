@@ -78,6 +78,7 @@ public class SetOptions extends Option implements ActionListener {
 	}
 
 	public void replace(ExecutionOption before, ExecutionOption after) {
+
 		options.add(after);
 		replace(before, after.getPanel());
 
@@ -111,7 +112,6 @@ public class SetOptions extends Option implements ActionListener {
 		p = new JPanel(new GridLayout(0, 1));
 		p.setBorder(new EmptyBorder(10, 10, 10, 10));
 		for (ExecutionOption option : options) {
-			options.add(option);
 			p.add(option.getPanel());
 		}
 
@@ -122,6 +122,8 @@ public class SetOptions extends Option implements ActionListener {
 		p.revalidate();
 
 		f.pack();
+
+		SetRapper.rapper.check();
 
 	}
 

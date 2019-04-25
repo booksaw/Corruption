@@ -6,6 +6,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import com.booksaw.corruption.Config;
+import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.Utils;
 import com.booksaw.corruption.editor.options.OptionPane;
 import com.booksaw.corruption.execution.ExecutionChain;
@@ -32,6 +33,7 @@ public class ExecutionSettings extends OptionPane {
 
 	@Override
 	public void loadOptions() {
+		f.setMaximumSize(Corruption.origionalDimensions);
 		included.add(new SetRapper(
 				new ExecutionChain("commands." + t.uuid, LevelManager.activeLevel.getSaveManager().config, false), f));
 	}

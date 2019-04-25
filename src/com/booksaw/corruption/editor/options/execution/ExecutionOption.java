@@ -104,6 +104,7 @@ public abstract class ExecutionOption implements ActionListener {
 			return;
 		} else if (e.getActionCommand().equals("remove")) {
 			set.remove(this);
+			return;
 		}
 
 		set.replace(this, CommandList.getExecutionOption((CommandList) box.getSelectedItem(), new String[0], f, set));

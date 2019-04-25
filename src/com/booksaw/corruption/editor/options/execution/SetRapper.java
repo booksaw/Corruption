@@ -18,6 +18,8 @@ import com.booksaw.corruption.level.LevelManager;
 
 public class SetRapper extends Option implements ActionListener {
 
+	public static SetRapper rapper;
+
 	ExecutionChain chain;
 
 	List<SetOptions> options = new ArrayList<>();
@@ -33,6 +35,7 @@ public class SetRapper extends Option implements ActionListener {
 	public JPanel getPanel() {
 		p = new JPanel(new GridLayout(0, 1));
 
+		rapper = this;
 		for (Entry<String, ExecutionSet> sets : chain.getSets().entrySet()) {
 			SetOptions options = new SetOptions(sets.getKey(), sets.getValue(), f);
 			p.add(options.getPanel());
@@ -42,7 +45,6 @@ public class SetRapper extends Option implements ActionListener {
 		JButton add = new JButton(ExecutionSettings.add);
 		add.addActionListener(this);
 		p.add(add);
-
 		return p;
 	}
 
@@ -73,6 +75,43 @@ public class SetRapper extends Option implements ActionListener {
 		p.add(option.getPanel(), location);
 		p.revalidate();
 		f.pack();
+
+	}
+
+	public void check() {
+
+		boolean prior = false;
+
+		List<SetOptions> toRemove = new ArrayList<>();
+
+		for (SetOptions option : options) {
+			if (option.options.size() == 0) {
+
+				if (prior) {
+					toRemove.add(option);
+				}
+				prior = true;
+
+			} else {
+				prior = false;
+			}
+		}
+
+		for (SetOptions option : toRemove) {
+			options.remove(option);
+		}
+		if (toRemove.size() != 0) {
+			p.removeAll();
+			for (SetOptions option : options) {
+				p.add(option.getPanel());
+			}
+
+			JButton add = new JButton(ExecutionSettings.add);
+			add.addActionListener(this);
+			p.add(add);
+			p.revalidate();
+			f.pack();
+		}
 
 	}
 
