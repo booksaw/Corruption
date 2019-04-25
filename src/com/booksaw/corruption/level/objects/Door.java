@@ -9,6 +9,8 @@ import java.util.UUID;
 
 import com.booksaw.corruption.Config;
 import com.booksaw.corruption.Utils;
+import com.booksaw.corruption.audioEngine.AudioInstance;
+import com.booksaw.corruption.audioEngine.AudioPlayer;
 import com.booksaw.corruption.sprites.Sprite;
 
 public class Door extends GameObject {
@@ -168,6 +170,7 @@ public class Door extends GameObject {
 		super.trigger(args);
 		switch (args[0]) {
 		case "open":
+			AudioPlayer.playSound(AudioInstance.DOOR.getClip());
 			if (Boolean.parseBoolean(args[1])) {
 				open();
 			} else
