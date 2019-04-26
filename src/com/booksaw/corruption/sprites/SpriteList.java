@@ -7,7 +7,7 @@ package com.booksaw.corruption.sprites;
  *
  */
 public enum SpriteList {
-	PLAYER, BLUENPC;
+	PLAYER, BLUENPC, GAURD;
 
 	/**
 	 * Used to get an instance of the sprite object
@@ -21,6 +21,8 @@ public enum SpriteList {
 			return new Player();
 		case BLUENPC:
 			return new BlueNPC();
+		case GAURD:
+			return new Gaurd();
 		}
 
 		return null;

@@ -39,6 +39,7 @@ import com.booksaw.corruption.render.overlays.menu.PauseOverlay;
 import com.booksaw.corruption.renderControler.EditorController;
 import com.booksaw.corruption.renderControler.GameController;
 import com.booksaw.corruption.sprites.BlueNPC;
+import com.booksaw.corruption.sprites.Gaurd;
 import com.booksaw.corruption.sprites.Player;
 import com.booksaw.corruption.sprites.Sprite;
 
@@ -293,6 +294,11 @@ public class LevelManager {
 			b.setSelected(select);
 			addSprite(b);
 			break;
+		case "gaurd":
+			Gaurd g = new Gaurd(info);
+			g.setSelected(select);
+			addSprite(g);
+			break;
 
 		}
 
@@ -419,7 +425,7 @@ public class LevelManager {
 		}
 
 		for (Sprite s : sprites) {
-			if (s.controllable) {
+			if (s.controllable || s.needsUpdating()) {
 				s.update(time);
 			}
 		}

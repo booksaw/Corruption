@@ -25,9 +25,6 @@ public class Player extends Sprite {
 	// more jumping stuff (self explaniatory)
 	final double maxJump = 0.625;
 
-	// the speed left and right the player can travel
-	private final double SPEED = 0.13;
-
 	public Player(String info) {
 		super(info);
 	}

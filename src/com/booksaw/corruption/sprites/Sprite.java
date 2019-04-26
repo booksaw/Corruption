@@ -32,6 +32,8 @@ import com.booksaw.corruption.selection.Selectable;
  *
  */
 public abstract class Sprite extends Selectable implements Updatable, Location {
+	// the speed left and right the player can travel
+	protected final double SPEED = 0.13;
 
 	public static Sprite getSprite(Point p, List<Sprite> sprites) {
 		return getSprite(new Rectangle(p, new Dimension(1, 1)), sprites);
@@ -759,6 +761,12 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 
 	public UUID getUuid() {
 		return uuid;
+	}
+
+	protected boolean needsUpdating = false;
+
+	public boolean needsUpdating() {
+		return needsUpdating;
 	}
 
 }
