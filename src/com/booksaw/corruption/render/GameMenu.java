@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.nio.file.Paths;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -233,7 +234,7 @@ public class GameMenu extends RenderInterface {
 	}
 
 	public void load() {
-		JFileChooser fc = new JFileChooser();
+		JFileChooser fc = new JFileChooser(System.getProperty("user.dir"));
 		fc.setFileFilter(new FileNameExtensionFilter("Levels (.level)", "level"));
 		int returnVal = fc.showOpenDialog(Corruption.main.getFrame());
 
