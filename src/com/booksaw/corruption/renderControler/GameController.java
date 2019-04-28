@@ -38,7 +38,6 @@ public class GameController extends RenderController {
 	public GameController() {
 		gameController = this;
 		c = new GameCamera(true);
-		level = "1.level";
 	}
 
 	public GameController(String level) {
@@ -59,7 +58,6 @@ public class GameController extends RenderController {
 		Selectable.clearSelection();
 
 		LevelManager lm;
-
 		File f = new File(level);
 
 		if (!f.exists()) {
