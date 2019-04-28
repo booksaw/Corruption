@@ -66,7 +66,6 @@ public class SetRapper extends Option implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		String reference = chain.getNextReference(count);
-		System.out.println("next ref = " + reference);
 		SetOptions option = new SetOptions(reference, new ExecutionSet(chain, new ArrayList<>()), f);
 
 		int location = p.getComponents().length - 1;
