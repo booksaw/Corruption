@@ -68,7 +68,7 @@ public class ExecutionChain {
 
 	}
 
-	public String getNextReference() {
+	public String getNextReference(int countt) {
 		int count = 0;
 
 		while (true) {
@@ -80,6 +80,8 @@ public class ExecutionChain {
 
 			if (nextSet.size() == 0) {
 				// end of the chain
+
+				countStr = new DecimalFormat("00").format(count + countt);
 				return baseRef + ".a" + countStr;
 			}
 		}

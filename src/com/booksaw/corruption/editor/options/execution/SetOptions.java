@@ -69,6 +69,7 @@ public class SetOptions extends Option implements ActionListener {
 		}
 
 		set.setExecutions(commands);
+		System.out.println("ref = " + ref);
 		set.save(ref, LevelManager.activeLevel.getSaveManager().config);
 
 	}

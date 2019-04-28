@@ -61,9 +61,12 @@ public class SetRapper extends Option implements ActionListener {
 
 	}
 
+	int count = 0;
+
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		String reference = chain.getNextReference();
+		String reference = chain.getNextReference(count);
+		System.out.println("next ref = " + reference);
 		SetOptions option = new SetOptions(reference, new ExecutionSet(chain, new ArrayList<>()), f);
 
 		int location = p.getComponents().length - 1;
@@ -75,7 +78,7 @@ public class SetRapper extends Option implements ActionListener {
 		p.add(option.getPanel(), location);
 		p.revalidate();
 		f.pack();
-
+		count++;
 	}
 
 	public void check() {

@@ -8,5 +8,11 @@ level:
 - background:colored:-29;361;503;217;233;169;169;5cfca370-6cce-48b4-ab92-528a8aeeb562
 - sprite:player:72;439;true;true;true;d1617eda-933e-4817-ba0b-ddeced077ecd
 - sprite:bluenpc:414;384;false;false;false;04e9c817-3ebf-4c0d-beac-2de6cf2f2d02
-- trigger:-7;385;474;191;3b701af1-0c0e-4582-bae5-abf9afde7bd4
+- trigger:-41;388;511;247;3b701af1-0c0e-4582-bae5-abf9afde7bd4
 nextLevel: null
+commands:
+  3b701af1-0c0e-4582-bae5-abf9afde7bd4:
+    a02:
+    - kill:d1617eda-933e-4817-ba0b-ddeced077ecd
+    a01:
+    - kill:04e9c817-3ebf-4c0d-beac-2de6cf2f2d02

@@ -33,7 +33,6 @@ level:
 - sprite:player:61;39;true;true;false;6bbbba96-274f-4fdd-af01-0b05b3408fbf
 - sprite:bluenpc:334;-3;false;false;false;72d36902-83ea-4b38-8544-732912b7c269
 - sprite:bluenpc:881;337;false;false;false;10427465-96b6-4236-8483-1102f8f87a5d
-- sprite:gaurd:512;8;false;false;true;975dbe16-439d-4f02-8868-d92cf26a3bf6
 - interactable:192;0;96;34;table;d40c8518-6a8d-46a6-a468-7f7de7eb9e46
 - interactable:1704;462;126;80;desk;0d329f09-d938-478d-9d82-5898b239ef02
 - interactable:17;263;371;83;logo;34dc8f82-5ac9-43ed-9ecb-d467d53f62f0
