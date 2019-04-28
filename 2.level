@@ -2,9 +2,11 @@ level:
 - meta:leveldimensions:2000;576
 - meta:cameralocation:0;0
 - meta:backgroundcolor:100;100;100
-- object:block:-2;354;486;31;0;0;0
-- object:door:484;385;false;true;10;60
-- object:block:471;445;14;130;0;0;0
-- background:colored:-27;357;503;217;233;169;169
-- sprite:player:72;439;true;true
-nextLevel: 
+- object:block:-2;354;486;31;0;0;0;2bf6e209-988e-49fb-b63d-59934c41e9ca
+- object:door:484;385;false;true;10;60;b19c7050-35fc-453a-ac21-5029631b5b46
+- object:block:471;445;14;135;0;0;0;ede5853b-a1c0-4764-8d8e-07f04b79a577
+- background:colored:-29;361;503;217;233;169;169;5cfca370-6cce-48b4-ab92-528a8aeeb562
+- sprite:player:72;439;true;true;true;d1617eda-933e-4817-ba0b-ddeced077ecd
+- sprite:bluenpc:414;384;false;false;false;04e9c817-3ebf-4c0d-beac-2de6cf2f2d02
+- trigger:-7;385;474;191;3b701af1-0c0e-4582-bae5-abf9afde7bd4
+nextLevel: null

@@ -106,10 +106,10 @@ public class SetOptions extends Option implements ActionListener {
 	public void remove(ExecutionOption toRemove) {
 
 		options.remove(toRemove);
-		JPanel panel = toRemove.getPanel();
-		p.remove(panel);
+//		JPanel panel = toRemove.getPanel();
 
-		p = new JPanel(new GridLayout(0, 1));
+		p.removeAll();
+		;
 		p.setBorder(new EmptyBorder(10, 10, 10, 10));
 		for (ExecutionOption option : options) {
 			p.add(option.getPanel());
@@ -137,6 +137,7 @@ public class SetOptions extends Option implements ActionListener {
 		}
 
 		options.add(option);
+		System.out.println(options);
 		p.add(option.getPanel(), location);
 		p.revalidate();
 		f.pack();
