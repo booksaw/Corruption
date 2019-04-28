@@ -21,7 +21,12 @@ public class ExecutionChain {
 			advance();
 	}
 
+	boolean active = true;
+
 	public void advance() {
+		if (!active) {
+			return;
+		}
 		count++;
 
 		String countStr = new DecimalFormat("00").format(count);
@@ -81,5 +86,8 @@ public class ExecutionChain {
 
 	}
 
+	public void reset() {
+		active = false;
+	}
 
 }

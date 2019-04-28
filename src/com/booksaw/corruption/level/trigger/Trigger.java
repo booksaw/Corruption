@@ -44,7 +44,7 @@ public class Trigger extends Selectable implements Dimensions, Location {
 		return null;
 	}
 
-	public boolean active = false;
+	protected boolean active = false;
 
 	public Trigger(String ref) {
 		super();
@@ -130,9 +130,11 @@ public class Trigger extends Selectable implements Dimensions, Location {
 		return true;
 	}
 
+	ExecutionChain chain;
+
 	public void trigger() {
 		active = true;
-		new ExecutionChain("commands." + uuid, LevelManager.activeLevel.getSaveManager().config, true);
+		chain = new ExecutionChain("commands." + uuid, LevelManager.activeLevel.getSaveManager().config, true);
 	}
 
 	@Override
@@ -156,5 +158,11 @@ public class Trigger extends Selectable implements Dimensions, Location {
 	@Override
 	public String getCopy() {
 		return toString();
+	}
+
+	public void reset() {
+		active = false;
+		if (chain != null)
+			chain.reset();
 	}
 }

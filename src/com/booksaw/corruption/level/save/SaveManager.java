@@ -44,7 +44,7 @@ public class SaveManager {
 		levelInfo = config.getStringList("level");
 
 		if (levelInfo == null || levelInfo.size() == 0) {
-			level.resetLevel();
+			level.resetToDefault();
 			return;
 		}
 

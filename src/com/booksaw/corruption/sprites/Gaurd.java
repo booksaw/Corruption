@@ -1,12 +1,14 @@
 package com.booksaw.corruption.sprites;
 
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
 import com.booksaw.corruption.Config;
 import com.booksaw.corruption.Utils;
+import com.booksaw.corruption.level.LevelManager;
 
 public class Gaurd extends Sprite {
 
@@ -72,6 +74,7 @@ public class Gaurd extends Sprite {
 	public void update(int time) {
 		super.update(time);
 
+		checkVision();
 		calculateDirection(time);
 
 		if (right) {
@@ -109,6 +112,41 @@ public class Gaurd extends Sprite {
 				right = true;
 			}
 		}
+	}
+
+	public void checkVision() {
+		if (right) {
+			int x = (int) this.x + getWidth();
+			while (canGo(x, y)) {
+				Sprite s = getSprite(new Point(x, (int) y), LevelManager.activeLevel.getSprites());
+				if (s != null) {
+					see(s);
+					break;
+				}
+
+				x++;
+			}
+
+		} else {
+			int x = (int) this.x - 1;
+			while (canGo(x, y)) {
+				Sprite s = getSprite(new Point(x, (int) y), LevelManager.activeLevel.getSprites());
+				if (s != null) {
+					see(s);
+					break;
+				}
+
+				x--;
+			}
+		}
+	}
+
+	public void see(Sprite s) {
+		if (!s.isDetectable()) {
+			return;
+		}
+
+		LevelManager.activeLevel.reset();
 	}
 
 }

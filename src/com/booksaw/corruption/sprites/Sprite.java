@@ -92,6 +92,7 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 	double jumpHeight, weight = 0.002;
 	boolean released = false, doubleJump = false;
 	int jumpDirection = 0;
+	protected boolean detectable = false;
 
 	/**
 	 * Runs at beginning of constructor if any setup is required override preferred
@@ -767,6 +768,10 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 
 	public boolean needsUpdating() {
 		return needsUpdating;
+	}
+
+	public boolean isDetectable() {
+		return detectable;
 	}
 
 }

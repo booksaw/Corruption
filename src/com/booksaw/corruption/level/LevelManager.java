@@ -116,8 +116,11 @@ public class LevelManager {
 
 	}
 
-	public void resetLevel() {
-		resetLevel(true);
+	/**
+	 * Used to set the level to becomre the default level
+	 */
+	public void resetToDefault() {
+		resetToDefault(true);
 	}
 
 	/**
@@ -125,7 +128,7 @@ public class LevelManager {
 	 * 
 	 * @param save
 	 */
-	private void resetLevel(boolean save) {
+	private void resetToDefault(boolean save) {
 		BufferedReader br = null;
 		PrintWriter pw = null;
 		try {
@@ -465,9 +468,12 @@ public class LevelManager {
 
 		resetLists();
 		// resets the file to the default file
-		resetLevel(false);
+		resetToDefault(false);
 	}
 
+	/**
+	 * Used to reset all the lists of stored items
+	 */
 	public void resetLists() {
 		// resets all stored items
 		metaData = new ArrayList<>();
@@ -487,16 +493,19 @@ public class LevelManager {
 		}
 	}
 
+	/**
+	 * Used for a fail (if the player dies etc.)
+	 */
 	public void reset() {
 		for (Sprite s : sprites) {
-			if (s.controllable) {
+			if (s.controllable || s instanceof Gaurd) {
 				s.reset();
 
 			}
 		}
 
 		for (Trigger t : triggers) {
-			t.active = false;
+			t.reset();
 		}
 		AudioPlayer.playSound(AudioInstance.DEATH);
 		fails++;

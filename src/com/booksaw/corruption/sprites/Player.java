@@ -40,6 +40,7 @@ public class Player extends Sprite {
 	protected void setup() {
 		// path to the asset folder
 		assetFolder = new File(Config.ASSETSPATH + File.separator + "player");
+		detectable = true;
 
 	}
 
