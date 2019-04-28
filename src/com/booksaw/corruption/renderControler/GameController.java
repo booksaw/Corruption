@@ -4,8 +4,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
+import com.booksaw.corruption.Config;
 import com.booksaw.corruption.Corruption;
 import com.booksaw.corruption.CursorManager;
+import com.booksaw.corruption.language.Language;
 import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.level.trigger.Trigger;
 import com.booksaw.corruption.listeners.GameMouseListener;
@@ -60,6 +64,8 @@ public class GameController extends RenderController {
 
 		if (!f.exists()) {
 			MenuController mc = new MenuController();
+			JOptionPane.showMessageDialog(Corruption.main.getFrame(), "Cannot find level", Language.getMessage("title"),
+					JOptionPane.PLAIN_MESSAGE, Config.logo);
 			mc.show();
 			return;
 		}
@@ -73,9 +79,6 @@ public class GameController extends RenderController {
 
 		Trigger.showTriggers = false;
 		Corruption.main.startClock();
-
-//		Overlay.addOverlay(
-//				new SpeechBubble(LevelManager.activeLevel.getSprites().get(0), "This is a test of true text"));
 
 	}
 
