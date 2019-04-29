@@ -15,6 +15,7 @@ public class Gaurd extends Sprite {
 	String assetPath;
 	double jumpHeight = 0, weight = 0.002;
 	final double maxJump = 0.625;
+	final double SPEED = 0.05;
 
 	public Gaurd(String info) {
 		super(info);
