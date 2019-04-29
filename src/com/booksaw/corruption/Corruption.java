@@ -181,6 +181,7 @@ public class Corruption implements ActionListener, ComponentListener {
 
 		// setting the old tick
 		previousTick = System.currentTimeMillis();
+
 		controller.update(time);
 
 		f.repaint();

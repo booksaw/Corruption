@@ -662,8 +662,6 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 
 		}
 
-		currentInteractable = null;
-
 		currentInteractable = Interactable.getInteractable(getRectangle(), LevelManager.activeLevel.getInteractables());
 
 		if (currentInteractable == null) {

@@ -117,7 +117,7 @@ public class Gaurd extends Sprite {
 	public void checkVision() {
 		if (right) {
 			int x = (int) this.x + getWidth();
-			while (canGo(x, y)) {
+			while (canGo(x, y) && this.x + 300 > x) {
 				Sprite s = getSprite(new Point(x, (int) y), LevelManager.activeLevel.getSprites());
 				if (s != null) {
 					see(s);
@@ -129,7 +129,7 @@ public class Gaurd extends Sprite {
 
 		} else {
 			int x = (int) this.x - 1;
-			while (canGo(x, y)) {
+			while (canGo(x, y) && this.x - 300 < x) {
 				Sprite s = getSprite(new Point(x, (int) y), LevelManager.activeLevel.getSprites());
 				if (s != null) {
 					see(s);
