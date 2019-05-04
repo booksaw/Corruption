@@ -99,7 +99,6 @@ public class SetOptions extends Option implements ActionListener {
 		p.remove(before.getPanel());
 		p.add(after, option);
 		p.revalidate();
-		f.pack();
 
 	}
 
@@ -121,8 +120,6 @@ public class SetOptions extends Option implements ActionListener {
 
 		p.revalidate();
 
-		f.pack();
-
 		SetRapper.rapper.check();
 
 	}
@@ -139,7 +136,6 @@ public class SetOptions extends Option implements ActionListener {
 		options.add(option);
 		p.add(option.getPanel(), location);
 		p.revalidate();
-		f.pack();
 
 	}
 

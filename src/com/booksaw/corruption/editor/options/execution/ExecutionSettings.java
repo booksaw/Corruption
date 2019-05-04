@@ -22,8 +22,9 @@ public class ExecutionSettings extends OptionPane {
 	public ExecutionSettings(Trigger t) {
 		super();
 		this.t = t;
-
+		pack = false;
 		intialize();
+		System.out.println(f.getSize());
 	}
 
 	@Override

@@ -43,6 +43,10 @@ public abstract class Selectable extends Renderable implements Location, Dimensi
 
 	private static List<Selectable> allSelectables = new ArrayList<>();
 
+	public static void resetAllSelectables() {
+		allSelectables = new ArrayList<>();
+	}
+
 	public static Selectable getSelectable(UUID uuid) {
 
 		for (Selectable s : allSelectables) {

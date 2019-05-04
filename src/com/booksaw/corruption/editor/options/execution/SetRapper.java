@@ -76,7 +76,6 @@ public class SetRapper extends Option implements ActionListener {
 		options.add(option);
 		p.add(option.getPanel(), location);
 		p.revalidate();
-		f.pack();
 		count++;
 	}
 
@@ -112,7 +111,6 @@ public class SetRapper extends Option implements ActionListener {
 			add.addActionListener(this);
 			p.add(add);
 			p.revalidate();
-			f.pack();
 		}
 
 	}

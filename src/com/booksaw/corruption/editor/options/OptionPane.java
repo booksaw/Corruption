@@ -45,8 +45,11 @@ public abstract class OptionPane implements ActionListener, KeyListener {
 
 	}
 
+	protected boolean pack = true;
+	protected Dimension dimension = new Dimension(500, 500);
+
 	public void intialize() {
-		f.setResizable(false);
+//		f.setResizable(false);
 
 		loadOptions();
 		JPanel wrapper = new JPanel(new GridBagLayout());
@@ -58,8 +61,11 @@ public abstract class OptionPane implements ActionListener, KeyListener {
 			container.add(panel);
 		}
 
+		container.setMinimumSize(dimension);
 		JScrollPane pane = new JScrollPane(container);
-		pane.setMaximumSize(new Dimension(500, 500));
+		pane.setPreferredSize(dimension);
+		pane.setMinimumSize(dimension);
+		pane.setMaximumSize(dimension);
 
 		GridBagConstraints con = new GridBagConstraints();
 
@@ -80,7 +86,13 @@ public abstract class OptionPane implements ActionListener, KeyListener {
 
 		f.addKeyListener(this);
 		f.setContentPane(wrapper);
-		f.pack();
+		if (pack)
+			f.pack();
+		else {
+			System.out.println(pane.getHorizontalScrollBarPolicy());
+			f.setSize(dimension.width + pane.getVerticalScrollBarPolicy(),
+					dimension.height + c.getPreferredSize().height + pane.getHorizontalScrollBarPolicy());
+		}
 		f.setLocationRelativeTo(Corruption.main.getFrame());
 
 	}

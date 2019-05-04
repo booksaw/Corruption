@@ -38,6 +38,7 @@ import com.booksaw.corruption.render.overlays.menu.LevelCompleteOverlay;
 import com.booksaw.corruption.render.overlays.menu.PauseOverlay;
 import com.booksaw.corruption.renderControler.EditorController;
 import com.booksaw.corruption.renderControler.GameController;
+import com.booksaw.corruption.selection.Selectable;
 import com.booksaw.corruption.sprites.BlueNPC;
 import com.booksaw.corruption.sprites.Gaurd;
 import com.booksaw.corruption.sprites.Player;
@@ -485,7 +486,9 @@ public class LevelManager {
 		components = new ArrayList<>();
 		updatable = new ArrayList<>();
 		triggers = new ArrayList<>();
-	}
+
+		Selectable.resetAllSelectables();
+		}
 
 	public void resetAllSprites() {
 		for (Sprite s : sprites) {
