@@ -125,6 +125,12 @@ public class Gaurd extends Sprite {
 					break;
 				}
 
+				s = getSprite(new Point(x, (int) y + getHeight()), LevelManager.activeLevel.getSprites());
+				if (s != null) {
+					see(s);
+					break;
+				}
+
 				x++;
 			}
 
@@ -132,6 +138,12 @@ public class Gaurd extends Sprite {
 			int x = (int) this.x - 1;
 			while (canGo(x, y) && this.x - 300 < x) {
 				Sprite s = getSprite(new Point(x, (int) y), LevelManager.activeLevel.getSprites());
+				if (s != null) {
+					see(s);
+					break;
+				}
+
+				s = getSprite(new Point(x, (int) y + getHeight()), LevelManager.activeLevel.getSprites());
 				if (s != null) {
 					see(s);
 					break;
