@@ -2,4 +2,4 @@ level:
 - meta:leveldimensions:2000;576
 - meta:cameralocation:0;0
 - meta:backgroundcolor:100;100;100
-- sprite:player:0;0;true;true
+- sprite:player:0;0;true;true;214;214;44f60cfc-13b9-484b-8c23-8431bbf112f0
