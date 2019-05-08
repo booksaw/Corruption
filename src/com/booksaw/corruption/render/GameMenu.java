@@ -15,6 +15,7 @@ import com.booksaw.corruption.Utils;
 import com.booksaw.corruption.language.Language;
 import com.booksaw.corruption.renderControler.EditorController;
 import com.booksaw.corruption.renderControler.GameController;
+import com.booksaw.corruption.settings.Settings;
 
 /**
  * Used to render the menu (what appears when opening)
@@ -275,7 +276,7 @@ public class GameMenu extends RenderInterface {
 	}
 
 	public void showSettings() {
-		// TODO
+		Settings.displaySettings();
 	}
 
 }
