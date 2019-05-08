@@ -32,7 +32,7 @@ public class InteractableCursorOverlay extends Overlay {
 		Point p = MouseInfo.getPointerInfo().getLocation();
 		Container f = Corruption.main.getFrame().getContentPane();
 		p.y = f.getLocationOnScreen().y - p.y + GameCamera.cameraHeight;
-		p.x = p.x = p.x - f.getLocationOnScreen().x;
+		p.x = p.x - f.getLocationOnScreen().x;
 		i.setLocation(p);
 
 		i.paint(g, new Rectangle(0, 0, GameCamera.cameraWidth, GameCamera.cameraHeight));

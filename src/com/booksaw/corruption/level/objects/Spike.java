@@ -172,7 +172,7 @@ public class Spike extends GameObject {
 			if (height % tempH < tempH / 2) {
 				count = (int) Math.floor(height / tempH);
 			} else {
-				count = (int) Math.ceil(height / tempH);
+				count = (int) height / tempH;
 			}
 
 		} else {
@@ -203,13 +203,15 @@ public class Spike extends GameObject {
 
 	@Override
 	public String toString() {
-		return "object:spike:" + (int) x + ";" + (int) y + ";" + width + ";" + height + ";" + d.getFileOutput() + ";" + uuid;
+		return "object:spike:" + (int) x + ";" + (int) y + ";" + width + ";" + height + ";" + d.getFileOutput() + ";"
+				+ uuid;
 
 	}
 
 	@Override
 	public String getCopy() {
-		return "object:spike:" + (int) x + ";" + (int) y + ";" + width + ";" + height + ";" + d.getFileOutput() + ";" + generateUUID();
+		return "object:spike:" + (int) x + ";" + (int) y + ";" + width + ";" + height + ";" + d.getFileOutput() + ";"
+				+ generateUUID();
 
 	}
 

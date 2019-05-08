@@ -4,9 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -135,27 +133,19 @@ public class LevelManager {
 		try {
 			pw = new PrintWriter(f);
 			br = new BufferedReader(new FileReader(Config.ASSETSPATH + File.separator + "default.level"));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
 
-		String line = "";
+			String line = "";
 
-		try {
 			while ((line = br.readLine()) != null) {
 				runLine(line);
 				if (save) {
 					pw.println(line);
 				}
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 
-		try {
 			pw.close();
 			br.close();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -488,7 +478,7 @@ public class LevelManager {
 		triggers = new ArrayList<>();
 
 		Selectable.resetAllSelectables();
-		}
+	}
 
 	public void resetAllSprites() {
 		for (Sprite s : sprites) {

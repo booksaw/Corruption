@@ -106,7 +106,7 @@ public class Slime extends GameObject {
 		if (width % tempW < tempW / 2) {
 			repeats = (int) Math.floor(width / tempW);
 		} else {
-			repeats = (int) Math.ceil(width / tempW);
+			repeats = (int) (width / tempW);
 		}
 
 		if (repeats <= 0) {

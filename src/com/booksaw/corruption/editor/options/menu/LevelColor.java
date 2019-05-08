@@ -24,7 +24,8 @@ public class LevelColor extends ColorPicker {
 			}
 		}
 
-		m.c = c;
+		if (m != null)
+			m.c = c;
 		LevelManager.activeLevel.backgroundColor = c;
 
 	}
