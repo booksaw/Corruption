@@ -1,14 +1,14 @@
-movement:
-   up: 87;32
-   down: 83
-   left: 65
-   right: 68
 level:
-   reset: 82
-   interact: 69
+  reset: 82
+  interact: 69
+movement:
+  left: 65
+  right: 68
+  up: 89;32
+  down: 83
 editor:
-   delete: 127;8
-   control: 17
-   testMode: 84
-   triggers: 70
-   hide: 72
+  hide: 72
+  testMode: 84
+  control: 17
+  triggers: 70
+  delete: 127;8

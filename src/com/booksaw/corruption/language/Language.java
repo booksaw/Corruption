@@ -49,6 +49,7 @@ public class Language {
 		messages.put("settings.key", "Key");
 		messages.put("settings.graphics.tip", "Change the graphics");
 		messages.put("settings.controls.tip", "Change the key bindings");
+		messages.put("settings.save", "Save");
 
 	}
 

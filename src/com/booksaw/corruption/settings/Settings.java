@@ -3,12 +3,17 @@ package com.booksaw.corruption.settings;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,7 +26,7 @@ import com.booksaw.corruption.controls.Control;
 import com.booksaw.corruption.controls.ControlsManager;
 import com.booksaw.corruption.language.Language;
 
-public class Settings extends JFrame {
+public class Settings extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 5274623199845825074L;
 
@@ -57,7 +62,7 @@ public class Settings extends JFrame {
 		JPanel graphics = getGraphicsPanel();
 		tabbedPane.addTab("Graphics", null, graphics, Language.getMessage("settings.graphics.tip"));
 
-		JComponent controls = getControlsPanel(d.height - tabbedPane.getUI().getTabBounds(tabbedPane, 0).height - 50);
+		JComponent controls = getControlsPanel(d.height - tabbedPane.getUI().getTabBounds(tabbedPane, 0).height - 60);
 		tabbedPane.addTab("Controls", null, controls, Language.getMessage("settings.controls.tip"));
 
 	}
@@ -100,15 +105,39 @@ public class Settings extends JFrame {
 		sp.setPreferredSize(new Dimension(d.width, height));
 		sp.setMaximumSize(new Dimension(d.width, height));
 		sp.setMinimumSize(new Dimension(d.width, height));
-		return sp;
+
+		JPanel wrapper = new JPanel(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		wrapper.add(sp, c);
+
+		c.gridy = 2;
+		wrapper.add(getControlFooter(), c);
+		return wrapper;
 	}
 
 	private JPanel getControlHeader() {
 		JPanel p = new JPanel(new GridLayout(1, 0));
 		p.add(new JLabel(Language.getMessage("settings.action")));
 
-		p.add(new JLabel(Language.getMessage("settings.key") + " 1"));
-		p.add(new JLabel(Language.getMessage("settings.key") + " 2"));
+		p.add(new JLabel(Language.getMessage("settings.key")));
+
+		return p;
+
+	}
+
+	private JPanel getControlFooter() {
+		JPanel p = new JPanel(new GridLayout(1, 0));
+		p.add(new JPanel());
+
+		p.add(new JPanel());
+
+		JButton b = new JButton(Language.getMessage("settings.save"));
+		b.addActionListener(this);
+
+		p.add(b);
 
 		return p;
 
@@ -121,6 +150,14 @@ public class Settings extends JFrame {
 		p.add(new JPanel());
 
 		return p;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		for (Entry<String, Control> temp : ControlsManager.getControls().entrySet()) {
+			temp.getValue().save();
+		}
+		ControlsManager.save();
 	}
 
 }

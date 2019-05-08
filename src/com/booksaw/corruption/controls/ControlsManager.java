@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import com.booksaw.corruption.Config;
 import com.booksaw.corruption.configuration.YamlConfiguration;
@@ -74,6 +75,17 @@ public class ControlsManager {
 
 	public static HashMap<String, Control> getControls() {
 		return controls;
+	}
+
+	/**
+	 * Used to save all the loaded controls
+	 */
+	public static void save() {
+		for (Entry<String, Control> temp : controls.entrySet()) {
+			yaml.set(temp.getKey(), temp.getValue());
+		}
+
+		yaml.saveConfiguration();
 	}
 
 }
