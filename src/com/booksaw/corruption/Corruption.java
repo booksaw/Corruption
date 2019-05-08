@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import com.booksaw.corruption.controls.ControlsManager;
 import com.booksaw.corruption.language.Language;
 import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.listeners.Listener;
@@ -58,6 +59,7 @@ public class Corruption implements ActionListener, ComponentListener {
 	 */
 	public Corruption() {
 		Config.load();
+		ControlsManager.loadControls();
 		// so things can find statically (only 1 is made per program so this isen't
 		// dangerous)
 		main = this;

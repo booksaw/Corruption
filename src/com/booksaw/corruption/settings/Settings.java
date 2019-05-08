@@ -53,14 +53,14 @@ public class Settings extends JFrame {
 
 		JPanel p = new JPanel();
 
-		return null;
+		return p;
 	}
 
 	public JPanel getControlsPanel() {
 
 		JPanel p = new JPanel();
 
-		return null;
+		return p;
 	}
 
 }

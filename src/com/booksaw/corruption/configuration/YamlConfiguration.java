@@ -238,4 +238,30 @@ public class YamlConfiguration {
 		return obj == null || obj.size() == 0;
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<String> getOptions(String path) {
+
+		Map<String, Object> objs;
+
+		if (path.equals("")) {
+			objs = obj;
+		} else {
+			Object o = getSetting(path);
+
+			if (!(o instanceof Map<?, ?>)) {
+				return new ArrayList<>();
+			}
+			objs = (Map<String, Object>) o;
+		}
+
+		List<String> toReturn = new ArrayList<>();
+
+		for (String ref : objs.keySet()) {
+			toReturn.add(ref);
+		}
+
+		return toReturn;
+
+	}
+
 }

@@ -4,6 +4,8 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
 
+import com.booksaw.corruption.controls.ControlList;
+import com.booksaw.corruption.controls.ControlsManager;
 import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.render.overlays.Overlay;
 import com.booksaw.corruption.render.overlays.menu.PauseOverlay;
@@ -31,59 +33,37 @@ public class KeyListener implements java.awt.event.KeyListener, Listener {
 			return;
 		}
 
-		switch (e.getKeyCode()) {
-		case 65:
+		if (ControlsManager.isKeyUsed(ControlList.LEFT, e)) {
 			left = true;
-			break;
-		case 68:
+		} else if (ControlsManager.isKeyUsed(ControlList.RIGHT, e)) {
 			right = true;
-			break;
-		case 83:
+		} else if (ControlsManager.isKeyUsed(ControlList.DOWN, e)) {
 			down = true;
-			break;
-		case 87:
+		} else if (ControlsManager.isKeyUsed(ControlList.UP, e)) {
 			up = true;
-			break;
-		case 32:
-			up = true;
-			break;
-		case 27:
-			pause();
-			break;
-		case 82:
+		} else if (ControlsManager.isKeyUsed(ControlList.RESET, e)) {
 			LevelManager.activeLevel.reset();
-			break;
-		case 69:
+		} else if (ControlsManager.isKeyUsed(ControlList.INTERACT, e)) {
 			interact = true;
-			break;
 		}
 
 	}
 
 	/**
-	 * Disactivating the key removed
+	 * Deactivating the key removed
 	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
-		switch (e.getKeyCode()) {
-		case 65:
+		if (ControlsManager.isKeyUsed(ControlList.LEFT, e)) {
 			left = false;
-			break;
-		case 68:
+		} else if (ControlsManager.isKeyUsed(ControlList.RIGHT, e)) {
 			right = false;
-			break;
-		case 83:
+		} else if (ControlsManager.isKeyUsed(ControlList.DOWN, e)) {
 			down = false;
-			break;
-		case 87:
+		} else if (ControlsManager.isKeyUsed(ControlList.UP, e)) {
 			up = false;
-			break;
-		case 32:
-			up = false;
-			break;
-		case 69:
+		} else if (ControlsManager.isKeyUsed(ControlList.INTERACT, e)) {
 			interact = false;
-			break;
 		}
 
 	}

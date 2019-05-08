@@ -1,0 +1,9 @@
+movement:
+  up: 87;32
+  down: 83
+  left: 65
+  right: 68
+level:
+  reset: 82
+  interact: 69
+  
