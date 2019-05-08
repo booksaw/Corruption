@@ -24,6 +24,7 @@ public class Language {
 		messages.put("menu.load", "Load game");
 		messages.put("menu.new", "Start game");
 		messages.put("menu.editor", "Editor");
+		messages.put("menu.settings", "Settings");
 		messages.put("editor.cancel", "Cancel");
 		messages.put("editor.ok", "OK");
 		messages.put("editor.delete", "Delete");

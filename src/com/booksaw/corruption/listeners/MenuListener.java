@@ -116,6 +116,9 @@ public class MenuListener implements Listener, KeyListener, MouseListener, Mouse
 		} else if (r.intersects(GameMenu.editorRec)) {
 			GameMenu.menu.setOption(OPTIONS.EDITOR);
 			Corruption.main.getFrame().repaint();
+		} else if (r.intersects(GameMenu.settingsRec)) {
+			GameMenu.menu.setOption(OPTIONS.SETTINGS);
+			Corruption.main.getFrame().repaint();
 		}
 
 	}

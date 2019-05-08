@@ -30,7 +30,7 @@ public class GameMenu extends RenderInterface {
 	public static BufferedImage logo, triangle;
 
 	// collision boxes for the selections
-	public static Rectangle newRec, loadRec, editorRec;
+	public static Rectangle newRec, loadRec, editorRec, settingsRec;
 	// so the rectangles are only genned on a window resize
 	private boolean genRects = false;
 
@@ -64,6 +64,10 @@ public class GameMenu extends RenderInterface {
 
 		editorRec = new Rectangle(0,
 				(getHeight() / 2) - (int) (getHeight() * 0.4) + (int) (getHeight() * 0.65) - Config.f.getSize() + 5,
+				getWidth(), Config.f.getSize() * 3);
+
+		settingsRec = new Rectangle(0,
+				(getHeight() / 2) - (int) (getHeight() * 0.4) + (int) (getHeight() * 0.8) - Config.f.getSize() + 5,
 				getWidth(), Config.f.getSize() * 3);
 
 		// so rects arent re genned when not needed
@@ -149,6 +153,23 @@ public class GameMenu extends RenderInterface {
 
 		}
 
+		// for the editor button
+		// for more see new
+		text = Language.getMessage("menu.settings");
+		width = g.getFontMetrics().stringWidth(text);
+		g.drawString(text, (getWidth() / 2) - (width / 2),
+				(getHeight() / 2) - (int) (getHeight() * 0.4) + (int) (getHeight() * 0.8));
+
+		if (active == OPTIONS.SETTINGS) {
+			int x = (getWidth() / 2) - (width / 2) - 30;
+			int y = (getHeight() / 2) - (int) (getHeight() * 0.4) + (int) (getHeight() * 0.8) - Config.f.getSize() + 5;
+			g.drawImage(triangle, x, y, 15, Config.f.getSize() - 5, null);
+
+			x = (getWidth() / 2) + (width / 2) + 15;
+			g.drawImage(triangle, x + 15, y, x, y + Config.f.getSize() - 5, 0, 0, triangle.getWidth(),
+					triangle.getHeight(), null);
+
+		}
 	}
 
 	/**
@@ -158,7 +179,7 @@ public class GameMenu extends RenderInterface {
 	 *
 	 */
 	public enum OPTIONS {
-		NEW, LOAD, EDITOR;
+		NEW, LOAD, EDITOR, SETTINGS;
 	}
 
 	/**
@@ -167,13 +188,16 @@ public class GameMenu extends RenderInterface {
 	public void increase() {
 		switch (active) {
 		case NEW:
-			active = OPTIONS.EDITOR;
+			active = OPTIONS.SETTINGS;
 			break;
 		case LOAD:
 			active = OPTIONS.NEW;
 			break;
 		case EDITOR:
 			active = OPTIONS.LOAD;
+			break;
+		case SETTINGS:
+			active = OPTIONS.EDITOR;
 			break;
 		}
 	}
@@ -190,6 +214,9 @@ public class GameMenu extends RenderInterface {
 			active = OPTIONS.EDITOR;
 			break;
 		case EDITOR:
+			active = OPTIONS.SETTINGS;
+			break;
+		case SETTINGS:
 			active = OPTIONS.NEW;
 			break;
 		}
@@ -210,6 +237,9 @@ public class GameMenu extends RenderInterface {
 			break;
 		case LOAD:
 			load();
+			break;
+		case SETTINGS:
+			showSettings();
 			break;
 		}
 	}
@@ -242,6 +272,10 @@ public class GameMenu extends RenderInterface {
 		}
 
 		GameController.level = fc.getSelectedFile().getPath();
+	}
+
+	public void showSettings() {
+		// TODO
 	}
 
 }
