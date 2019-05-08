@@ -9,6 +9,8 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.JFrame;
 
 import com.booksaw.corruption.Corruption;
+import com.booksaw.corruption.controls.ControlList;
+import com.booksaw.corruption.controls.ControlsManager;
 import com.booksaw.corruption.render.overlays.menu.MenuOverlay;
 
 public class MenuOverlayListener implements Listener, KeyListener, MouseListener, MouseMotionListener {
@@ -58,10 +60,10 @@ public class MenuOverlayListener implements Listener, KeyListener, MouseListener
 	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if (e.getKeyCode() == 87) {
+		if (ControlsManager.isKeyUsed(ControlList.UP, e)) {
 			overlay.increase();
 			Corruption.main.getFrame().repaint();
-		} else if (e.getKeyCode() == 83) {
+		} else if (ControlsManager.isKeyUsed(ControlList.DOWN, e)) {
 			overlay.decrease();
 			Corruption.main.getFrame().repaint();
 		} else if (e.getKeyCode() == 10) {
