@@ -11,6 +11,8 @@ import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 
 import com.booksaw.corruption.Corruption;
+import com.booksaw.corruption.controls.ControlList;
+import com.booksaw.corruption.controls.ControlsManager;
 import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.level.trigger.Trigger;
 import com.booksaw.corruption.render.overlays.EditorOverlay;
@@ -37,90 +39,81 @@ public class EditorKeyListener implements Listener, KeyListener {
 
 //		System.out.println(e.getKeyCode());
 
-		switch (e.getKeyCode()) {
-
-		// both delete keys
-		case 127:
-		case 8:
+		if (ControlsManager.isKeyUsed(ControlList.DELETE, e)) {
 			Selectable.deleteSelected();
 			LevelManager.activeLevel.getSaveManager().changes();
-			break;
-		case 17:
+		} else if (ControlsManager.isKeyUsed(ControlList.CONTROL, e)) {
 			ctrl = true;
-			break;
-		case 84:
+		} else if (ControlsManager.isKeyUsed(ControlList.TESTMODE, e)) {
 			((EditorController) Corruption.main.controller).toogleTestMode();
-			break;
-		case 67:
-			if (ctrl) {
-				// copy
-				Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-
-				StringSelection s;
-
-				String temp = "";
-				for (Selectable tmp : Selectable.getSelectables()) {
-					temp = temp + tmp.getCopy() + "\n";
-				}
-
-				s = new StringSelection(temp);
-				clipboard.setContents(s, s);
-				LevelManager.activeLevel.getSaveManager().changes();
-
-			}
-			break;
-		case 86:
-			if (ctrl) {
-				try {
+		} else if (ControlsManager.isKeyUsed(ControlList.HIDE, e)) {
+			EditorOverlay.activeOverlay.toggle();
+		} else if (ControlsManager.isKeyUsed(ControlList.TRIGGERS, e)) {
+			Trigger.showTriggers = (Trigger.showTriggers) ? false : true;
+		} else {
+			switch (e.getKeyCode()) {
+			case 67:
+				if (ctrl) {
+					// copy
 					Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-					Transferable t = clipboard.getContents(null);
-					if (t.isDataFlavorSupported(DataFlavor.stringFlavor)) {
-						String data = (String) t.getTransferData(DataFlavor.stringFlavor);
 
-						String[] split = data.split("\n");
-						Selectable.clearSelection();
-						for (String s : split) {
-							LevelManager.activeLevel.runLine(s, true);
+					StringSelection s;
+
+					String temp = "";
+					for (Selectable tmp : Selectable.getSelectables()) {
+						temp = temp + tmp.getCopy() + "\n";
+					}
+
+					s = new StringSelection(temp);
+					clipboard.setContents(s, s);
+					LevelManager.activeLevel.getSaveManager().changes();
+
+				}
+				break;
+			case 86:
+				if (ctrl) {
+					try {
+						Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+						Transferable t = clipboard.getContents(null);
+						if (t.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+							String data = (String) t.getTransferData(DataFlavor.stringFlavor);
+
+							String[] split = data.split("\n");
+							Selectable.clearSelection();
+							for (String s : split) {
+								LevelManager.activeLevel.runLine(s, true);
+							}
+
 						}
+					} catch (Exception ex) {
 
 					}
-				} catch (Exception ex) {
-
+					LevelManager.activeLevel.getSaveManager().changes();
 				}
-				LevelManager.activeLevel.getSaveManager().changes();
+				break;
+			case 83:
+				if (ctrl)
+					LevelManager.activeLevel.getSaveManager().save();
+				break;
+			case 90:
+				if (ctrl) {
+					LevelManager.activeLevel.getSaveManager().undo();
+				}
+				break;
+			case 89:
+				if (ctrl) {
+					LevelManager.activeLevel.getSaveManager().redo();
+				}
+				break;
 			}
-
-			break;
-		case 83:
-			if (ctrl)
-				LevelManager.activeLevel.getSaveManager().save();
-			break;
-		case 72:
-			EditorOverlay.activeOverlay.toggle();
-			break;
-		case 90:
-			if (ctrl) {
-				LevelManager.activeLevel.getSaveManager().undo();
-			}
-			break;
-		case 89:
-			if (ctrl) {
-				LevelManager.activeLevel.getSaveManager().redo();
-			}
-			break;
-		case 70:
-			Trigger.showTriggers = (Trigger.showTriggers) ? false : true;
-			break;
 		}
 
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		switch (e.getKeyCode()) {
-		case 17:
+		if (ControlsManager.isKeyUsed(ControlList.CONTROL, e)) {
 			ctrl = false;
-			break;
 		}
 	}
 

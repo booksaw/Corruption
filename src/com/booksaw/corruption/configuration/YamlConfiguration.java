@@ -255,7 +255,6 @@ public class YamlConfiguration {
 		}
 
 		List<String> toReturn = new ArrayList<>();
-
 		for (String ref : objs.keySet()) {
 			toReturn.add(ref);
 		}

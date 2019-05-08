@@ -56,7 +56,6 @@ public class ControlsManager {
 	}
 
 	public static boolean isKeyUsed(String reference, KeyEvent e) {
-
 		Control c = getKeyOptions(reference);
 
 		for (int i : c.keys) {
