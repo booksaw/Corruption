@@ -45,6 +45,8 @@ public class KeyListener implements java.awt.event.KeyListener, Listener {
 			LevelManager.activeLevel.reset();
 		} else if (ControlsManager.isKeyUsed(ControlList.INTERACT, e)) {
 			interact = true;
+		} else if (e.getKeyCode() == 27) {
+			pause();
 		}
 
 	}
@@ -86,7 +88,7 @@ public class KeyListener implements java.awt.event.KeyListener, Listener {
 		listen = null;
 	}
 
-	public void pause() {
+	private void pause() {
 		Overlay.addOverlay(new PauseOverlay());
 
 		up = false;

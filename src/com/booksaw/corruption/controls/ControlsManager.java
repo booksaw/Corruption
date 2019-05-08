@@ -72,4 +72,8 @@ public class ControlsManager {
 		return isKeyUsed(reference.toString(), e);
 	}
 
+	public static HashMap<String, Control> getControls() {
+		return controls;
+	}
+
 }

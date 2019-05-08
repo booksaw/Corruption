@@ -45,6 +45,11 @@ public class Language {
 		messages.put("cursor.selection", "Select");
 		messages.put("cursor.trigger", "Trigger");
 
+		messages.put("settings.action", "Action");
+		messages.put("settings.key", "Key");
+		messages.put("settings.graphics.tip", "Change the graphics");
+		messages.put("settings.controls.tip", "Change the key bindings");
+
 	}
 
 	/**
