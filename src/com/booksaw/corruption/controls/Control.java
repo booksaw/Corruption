@@ -53,7 +53,7 @@ public class Control implements ActionListener, KeyListener {
 	JButton b;
 
 	private JButton getKeybindButton(int ref) {
-		b = new JButton(((char) ref) + "");
+		b = new JButton(getKeyString(ref));
 		b.addActionListener(this);
 		return b;
 	}
@@ -70,8 +70,14 @@ public class Control implements ActionListener, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		b.setText(((char) e.getKeyCode()) + "");
+		String s = getKeyString(e.getKeyCode());
+		if (!s.equals("")) {
+			b.setText(s);
+		} else {
+			b.setText(getKeyString(keys[0]));
+		}
 
+		b.removeActionListener(this);
 	}
 
 	@Override
@@ -86,7 +92,106 @@ public class Control implements ActionListener, KeyListener {
 
 	public void save() {
 		if (b != null && b.getText().length() != 0)
-			keys[0] = b.getText().charAt(0);
+			keys[0] = getKeyInt(b.getText());
+	}
+
+	private String getKeyString(int code) {
+
+		System.out.println("text = " + code);
+		switch (code) {
+		case 17:
+		case 27:
+		case 524:
+			return "";
+		case 37:
+			return "left";
+		case 39:
+			return "right";
+		case 38:
+			return "up";
+		case 40:
+			return "down";
+		case 10:
+			return "enter";
+		case 16:
+			return "shift";
+		case 20:
+			return "caps lock";
+		case 18:
+			return "alt";
+		case 8:
+			return "backspace";
+		case 192:
+			return "grave";
+		case 32:
+			return "space";
+		case 525:
+			return "R click";
+		case 127:
+			return "delete";
+		case 35:
+			return "end";
+		case 34:
+			return "page down";
+		case 36:
+			return "home";
+		case 33:
+			return "page up";
+		case 155:
+			return "insert";
+		case 144:
+			return "num lock";
+
+		default:
+			return (char) code + "";
+		}
+
+	}
+
+	private int getKeyInt(String text) {
+		switch (text) {
+		case "left":
+			return 37;
+		case "right":
+			return 39;
+		case "up":
+			return 38;
+		case "down":
+			return 40;
+		case "enter":
+			return 10;
+		case "shift":
+			return 10;
+		case "caps lock":
+			return 20;
+		case "alt":
+			return 18;
+		case "backspace":
+			return 8;
+		case "grave":
+			return 192;
+		case "space":
+			return 32;
+		case "R click":
+			return 525;
+		case "delete":
+			return 127;
+		case "end":
+			return 35;
+		case "page down":
+			return 34;
+		case "home":
+			return 36;
+		case "page up":
+			return 33;
+		case "insert":
+			return 155;
+		case "num lock":
+			return 14;
+		default:
+			return text.charAt(0);
+		}
+
 	}
 
 }
