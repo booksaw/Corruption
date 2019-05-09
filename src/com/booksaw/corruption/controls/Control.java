@@ -10,6 +10,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.booksaw.corruption.settings.Settings;
+
 public class Control implements ActionListener, KeyListener {
 
 	String name;
@@ -62,8 +64,10 @@ public class Control implements ActionListener, KeyListener {
 	public void actionPerformed(ActionEvent e) {
 
 		if (b != null) {
+			Settings.settings.clearButtons();
 			b.setText("");
 			b.addKeyListener(this);
+
 		}
 
 	}
@@ -77,7 +81,15 @@ public class Control implements ActionListener, KeyListener {
 			b.setText(getKeyString(keys[0]));
 		}
 
-		b.removeActionListener(this);
+		b.removeKeyListener(this);
+	}
+
+	public void press() {
+		if (b != null) {
+			b.setText(getKeyString(keys[0]));
+
+			b.removeKeyListener(this);
+		}
 	}
 
 	@Override
@@ -93,11 +105,12 @@ public class Control implements ActionListener, KeyListener {
 	public void save() {
 		if (b != null && b.getText().length() != 0)
 			keys[0] = getKeyInt(b.getText());
+
 	}
 
 	private String getKeyString(int code) {
 
-		System.out.println("text = " + code);
+//		System.out.println("text = " + code);
 		switch (code) {
 		case 17:
 		case 27:
@@ -192,6 +205,10 @@ public class Control implements ActionListener, KeyListener {
 			return text.charAt(0);
 		}
 
+	}
+
+	public void clear() {
+		press();
 	}
 
 }

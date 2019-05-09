@@ -2,10 +2,10 @@ level:
   reset: 82
   interact: 69
 movement:
-  left: 37
-  right: 39
-  up: 38;32
-  down: 40
+  left: 68
+  right: 65
+  up: 87;32
+  down: 83
 editor:
   hide: 72
   testMode: 84

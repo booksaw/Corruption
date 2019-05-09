@@ -28,6 +28,7 @@ import com.booksaw.corruption.language.Language;
 
 public class Settings extends JFrame implements ActionListener {
 
+	public static Settings settings;
 	private static final long serialVersionUID = 5274623199845825074L;
 
 	/**
@@ -53,6 +54,7 @@ public class Settings extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public Settings() {
+		settings = this;
 		setSize(d.width, d.height);
 		setResizable(false);
 
@@ -158,6 +160,13 @@ public class Settings extends JFrame implements ActionListener {
 			temp.getValue().save();
 		}
 		ControlsManager.save();
+		setVisible(false);
+	}
+
+	public void clearButtons() {
+		for (Entry<String, Control> temp : ControlsManager.getControls().entrySet()) {
+			temp.getValue().clear();
+		}
 	}
 
 }
