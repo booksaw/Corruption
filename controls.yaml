@@ -3,9 +3,9 @@ level:
   interact: 69
 movement:
   left: 68
-  right: 65
-  up: 87;32
-  down: 83
+  right: 49
+  up: 112;32
+  down: 35
 editor:
   hide: 72
   testMode: 84

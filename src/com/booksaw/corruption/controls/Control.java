@@ -86,6 +86,10 @@ public class Control implements ActionListener, KeyListener {
 
 	public void press() {
 		if (b != null) {
+			if (!b.getText().equals("")) {
+				return;
+			}
+
 			b.setText(getKeyString(keys[0]));
 
 			b.removeKeyListener(this);
@@ -110,7 +114,18 @@ public class Control implements ActionListener, KeyListener {
 
 	private String getKeyString(int code) {
 
-//		System.out.println("text = " + code);
+		System.out.println("text = " + code);
+
+		// if they have used a number on the numpad
+		if (code >= 96 && code <= 105) {
+			return (code - 96) + "";
+		}
+
+		// f keys
+		if (code >= 112 && code <= 123) {
+			return "F" + (code - 111);
+		}
+
 		switch (code) {
 		case 17:
 		case 27:
@@ -154,6 +169,16 @@ public class Control implements ActionListener, KeyListener {
 			return "insert";
 		case 144:
 			return "num lock";
+		case 111:
+			return "/";
+		case 106:
+			return "*";
+		case 109:
+			return "-";
+		case 107:
+			return "+";
+		case 110:
+			return ".";
 
 		default:
 			return (char) code + "";
@@ -201,6 +226,36 @@ public class Control implements ActionListener, KeyListener {
 			return 155;
 		case "num lock":
 			return 14;
+		case "/":
+			return 111;
+		case "*":
+			return 106;
+		case "-":
+			return 109;
+		case "+":
+			return 107;
+		case ".":
+			return 110;
+		case "F1":
+			return 112;
+		case "F2":
+			return 113;
+		case "F3":
+			return 114;
+		case "F4":
+			return 115;
+		case "F5":
+			return 116;
+		case "F6":
+			return 117;
+		case "F7":
+			return 118;
+		case "F8":
+			return 119;
+		case "F9":
+			return 120;
+		case "F10":
+			return 121;
 		default:
 			return text.charAt(0);
 		}
