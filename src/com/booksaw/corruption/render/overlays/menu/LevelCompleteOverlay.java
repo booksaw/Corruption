@@ -1,5 +1,6 @@
 package com.booksaw.corruption.render.overlays.menu;
 
+import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.renderControler.GameController;
 import com.booksaw.corruption.renderControler.MenuController;
 
@@ -8,8 +9,9 @@ public class LevelCompleteOverlay extends MenuOverlay {
 	@Override
 	public void addItems() {
 		components.add(new MenuComponent(this, "Level Complete", "Level Complete", false));
-
-		components.add(new MenuComponent(this, "Next Level", "next", true));
+		if (LevelManager.activeLevel.hasActiveLevel()) {
+			components.add(new MenuComponent(this, "Next Level", "next", true));
+		}
 		components.add(new MenuComponent(this, "Main Menu", "menu", true));
 	}
 

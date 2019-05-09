@@ -14,7 +14,7 @@ level:
 - object:block:1433;12;13;97;0;0;0;d6aa58d3-418e-4040-9da2-ec3d2e57380d
 - object:block:1651;17;9;48;0;0;0;819f275e-57f6-4a62-b542-4c1e66d529eb
 - object:block:681;246;20;52;0;0;0;64ce799f-4fa3-4790-998e-4edd51b21799
-- object:block:847;331;132;23;0;0;0;44a47479-cb73-4625-b69b-e6f9a6aa1552
+- object:block:814;331;215;23;0;0;0;44a47479-cb73-4625-b69b-e6f9a6aa1552
 - object:block:1092;311;153;19;0;0;0;b2c2bca3-d5be-43a6-a65d-c80136b21ea0
 - object:block:1322;322;30;25;0;0;0;b2637548-39b7-4f71-bc81-77d2aeca4e48
 - object:block:1405;347;43;29;0;0;0;7359dffc-7690-4637-a654-a8fcce6b848a
@@ -22,6 +22,7 @@ level:
 - object:block:1764;251;18;219;0;0;0;f7f752e3-fef6-48e7-b2c6-08683bdd8507
 - object:block:1777;336;150;24;0;0;0;a5d9cd64-c5a7-4b9a-a580-8140ad446605
 - object:block:1613;436;106;18;0;0;0;fce5fb90-b092-4446-ab27-b705d920cba7
+- object:block:1897;360;27;98;0;0;0;475bce60-7aae-4996-9289-bc42fe14653b
 - background:colored:-22;381;503;216;233;169;169;5cfca370-6cce-48b4-ab92-528a8aeeb562
 - background:colored:-36;-42;506;398;153;45;45;17fa53f9-2a56-4967-af5a-1e9c4da0d3c4
 - sprite:player:72;439;true;true;true;d1617eda-933e-4817-ba0b-ddeced077ecd

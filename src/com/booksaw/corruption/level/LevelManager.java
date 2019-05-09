@@ -582,4 +582,9 @@ public class LevelManager {
 		return saveManager;
 	}
 
+	public boolean hasActiveLevel() {
+		System.out.println(saveManager.getNextLevel());
+		return !saveManager.getNextLevel().equals("");
+	}
+
 }
