@@ -114,7 +114,7 @@ public class Control implements ActionListener, KeyListener {
 
 	private String getKeyString(int code) {
 
-		System.out.println("text = " + code);
+//		System.out.println("text = " + code);
 
 		// if they have used a number on the numpad
 		if (code >= 96 && code <= 105) {

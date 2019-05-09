@@ -170,7 +170,10 @@ public class Door extends GameObject {
 		super.trigger(args);
 		switch (args[0]) {
 		case "open":
-			AudioPlayer.playSound(AudioInstance.DOOR.getClip());
+			boolean change = Boolean.parseBoolean(args[1]);
+			// checking if there is a state change
+			if (change != open)
+				AudioPlayer.playSound(AudioInstance.DOOR.getClip());
 			if (Boolean.parseBoolean(args[1])) {
 				open();
 			} else
