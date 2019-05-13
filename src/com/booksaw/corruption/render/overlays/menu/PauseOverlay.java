@@ -9,6 +9,7 @@ import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.render.overlays.Overlay;
 import com.booksaw.corruption.renderControler.EditorController;
 import com.booksaw.corruption.renderControler.MenuController;
+import com.booksaw.corruption.settings.Settings;
 
 public class PauseOverlay extends MenuOverlay {
 
@@ -27,6 +28,7 @@ public class PauseOverlay extends MenuOverlay {
 		}
 
 		components.add(new MenuComponent(this, text, "quit", true));
+		components.add(new MenuComponent(this, Language.getMessage("menu.settings"), "settings", true));
 
 	}
 
@@ -53,6 +55,9 @@ public class PauseOverlay extends MenuOverlay {
 
 			Overlay.removeOverlay(this);
 			Corruption.main.setActive(new MenuController());
+			break;
+		case "settings":
+			Settings.displaySettings();
 			break;
 		}
 
