@@ -76,16 +76,13 @@ public class Player extends Sprite {
 	 */
 	@Override
 	public void update(int time) {
-
 		if (sortInteractables()) {
 			return;
 		}
-
 		double tempX = x;
 		// storing a temp value of x so any values
 
 		calculateX(time);
-
 		// setting the animation state (ie moving L-R or stationary)
 		if (x == tempX) {
 			setState(AnimationState.STATIONARY);
@@ -101,9 +98,7 @@ public class Player extends Sprite {
 				right = true;
 			}
 		}
-
 		calculateY(time);
-
 		KeyListener listen = KeyListener.listen;
 
 		// setting crouching if possible
@@ -122,22 +117,9 @@ public class Player extends Sprite {
 
 		}
 
-		super.update(time);
+		checkDeath();
 
-//		if (tempY < y) {
-//			// travelled up
-//			double cam60 = GameCamera.cameraHeight * 0.4 + GameCamera.activeCamera.y;
-//			if (y > cam60) {
-//				GameCamera.activeCamera.closestY((int) (y - (int) (GameCamera.cameraHeight * 0.4)));
-//			}
-//
-//		} else if (tempY > y) {
-//			// travelled down
-//			double cam40 = GameCamera.cameraHeight * 0.4 + GameCamera.activeCamera.y;
-//			if (y < cam40) {
-//				GameCamera.activeCamera.closestY((int) (y - (int) (GameCamera.cameraHeight * 0.4)));
-//			}
-//		}
+		super.update(time);
 
 	}
 

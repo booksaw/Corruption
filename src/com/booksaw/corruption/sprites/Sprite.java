@@ -506,8 +506,7 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 				if (o.collisionMode == Mode.SOLID) {
 					return false;
 				} else if (o.collisionMode == Mode.DEATH) {
-					reset(true);
-					return true;
+					continue;
 				}
 			}
 		}
@@ -517,7 +516,7 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 	/**
 	 * Used to get the file name of the sprite
 	 * 
-	 * @return
+	 * @return the name of the sprite
 	 */
 	protected abstract String getName();
 
@@ -557,15 +556,17 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 
 	}
 
+	/**
+	 * Used when a player is at a checkpoint
+	 */
 	public void setCheckpoint() {
-		double x = this.x;
-		double y = this.y;
-
+		int x = (int) this.x;
+		int y = (int) this.y;
 		while (!canGo(x, y)) {
 			y++;
 		}
 
-		checkpointLocation = new Point((int) x, (int) y);
+		checkpointLocation = new Point(x, y);
 	}
 
 	/**
@@ -589,6 +590,11 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 		if (fail && (System.currentTimeMillis() - prevReset) > 20) {
 			AudioPlayer.playSound(AudioInstance.DEATH);
 			LevelManager.activeLevel.fails++;
+		}
+
+		while (!canGo(x, y)) {
+
+			y++;
 		}
 
 		prevReset = System.currentTimeMillis();
@@ -770,6 +776,24 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 
 	public boolean isDetectable() {
 		return detectable;
+	}
+
+	public void checkDeath() {
+		// gens the rectangle for that location
+		Rectangle r = getRectangle((int) x, (int) y);
+
+		// checks intersections with each rectangle
+		for (GameObject o : LevelManager.activeLevel.getLevelObjects()) {
+
+			if (o.getRectangle().intersects(r)) {
+				if (o.collisionMode == Mode.SOLID) {
+					continue;
+				} else if (o.collisionMode == Mode.DEATH) {
+					reset(true);
+					return;
+				}
+			}
+		}
 	}
 
 }
