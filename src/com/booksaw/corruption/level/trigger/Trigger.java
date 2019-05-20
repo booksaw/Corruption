@@ -85,6 +85,10 @@ public class Trigger extends Selectable implements Dimensions, Location {
 
 	List<String> commands = null;
 
+	public boolean shouldRender() {
+		return commands == null && showTriggers;
+	}
+
 	public Trigger(Rectangle position, boolean interact, List<String> commands) {
 		super();
 		x = position.x;
@@ -171,7 +175,7 @@ public class Trigger extends Selectable implements Dimensions, Location {
 	@Override
 	protected void paintComp(Graphics g, Rectangle camera) {
 
-		if (showTriggers) {
+		if (shouldRender()) {
 			g.setColor(Color.WHITE);
 			g.drawRect(((int) x - camera.x), GameCamera.cameraHeight - (int) y - height - camera.y, width, height);
 
