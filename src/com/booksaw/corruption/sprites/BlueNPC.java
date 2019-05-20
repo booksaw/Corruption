@@ -87,4 +87,9 @@ public class BlueNPC extends Sprite {
 		this.right = right;
 	}
 
+	@Override
+	public BufferedImage getDead() {
+		return standing;
+	}
+
 }

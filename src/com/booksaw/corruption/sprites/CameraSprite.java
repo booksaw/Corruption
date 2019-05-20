@@ -101,4 +101,10 @@ public class CameraSprite extends Sprite {
 		return "camera";
 	}
 
+	@Override
+	public BufferedImage getDead() {
+		return getStanding();
+	}
+
+
 }

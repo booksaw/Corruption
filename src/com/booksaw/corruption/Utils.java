@@ -32,8 +32,10 @@ public class Utils {
 	}
 
 	/**
-	 * At the moment not in use but may be used to scale a point to a point on the image screen
-	 * @param p the point
+	 * At the moment not in use but may be used to scale a point to a point on the
+	 * image screen
+	 * 
+	 * @param p                 the point
 	 * @param currentDimensions - the dimensions of the window at the moment
 	 * @return the location of that point on the original window
 	 */
@@ -45,6 +47,27 @@ public class Utils {
 //		p.y = (int) y;
 		return p;
 
+	}
+
+	public static BufferedImage rotateClockwise90(BufferedImage src) {
+
+		int width = src.getWidth();
+		int height = src.getHeight();
+
+		BufferedImage dest = new BufferedImage(height, width, src.getType());
+
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				try {
+					dest.setRGB(height - y - 1, x, src.getRGB(x, y));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+			}
+		}
+
+		return dest;
 	}
 
 }

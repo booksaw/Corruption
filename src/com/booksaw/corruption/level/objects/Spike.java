@@ -20,28 +20,7 @@ public class Spike extends GameObject {
 
 	static {
 		spikes = Utils.getImage(new File(path + "spike.png"));
-		spikesR = rotateClockwise90(spikes);
-	}
-
-	public static BufferedImage rotateClockwise90(BufferedImage src) {
-
-		int width = src.getWidth();
-		int height = src.getHeight();
-
-		BufferedImage dest = new BufferedImage(height, width, src.getType());
-
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
-				try {
-					dest.setRGB(height - y - 1, x, spikes.getRGB(x, y));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
-			}
-		}
-
-		return dest;
+		spikesR = Utils.rotateClockwise90(spikes);
 	}
 
 	public Spike(String info) {

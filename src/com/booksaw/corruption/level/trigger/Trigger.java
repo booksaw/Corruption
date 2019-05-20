@@ -9,9 +9,11 @@ import java.util.List;
 import java.util.UUID;
 
 import com.booksaw.corruption.execution.ExecutionChain;
+import com.booksaw.corruption.execution.ExecutionSet;
 import com.booksaw.corruption.level.Dimensions;
 import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.level.Location;
+import com.booksaw.corruption.listeners.KeyListener;
 import com.booksaw.corruption.render.GameCamera;
 import com.booksaw.corruption.selection.Selectable;
 
@@ -19,6 +21,11 @@ public class Trigger extends Selectable implements Dimensions, Location {
 
 	public static boolean showTriggers = false;
 
+	/**
+	 * Used to check the triggers of a sprite
+	 * 
+	 * @param r
+	 */
 	public static void manageTriggers(Rectangle r) {
 		Trigger t = getTrigger(r, LevelManager.activeLevel.getTriggers());
 		if (t == null || t.active) {
@@ -29,6 +36,13 @@ public class Trigger extends Selectable implements Dimensions, Location {
 
 	}
 
+	/**
+	 * Gives the trigger at a specified point
+	 * 
+	 * @param p        the point
+	 * @param triggers list of triggers
+	 * @return the trigger at that point
+	 */
 	public static Trigger getTrigger(Point p, List<Trigger> triggers) {
 		return getTrigger(new Rectangle(p, new Dimension(1, 1)), triggers);
 	}
@@ -44,7 +58,7 @@ public class Trigger extends Selectable implements Dimensions, Location {
 		return null;
 	}
 
-	protected boolean active = false;
+	protected boolean active = false, interact = false;
 
 	public Trigger(String ref) {
 		super();
@@ -66,12 +80,20 @@ public class Trigger extends Selectable implements Dimensions, Location {
 	}
 
 	public Trigger(Rectangle position) {
+		this(position, false, null);
+	}
+
+	List<String> commands = null;
+
+	public Trigger(Rectangle position, boolean interact, List<String> commands) {
 		super();
 		x = position.x;
 		y = position.y;
 		width = position.width;
 		height = position.height;
 		uuid = generateUUID();
+		this.interact = interact;
+		this.commands = commands;
 	}
 
 	int width, height;
@@ -133,8 +155,17 @@ public class Trigger extends Selectable implements Dimensions, Location {
 	ExecutionChain chain;
 
 	public void trigger() {
-		active = true;
-		chain = new ExecutionChain("commands." + uuid, LevelManager.activeLevel.getSaveManager().config, true);
+		if (!interact || (KeyListener.listen != null && KeyListener.listen.interact)) {
+
+			if (commands == null) {
+				active = true;
+				chain = new ExecutionChain("commands." + uuid, LevelManager.activeLevel.getSaveManager().config, true);
+			} else {
+				new ExecutionSet(null, commands).run();
+				;
+			}
+		}
+
 	}
 
 	@Override
@@ -150,7 +181,9 @@ public class Trigger extends Selectable implements Dimensions, Location {
 
 	@Override
 	public String toString() {
-
+		if (commands != null) {
+			return "";
+		}
 		return "trigger:" + (int) x + ";" + (int) y + ";" + width + ";" + height + ";" + uuid;
 
 	}
@@ -165,4 +198,13 @@ public class Trigger extends Selectable implements Dimensions, Location {
 		if (chain != null)
 			chain.reset();
 	}
+
+	public boolean isInteract() {
+		return interact;
+	}
+
+	public void setInteract(boolean interact) {
+		this.interact = interact;
+	}
+
 }

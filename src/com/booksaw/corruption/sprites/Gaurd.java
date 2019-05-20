@@ -5,10 +5,13 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.booksaw.corruption.Config;
 import com.booksaw.corruption.Utils;
 import com.booksaw.corruption.level.LevelManager;
+import com.booksaw.corruption.level.trigger.Trigger;
 
 public class Gaurd extends Sprite {
 
@@ -16,9 +19,15 @@ public class Gaurd extends Sprite {
 	double jumpHeight = 0, weight = 0.002;
 	final double maxJump = 0.625;
 	final double SPEED = 0.05;
+	private Trigger t;
 
 	public Gaurd(String info) {
 		super(info);
+
+		List<String> commands = new ArrayList<>();
+		commands.add("kill:" + uuid);
+		t = new Trigger(new Rectangle((int) x - getWidth(), (int) y, getWidth() * 2, getHeight()), true, commands);
+		LevelManager.activeLevel.addTrigger(t);
 	}
 
 	public Gaurd() {
@@ -39,6 +48,12 @@ public class Gaurd extends Sprite {
 	@Override
 	protected Dimension getCrouchDimension() {
 		return new Dimension(7, 10);
+	}
+
+	@Override
+	protected Dimension getDeadDimension() {
+		Dimension d = getDimension();
+		return new Dimension(d.height, d.width);
 	}
 
 	@Override
@@ -73,6 +88,11 @@ public class Gaurd extends Sprite {
 
 	@Override
 	public void update(int time) {
+
+		if (state == AnimationState.DEAD) {
+			return;
+		}
+
 		super.update(time);
 
 		checkVision();
@@ -95,6 +115,8 @@ public class Gaurd extends Sprite {
 		if (Math.abs(jumpHeight) > maxJump) {
 			jumpHeight = (jumpHeight < 0) ? -maxJump : maxJump;
 		}
+
+		doTrigger();
 
 	}
 
@@ -160,6 +182,31 @@ public class Gaurd extends Sprite {
 		}
 
 		LevelManager.activeLevel.reset();
+	}
+
+	public void doTrigger() {
+		if (right)
+			t.setX((int) x - getWidth());
+		else
+			t.setX((int) x);
+		t.setY((int) y);
+
+	}
+
+	@Override
+	public void reset(boolean fail) {
+		if (!fail) {
+			super.reset(false);
+		} else
+			state = AnimationState.DEAD;
+	}
+
+	@Override
+	public BufferedImage getDead() {
+		// rotate anticlockwise 90
+		BufferedImage i = Utils.rotateClockwise90(getStanding());
+		i = Utils.rotateClockwise90(i);
+		return Utils.rotateClockwise90(i);
 	}
 
 }

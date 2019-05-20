@@ -77,9 +77,9 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 	protected Point checkpointLocation;
 
 	// for hit boxes
-	protected Dimension dimensions, crouchDimensions;
+	protected Dimension dimensions, crouchDimensions, deadDimensions;
 	// images in all the standard states
-	public BufferedImage standing, walking, crouching;
+	public BufferedImage standing, walking, crouching, dead;
 	// names are clear
 	public boolean right, isCrouching;
 	// number of animation stages for each state
@@ -117,6 +117,15 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 	protected abstract Dimension getCrouchDimension();
 
 	/**
+	 * Gives the crouching dimensions
+	 * 
+	 * @return
+	 */
+	protected Dimension getDeadDimension() {
+		return getDimension();
+	}
+
+	/**
 	 * Standing image
 	 * 
 	 * @return
@@ -136,6 +145,13 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 	 * @return
 	 */
 	protected abstract BufferedImage getCrouching();
+
+	/**
+	 * dead image
+	 * 
+	 * @return
+	 */
+	public abstract BufferedImage getDead();
 
 	/**
 	 * Hitbox of character
@@ -168,10 +184,12 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 		// getting the dimensions
 		dimensions = getDimension();
 		crouchDimensions = getCrouchDimension();
+		deadDimensions = getDeadDimension();
 		// setting the images
 		standing = getStanding();
 		walking = getWalking();
 		crouching = getCrouching();
+		dead = getDead();
 		resizable = false;
 		uuid = generateUUID();
 
@@ -243,6 +261,8 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 			return standing;
 		case WALKING:
 			return walking;
+		case DEAD:
+			return dead;
 		}
 		return null;
 
@@ -326,6 +346,9 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 	public Dimension getDisplayDimension() {
 		if (isCrouching)
 			return crouchDimensions;
+		if (state == AnimationState.DEAD) {
+			return deadDimensions;
+		}
 		return dimensions;
 
 	}
@@ -344,6 +367,8 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 			return standingMax;
 		case WALKING:
 			return walkingMax;
+		case DEAD:
+			return 1;
 		}
 		return 1;
 
@@ -583,7 +608,6 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 	private long prevReset = 0L;
 
 	public void reset(boolean fail) {
-
 		x = checkpointLocation.x;
 		y = checkpointLocation.y;
 
@@ -593,9 +617,11 @@ public abstract class Sprite extends Selectable implements Updatable, Location {
 		}
 
 		while (!canGo(x, y)) {
-
 			y++;
 		}
+
+		// ensuring not dead
+		state = AnimationState.WALKING;
 
 		prevReset = System.currentTimeMillis();
 	}

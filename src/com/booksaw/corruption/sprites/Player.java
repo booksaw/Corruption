@@ -278,4 +278,9 @@ public class Player extends Sprite {
 		return "player";
 	}
 
+	@Override
+	public BufferedImage getDead() {
+		return getStanding();
+	}
+
 }

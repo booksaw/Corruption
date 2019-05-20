@@ -103,6 +103,7 @@ public class LevelManager {
 	 * @param level
 	 */
 	public LevelManager(File level) {
+		activeLevel = this;
 		f = level;
 		load();
 	}

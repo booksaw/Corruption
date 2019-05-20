@@ -64,7 +64,8 @@ public class ExecutionSet {
 	 * Used to move onto the next execution set
 	 */
 	private void advance() {
-		chain.advance();
+		if (chain != null)
+			chain.advance();
 	}
 
 	public void addCommand(String cmd) {
