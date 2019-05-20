@@ -1,5 +1,6 @@
 package com.booksaw.corruption.execution.commands;
 
+import java.util.Arrays;
 import java.util.UUID;
 
 import com.booksaw.corruption.Config;
@@ -16,7 +17,11 @@ public class CommandTrigger extends Command {
 	@Override
 	public void execute(String command, String[] args) {
 		Selectable s = Selectable.getSelectable(UUID.fromString(args[0]));
-		s.trigger(Config.removeFirstElement(args));
+		try {
+			s.trigger(Config.removeFirstElement(args));
+		} catch (Exception e) {
+			System.out.println("ERROR IN COMMAND: " + command + "args:  " + Arrays.toString(args));
+		}
 	}
 
 }
