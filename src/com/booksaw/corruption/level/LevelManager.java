@@ -289,7 +289,7 @@ public class LevelManager {
 			b.setSelected(select);
 			addSprite(b);
 			break;
-		case "gaurd":
+		case "guard":
 			Guard g = new Guard(info);
 			g.setSelected(select);
 			addSprite(g);

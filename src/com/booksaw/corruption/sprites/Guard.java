@@ -37,7 +37,7 @@ public class Guard extends Sprite {
 	@Override
 	protected void setup() {
 		needsUpdating = true;
-		assetPath = Config.ASSETSPATH + File.separator + "gaurd" + File.separator;
+		assetPath = Config.ASSETSPATH + File.separator + "guard" + File.separator;
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class Guard extends Sprite {
 
 	@Override
 	protected String getName() {
-		return "gaurd";
+		return "guard";
 	}
 
 	@Override
