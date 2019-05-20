@@ -27,12 +27,12 @@ level:
 - background:colored:-36;-42;506;398;153;45;45;17fa53f9-2a56-4967-af5a-1e9c4da0d3c4
 - sprite:player:72;439;true;true;true;d1617eda-933e-4817-ba0b-ddeced077ecd
 - sprite:bluenpc:414;384;false;false;false;04e9c817-3ebf-4c0d-beac-2de6cf2f2d02
-- sprite:gaurd:1331;34;false;false;false;14b4cc4e-683b-4458-b35a-94ee37a69418
-- sprite:gaurd:1474;44;false;false;true;b9f0a212-65bb-449f-8187-4ba31a1cd5ff
-- sprite:gaurd:1794;367;false;false;false;2efd68df-2e49-4990-8575-68653e3132d8
-- sprite:gaurd:902;265;false;false;true;0847f2ec-3ec9-438b-b234-d2212afe5890
-- sprite:gaurd:1401;249;false;false;false;a0d46888-76d8-4eab-aa3f-03ea841021e9
-- sprite:gaurd:1227;252;false;false;false;84e169df-5eae-4a69-9600-408acaa2fb64
+- sprite:guard:1331;34;false;false;false;14b4cc4e-683b-4458-b35a-94ee37a69418
+- sprite:guard:1474;44;false;false;true;b9f0a212-65bb-449f-8187-4ba31a1cd5ff
+- sprite:guard:1794;367;false;false;false;2efd68df-2e49-4990-8575-68653e3132d8
+- sprite:guard:902;265;false;false;true;0847f2ec-3ec9-438b-b234-d2212afe5890
+- sprite:guard:1401;249;false;false;false;a0d46888-76d8-4eab-aa3f-03ea841021e9
+- sprite:guard:1227;252;false;false;false;84e169df-5eae-4a69-9600-408acaa2fb64
 - interactable:46;191;369;93;logo;ed3bd194-31a8-4d1c-bc10-656c48eef6fc
 - interactable:722;18;123;78;desk;14373b4e-4442-453e-957b-5940b69b6c5d
 - interactable:1841;8;70;15;checkpoint;34a9e3c1-7314-49e0-8084-789b84d2e67e
@@ -46,4 +46,4 @@ commands:
     - speech:04e9c817-3ebf-4c0d-beac-2de6cf2f2d02:Unless you want to fail the level
     - trigger:b19c7050-35fc-453a-ac21-5029631b5b46:open:true
     a01:
-    - speech:04e9c817-3ebf-4c0d-beac-2de6cf2f2d02:People dressed in black are gaurds
+    - speech:04e9c817-3ebf-4c0d-beac-2de6cf2f2d02:People dressed in black are guards

@@ -13,7 +13,7 @@ import com.booksaw.corruption.Utils;
 import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.level.trigger.Trigger;
 
-public class Gaurd extends Sprite {
+public class Guard extends Sprite {
 
 	String assetPath;
 	double jumpHeight = 0, weight = 0.002;
@@ -21,7 +21,7 @@ public class Gaurd extends Sprite {
 	final double SPEED = 0.05;
 	private Trigger t;
 
-	public Gaurd(String info) {
+	public Guard(String info) {
 		super(info);
 
 		List<String> commands = new ArrayList<>();
@@ -30,7 +30,7 @@ public class Gaurd extends Sprite {
 		LevelManager.activeLevel.addTrigger(t);
 	}
 
-	public Gaurd() {
+	public Guard() {
 		super();
 	}
 

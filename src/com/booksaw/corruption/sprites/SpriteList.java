@@ -22,7 +22,7 @@ public enum SpriteList {
 		case BLUENPC:
 			return new BlueNPC();
 		case GAURD:
-			return new Gaurd();
+			return new Guard();
 		}
 
 		return null;

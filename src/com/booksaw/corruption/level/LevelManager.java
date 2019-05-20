@@ -38,7 +38,7 @@ import com.booksaw.corruption.renderControler.EditorController;
 import com.booksaw.corruption.renderControler.GameController;
 import com.booksaw.corruption.selection.Selectable;
 import com.booksaw.corruption.sprites.BlueNPC;
-import com.booksaw.corruption.sprites.Gaurd;
+import com.booksaw.corruption.sprites.Guard;
 import com.booksaw.corruption.sprites.Player;
 import com.booksaw.corruption.sprites.Sprite;
 
@@ -290,7 +290,7 @@ public class LevelManager {
 			addSprite(b);
 			break;
 		case "gaurd":
-			Gaurd g = new Gaurd(info);
+			Guard g = new Guard(info);
 			g.setSelected(select);
 			addSprite(g);
 			break;
@@ -492,7 +492,7 @@ public class LevelManager {
 	 */
 	public void reset() {
 		for (Sprite s : sprites) {
-			if (s.controllable || s instanceof Gaurd) {
+			if (s.controllable || s instanceof Guard) {
 				s.reset();
 
 			}
