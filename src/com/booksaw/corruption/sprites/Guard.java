@@ -142,13 +142,13 @@ public class Guard extends Sprite {
 			int x = (int) this.x + getWidth();
 			while (canGo(x, y) && this.x + 300 > x) {
 				Sprite s = getSprite(new Point(x, (int) y), LevelManager.activeLevel.getSprites());
-				if (s != null) {
+				if (s != null && s.isDetectable()) {
 					see(s);
 					break;
 				}
 
 				s = getSprite(new Point(x, (int) y + getHeight()), LevelManager.activeLevel.getSprites());
-				if (s != null) {
+				if (s != null && s.isDetectable()) {
 					see(s);
 					break;
 				}
@@ -160,13 +160,13 @@ public class Guard extends Sprite {
 			int x = (int) this.x - 1;
 			while (canGo(x, y) && this.x - 300 < x) {
 				Sprite s = getSprite(new Point(x, (int) y), LevelManager.activeLevel.getSprites());
-				if (s != null) {
+				if (s != null && s.isDetectable()) {
 					see(s);
 					break;
 				}
 
 				s = getSprite(new Point(x, (int) y + getHeight()), LevelManager.activeLevel.getSprites());
-				if (s != null) {
+				if (s != null && s.isDetectable()) {
 					see(s);
 					break;
 				}
@@ -177,9 +177,6 @@ public class Guard extends Sprite {
 	}
 
 	public void see(Sprite s) {
-		if (!s.isDetectable()) {
-			return;
-		}
 
 		LevelManager.activeLevel.reset();
 	}
