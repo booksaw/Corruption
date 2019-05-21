@@ -18,7 +18,8 @@ public class Guard extends Sprite {
 	String assetPath;
 	double jumpHeight = 0, weight = 0.002;
 	final double maxJump = 0.625;
-	final double SPEED = 0.05;
+	final double PASSIVESPEED = 0.05, SEARCHSPEED = 0.13;
+	public boolean searching = false;
 	private Trigger t;
 
 	public Guard(String info) {
@@ -88,7 +89,7 @@ public class Guard extends Sprite {
 
 	@Override
 	public void update(int time) {
-
+		double speed = (searching) ? SEARCHSPEED : PASSIVESPEED;
 		if (state == AnimationState.DEAD) {
 			return;
 		}
@@ -99,9 +100,9 @@ public class Guard extends Sprite {
 		calculateDirection(time);
 
 		if (right) {
-			x = changeX(x + (SPEED * time), x);
+			x = changeX(x + (speed * time), x);
 		} else {
-			x = changeX(x - (SPEED * time), x);
+			x = changeX(x - (speed * time), x);
 		}
 
 		y = changeY(y + (jumpHeight * time), y);
@@ -142,14 +143,12 @@ public class Guard extends Sprite {
 			int x = (int) this.x + getWidth();
 			while (canGo(x, y) && this.x + 300 > x) {
 				Sprite s = getSprite(new Point(x, (int) y), LevelManager.activeLevel.getSprites());
-				if (s != null && s.isDetectable()) {
-					see(s);
+				if (s != null && checkSprite(s)) {
 					break;
 				}
 
 				s = getSprite(new Point(x, (int) y + getHeight()), LevelManager.activeLevel.getSprites());
-				if (s != null && s.isDetectable()) {
-					see(s);
+				if (s != null && checkSprite(s)) {
 					break;
 				}
 
@@ -160,20 +159,37 @@ public class Guard extends Sprite {
 			int x = (int) this.x - 1;
 			while (canGo(x, y) && this.x - 300 < x) {
 				Sprite s = getSprite(new Point(x, (int) y), LevelManager.activeLevel.getSprites());
-				if (s != null && s.isDetectable()) {
-					see(s);
+				if (s != null && checkSprite(s)) {
 					break;
 				}
 
 				s = getSprite(new Point(x, (int) y + getHeight()), LevelManager.activeLevel.getSprites());
-				if (s != null && s.isDetectable()) {
-					see(s);
+				if (s != null && checkSprite(s)) {
 					break;
 				}
 
 				x--;
 			}
 		}
+	}
+
+	/**
+	 * If a guard can see a sprite it checks if action should be taken
+	 * 
+	 * @param s the seen sprite
+	 * @return if action has been taken (true = taken, false = not taken)
+	 */
+	private boolean checkSprite(Sprite s) {
+		if (s.detectable) {
+			see(s);
+			return true;
+		} else if (s.state == AnimationState.DEAD) {
+			// seen a dead body
+			searching = true;
+			return true;
+		}
+
+		return false;
 	}
 
 	public void see(Sprite s) {
