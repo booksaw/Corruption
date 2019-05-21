@@ -477,7 +477,7 @@ public class LevelManager {
 		components = new ArrayList<>();
 		updatable = new ArrayList<>();
 		triggers = new ArrayList<>();
-
+		Guard.searching = false;
 		Selectable.resetAllSelectables();
 	}
 

@@ -21,7 +21,7 @@ public class Guard extends Sprite {
 	double jumpHeight = 0, weight = 0.002;
 	final double maxJump = 0.625;
 	final double PASSIVESPEED = 0.05, SEARCHSPEED = 0.13;
-	public boolean searching = false;
+	public static boolean searching = false;
 	private Trigger t;
 
 	public Guard(String info) {
@@ -214,6 +214,7 @@ public class Guard extends Sprite {
 	@Override
 	public void reset(boolean fail) {
 		if (!fail) {
+			searching = false;
 			super.reset(false);
 		} else if (state != AnimationState.DEAD) {
 			state = AnimationState.DEAD;
