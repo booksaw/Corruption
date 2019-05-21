@@ -10,6 +10,8 @@ import java.util.List;
 
 import com.booksaw.corruption.Config;
 import com.booksaw.corruption.Utils;
+import com.booksaw.corruption.audioEngine.AudioInstance;
+import com.booksaw.corruption.audioEngine.AudioPlayer;
 import com.booksaw.corruption.level.LevelManager;
 import com.booksaw.corruption.level.trigger.Trigger;
 
@@ -185,8 +187,11 @@ public class Guard extends Sprite {
 			return true;
 		} else if (s.state == AnimationState.DEAD) {
 			// seen a dead body
-			searching = true;
-			return true;
+			if (!searching) {
+				searching = true;
+				AudioPlayer.playSound(AudioInstance.SIREN);
+				return true;
+			}
 		}
 
 		return false;
@@ -210,8 +215,10 @@ public class Guard extends Sprite {
 	public void reset(boolean fail) {
 		if (!fail) {
 			super.reset(false);
-		} else
+		} else if (state != AnimationState.DEAD) {
 			state = AnimationState.DEAD;
+			AudioPlayer.playSound(AudioInstance.DEATH);
+		}
 	}
 
 	@Override

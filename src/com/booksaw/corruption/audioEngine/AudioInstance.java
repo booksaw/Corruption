@@ -6,7 +6,7 @@ import com.booksaw.corruption.Config;
 
 public enum AudioInstance {
 
-	JUMP("jump.wav"), DEATH("death.wav"), DOOR("door.wav");
+	JUMP("jump.wav"), DEATH("death.wav"), DOOR("door.wav"), SIREN("siren.wav");
 
 	String path;
 	AudioClip clip;
