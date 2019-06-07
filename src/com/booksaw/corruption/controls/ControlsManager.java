@@ -19,6 +19,9 @@ public class ControlsManager {
 	private static HashMap<String, Control> controls = new HashMap<>();
 	private static YamlConfiguration yaml;
 
+	/**
+	 * Used to load the controls when the program is run
+	 */
 	public static void loadControls() {
 
 		File f = new File("controls.yaml");
@@ -52,10 +55,23 @@ public class ControlsManager {
 
 	}
 
+	/**
+	 * Used to get the Control for a reference
+	 * 
+	 * @param reference the reference for the key
+	 * @return the Control object of that reference
+	 */
 	public static Control getKeyOptions(String reference) {
 		return controls.get(reference);
 	}
 
+	/**
+	 * Returns if the key linked with that reference is being pressed
+	 * 
+	 * @param reference the reference to the key (IE Up)
+	 * @param e         The key event to check
+	 * @return if the key is being pressed
+	 */
 	public static boolean isKeyUsed(String reference, KeyEvent e) {
 		Control c = getKeyOptions(reference);
 
@@ -69,10 +85,21 @@ public class ControlsManager {
 
 	}
 
+	/**
+	 * Returns if the key is linked with the reference is being pressed
+	 * 
+	 * @param reference the reference to the key (IE up)
+	 * @param e         the key event to check
+	 * @return if they key is being pressed
+	 */
 	public static boolean isKeyUsed(ControlList reference, KeyEvent e) {
 		return isKeyUsed(reference.toString(), e);
 	}
 
+	/**
+	 * 
+	 * @return a hashmap of the controls with references
+	 */
 	public static HashMap<String, Control> getControls() {
 		return controls;
 	}
